@@ -15,6 +15,10 @@ nav {
     box-shadow: rgb(102, 58, 58) -1px 2px 13px;
 }
 
+span {
+    margin-top: 4px;
+}
+
 footer {
     position: sticky;
     background-image: repeating-linear-gradient(#620F13, #87282D, #3E0003);
@@ -35,12 +39,16 @@ footer {
 .nav-item {
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-template-rows: auto;
+    height: inherit % 2;
 }
 
-/* .nav-box {
+.nav-box {
+    height: inherit;
+}
 
-} */
+.toggle-btn {
+    height: inherit;
+}
 
 .toggle-btn span {
     height: 5px;
@@ -48,8 +56,11 @@ footer {
     display: block;
     background: black;
     border: .05px solid rgb(70, 36, 36);
-    margin-top: 4px;
     margin-left: 10px;
+}
+
+.toggle-btn span:hover {
+    border: .05px solid rgb(153, 112, 112);
 }
 
 /* .grid-items {
