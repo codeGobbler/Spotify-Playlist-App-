@@ -78,6 +78,10 @@ footer {
     background-color: black;
 }
 
+.spotify-btn:hover {
+    border: .5px solid white;
+}
+
 .main-div {
     display: grid;
     height: 90vh;
