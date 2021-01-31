@@ -86,6 +86,23 @@ footer {
     background-color: black;
 }
 
+.track-window {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.track-art {
+    margin-top: 10px;
+    height: 70vh;
+    background-image: repeating-linear-gradient(#620F13, #87282D, #3E0003);
+    box-shadow: rgb(102, 58, 58) -1px 2px 13px;
+}
+
+.track-description {
+    height: 90px;
+    background-image: repeating-linear-gradient(#620F13, #87282D, #3E0003);
+}
+
 .main-playlist {
     width: inherit;
 }
