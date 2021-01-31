@@ -1,19 +1,21 @@
-html {
-    box-sizing: border-box;
-    /* overflow: hidden; */
+body {
+    overflow: hidden;
 }
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 nav {
+    position: sticky;
     background-color: orangered;
     height: 2em;
 }
 
 footer {
+    position: sticky;
     background-color: orangered;
     height: 2em;
     bottom: 0;
@@ -21,33 +23,57 @@ footer {
 
 .container {
     max-width: 1500px;
-    height: 600px;
+    height: inherit;
     display: grid;
     background-color: black;
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
 }
 
-.grid-items {
+/* .grid-items {
     border: 1px white solid;
-}
+} */
 
 .main-div {
     display: grid;
-    height: 100vh;
+    height: 90vh;
     grid-template-columns: auto auto auto;
     background-color: black;
 }
 
-.main-items {
+/* .main-items {
     border: 1px solid orangered;
-}
+} */
 
 .main-playlist-items {
     height: 20%;
+    /* border: 1px solid white; */
 }
 
 .playlist-art {
     background-color: grey;
     height: 60%;
+}
+
+@media screen and (max-width: 800px) {
+
+    body {
+        overflow: hidden;
+    }
+
+    .main-div {
+        grid-template-columns: auto 300px auto;
+        grid-gap: 1px;
+        height: 89vh;
+    }
+
+    /* .main-items {
+        width: 75%;
+    } */
+
+    /* .main-playlist {
+        justify-self: center;
+        width: 150%;
+    } */
+    
 }
