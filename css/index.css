@@ -32,6 +32,10 @@ footer {
     grid-template-rows: auto auto auto;
 }
 
+.nav-item {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
 /* .grid-items {
     border: 1px white solid;
 } */
