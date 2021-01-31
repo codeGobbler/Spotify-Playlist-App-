@@ -10,14 +10,14 @@ body {
 
 nav {
     position: sticky;
-    background-color: repeating-linear-gradient(#620F13, #87282D, #200002);
+    background-image: repeating-linear-gradient(#620F13, #87282D, #3E0003);
     height: 2em;
     box-shadow: rgb(102, 58, 58) -1px 2px 13px;
 }
 
 footer {
     position: sticky;
-    background-color: repeating-linear-gradient(#620F13, #87282D, #200002);
+    background-image: repeating-linear-gradient(#620F13, #87282D, #3E0003);
     height: 2em;
     bottom: 0;
     box-shadow: rgb(102, 58, 58) 0px 2px 15px;
