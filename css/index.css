@@ -58,14 +58,14 @@ footer {
     height: 20%;
     width: 100%;
     border-radius: 2.5%;
-    box-shadow: rgb(75, 71, 71) 0px 5px 5px;
+    box-shadow: rgb(102, 58, 58) 0px 5px 5px;
 }
 
 .playlist-art {
     background-image: repeating-linear-gradient(#620F13, #87282D, #3E0003);
     height: 60%;
     border-radius: 2.5%;
-    box-shadow: rgb(85, 65, 65) 0px 5px 5px;
+    box-shadow: rgb(102, 58, 58) 0px 5px 5px;
 }
 
 .metadata-playlist-container {
@@ -75,7 +75,7 @@ footer {
 
 .metadata-items {
     display: inline-grid;
-    box-shadow: rgb(85, 65, 65) 0px 5px 5px;
+    box-shadow: rgb(102, 58, 58) 0px 5px 5px;
     margin: 0;
 }
 
