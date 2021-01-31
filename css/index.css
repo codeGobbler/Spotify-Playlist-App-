@@ -38,7 +38,7 @@ footer {
 
 .nav-item {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 33.4% 33.4% 33.4%;
     height: inherit % 2;
 }
 
@@ -63,9 +63,20 @@ footer {
     border: .05px solid rgb(153, 112, 112);
 }
 
-/* .grid-items {
-    border: 1px white solid;
-} */
+.spotify-sign-in {
+    justify-self: right;
+    height: inherit;
+    width: inherit;
+}
+
+.spotify-btn {
+    height: 25px;
+    width: inherit;
+    margin-right: 15px;
+    margin-top: 2.5px;
+    color: white;
+    background-color: black;
+}
 
 .main-div {
     display: grid;
