@@ -74,8 +74,10 @@ footer {
     width: inherit;
     margin-right: 15px;
     margin-top: 2.5px;
-    color: white;
+    padding: 1px;
+    color: limegreen;
     background-color: black;
+    border-radius: 45%;
 }
 
 .main-div {
@@ -147,19 +149,22 @@ footer {
 
 @media screen and (max-width: 800px) {
 
-    * {
-        margin: 0;
-        padding: 0;
-    }
-
     body {
-        overflow: hidden;
+      overflow-y: auto;
+      overflow-x: auto;
     }
 
     .main-div {
-        grid-template-columns: auto 300px auto;
-        grid-gap: 1px;
-        height: 89vh;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
     }
-    
+
+    .center-items {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
 }
