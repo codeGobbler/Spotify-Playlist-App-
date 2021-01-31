@@ -82,7 +82,7 @@ footer {
     display: grid;
     height: 90vh;
     grid-gap: .5%;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 45% 35% 20%;
     background-color: black;
 }
 
@@ -91,16 +91,23 @@ footer {
     grid-template-rows: auto auto;
 }
 
+.tracks {
+    border: .5px solid black;
+}
+
 .track-art {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
     margin-top: 10px;
-    height: 70vh;
+    height: 60vh;
+    border-radius: 2.5%;
     background-image: repeating-linear-gradient(#620F13, #87282D, #3E0003);
     box-shadow: rgb(102, 58, 58) -1px 2px 13px;
 }
 
 .track-description {
     height: 90px;
-    background-image: repeating-linear-gradient(#620F13, #87282D, #3E0003);
+    border-radius: 2.5%;
 }
 
 .main-playlist {
