@@ -66,10 +66,12 @@ footer {
 .spotify-sign-in {
   height: inherit;
   width: inherit;
+  margin-right: 5px;
 }
 
 .spotify-btn {
   text-align: right;
+  text-shadow: 0px 1px 10px ivory;
   padding-right: 40px;
   height: 100%;
   width: 100%;
