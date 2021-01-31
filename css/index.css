@@ -37,25 +37,33 @@ footer {
 .main-div {
     display: grid;
     height: 90vh;
+    grid-gap: 5%;
     grid-template-columns: auto auto auto;
     background-color: black;
 }
 
-/* .main-items {
-    border: 1px solid orangered;
-} */
+.main-items {
+    width: 75%;
+}
 
 .main-playlist-items {
     height: 20%;
-    /* border: 1px solid white; */
+    width: 150%;
 }
 
 .playlist-art {
     background-color: grey;
     height: 60%;
+    border-radius: 2.5%;
+    box-shadow: rgb(75, 71, 71) 0px 5px 5px;
 }
 
 @media screen and (max-width: 800px) {
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
 
     body {
         overflow: hidden;
@@ -66,14 +74,5 @@ footer {
         grid-gap: 1px;
         height: 89vh;
     }
-
-    /* .main-items {
-        width: 75%;
-    } */
-
-    /* .main-playlist {
-        justify-self: center;
-        width: 150%;
-    } */
     
 }
