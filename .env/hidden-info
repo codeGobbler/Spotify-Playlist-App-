@@ -1,0 +1,9 @@
+/* As RGBa codes */
+
+.rgba-primary-0 { color: rgba( 98, 15, 19,1) }	/* Main Primary color */
+.rgba-primary-1 { color: rgba(170, 72, 77,1) }
+.rgba-primary-2 { color: rgba(135, 40, 45,1) }
+.rgba-primary-3 { color: rgba( 62,  0,  3,1) }
+.rgba-primary-4 { color: rgba( 32,  0,  2,1) }
+
+font-family: 'Roboto', sans-serif;
