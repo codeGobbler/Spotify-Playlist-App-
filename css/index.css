@@ -85,12 +85,14 @@ footer {
 
 .toggle-btn:hover {
     border: 1px solid rgb(78, 33, 33);
+    cursor: pointer;
 }
 
 .spotify-btn:hover,
 .playlist-art:hover,
 .tracks:hover {
   border: 1px solid rgb(78, 33, 33);
+  cursor: pointer;
 }
 
 .main-div {
