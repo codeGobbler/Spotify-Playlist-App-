@@ -1,5 +1,6 @@
 body {
   overflow: hidden;
+  font-family: 'Permanent Marker', cursive;
 }
 
 * {
@@ -25,6 +26,7 @@ footer {
   height: 2em;
   bottom: 0;
   box-shadow: rgb(102, 58, 58) 0px 2px 15px;
+  
 }
 
 .container {
@@ -71,7 +73,8 @@ footer {
 
 .spotify-btn {
   text-align: right;
-  text-shadow: 0px 1px 10px ivory;
+  text-shadow: 0px 1px 2px ivory;
+  font-family: 'Permanent Marker', cursive;
   padding-right: 40px;
   height: 100%;
   width: 100%;
@@ -87,7 +90,7 @@ footer {
 .spotify-btn:hover,
 .playlist-art:hover,
 .tracks:hover {
-    border: 1px solid rgb(78, 33, 33);
+  border: 1px solid rgb(78, 33, 33);
 }
 
 .main-div {
@@ -157,10 +160,33 @@ footer {
   margin: 0;
 }
 
+.footer {
+  background-image: url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+.footer-text {
+    width: 100vw;
+    margin-left: 3%;
+}
+
 @media screen and (max-width: 800px) {
   body {
     overflow-y: auto;
-    overflow-x: auto;
+    overflow-x: none;
+    height: 100%;
+  }
+
+  .footer-text {
+    margin-left: 30%;
+  }
+
+  .nav-item {
+    width: 95%;
   }
 
   .main-div {

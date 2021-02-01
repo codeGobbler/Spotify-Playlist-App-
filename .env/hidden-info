@@ -5,3 +5,5 @@
 .rgba-primary-2 { color: rgba(135, 40, 45,1) }
 .rgba-primary-3 { color: rgba( 62,  0,  3,1) }
 .rgba-primary-4 { color: rgba( 32,  0,  2,1) }
+
+font-family: 'Roboto', sans-serif;
