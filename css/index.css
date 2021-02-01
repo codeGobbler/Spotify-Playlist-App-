@@ -61,10 +61,6 @@ footer {
   margin-left: 10px;
 }
 
-.toggle-btn span:hover {
-  border: 0.05px solid rgb(153, 112, 112);
-}
-
 .spotify-sign-in {
   height: inherit;
   width: inherit;
@@ -85,6 +81,10 @@ footer {
   background-position: right;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.toggle-btn:hover {
+    border: 1px solid rgb(78, 33, 33);
 }
 
 .spotify-btn:hover,
