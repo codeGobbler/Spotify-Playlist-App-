@@ -1,6 +1,6 @@
 body {
   overflow: hidden;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'PT Sans', sans-serif;
 }
 
 * {
@@ -180,7 +180,18 @@ footer {
   body {
     overflow-y: auto;
     overflow-x: none;
-    height: 100%;
+  }
+
+  .track-window {
+    flex: 3 1 619px;
+  }
+
+  .main-playlist {
+    flex: 2 2 482px;
+  }
+
+  .metadata-playlist-container {
+    flex: 1 3 275px;
   }
 
   .footer-text {
