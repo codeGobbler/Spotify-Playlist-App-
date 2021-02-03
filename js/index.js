@@ -1,6 +1,11 @@
+//-----------------------------------//
+
+//api setup
 // const { default: SpotifyWebApi } = require('spotify-web-api-js');
 // const spotify = require('spotify-web-api-js');
 // const s = new SpotifyWebApi();
+
+//-----------------------------------//
 
 //menu button setup
 const menuBtn = document.getElementById('btn')
@@ -29,4 +34,9 @@ const nextTrack = document.getElementById('next')
   .addEventListener('click', () => {
     console.log('next track clicked');
 })
+
 //playlist-art button setup
+const playlistArt = document.getElementById('playlist-art')
+  .addEventListener('click', (e) => {
+    console.log('playlist-art clicked');
+})
