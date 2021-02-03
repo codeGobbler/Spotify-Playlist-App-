@@ -175,30 +175,22 @@ footer {
 }
 
 @media screen and (max-width: 800px) {
-  body {
-    overflow-y: auto;
-    overflow-x: none;
-    height: 100%;
+
+  * {
+    border: none;
   }
 
   .footer-text {
     margin-left: 30%;
   }
 
-  .nav-item {
-    width: 95%;
-  }
-
   .main-div {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .center-items {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
     margin-top: 20px;
   }
 }
