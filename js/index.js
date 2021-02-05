@@ -1,9 +1,15 @@
 //-----------------------------------//
 
-//api setup
-// const { default: SpotifyWebApi } = require('spotify-web-api-js');
-// const spotify = require('spotify-web-api-js');
-// const s = new SpotifyWebApi();
+const token;
+
+async function getJSON (url) {
+  try {
+    const data = await fetch(url);
+    return await data.json();
+  } catch (err) {
+    throw err
+  }
+}
 
 
 //-----------------------------------//

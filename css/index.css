@@ -1,5 +1,5 @@
 body {
-  overflow: auto;
+  overflow: hidden;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -94,7 +94,7 @@ footer {
   display: grid;
   height: 90vh;
   grid-gap: .1%;
-  grid-template-columns: minmax(450px, 3fr) minmax(450px, 2fr) minmax(450px, 1fr);
+  grid-template-columns: minmax(425px, 3fr) minmax(425px, 2fr) minmax(425px, 1fr);
   grid-template-rows: auto-fit;
   background-color: black;
 }
