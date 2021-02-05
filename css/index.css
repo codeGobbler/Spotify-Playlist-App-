@@ -1,6 +1,6 @@
 body {
-  overflow: hidden;
-  font-family: 'Permanent Marker', cursive;
+  overflow: auto;
+  font-family: 'Raleway', sans-serif;
 }
 
 * {
@@ -31,17 +31,15 @@ footer {
 
 .container {
   max-width: 1500px;
-  height: inherit;
   display: grid;
   background-color: black;
   grid-template-columns: auto;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: repeat(3, auto);
 }
 
 .nav-item {
   display: grid;
-  grid-template-columns: 33.4% 33.4% 33.4%;
-  height: inherit % 2;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
 }
 
 .nav-box {
@@ -69,14 +67,13 @@ footer {
 
 .spotify-btn {
   text-align: right;
-  text-shadow: 0px 1px 2px ivory;
-  font-family: 'Permanent Marker', cursive;
+  text-shadow: 0px 1px 3px rgb(109, 109, 88);
   padding-right: 40px;
   height: 100%;
   width: 100%;
   background: inherit;
   border: none;
-  color: white;
+  color: rgb(255, 255, 255);
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c8de2ede-79ce-413b-93f2-5e70bff18f32/d9451wp-3b89815b-8471-42ee-8371-913848edf42a.png/v1/fill/w_1024,h_881,strp/spotify_splatter_button_by_eternalsonicstar_d9451wp-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD04ODEiLCJwYXRoIjoiXC9mXC9jOGRlMmVkZS03OWNlLTQxM2ItOTNmMi01ZTcwYmZmMThmMzJcL2Q5NDUxd3AtM2I4OTgxNWItODQ3MS00MmVlLTgzNzEtOTEzODQ4ZWRmNDJhLnBuZyIsIndpZHRoIjoiPD0xMDI0In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.fKdrUewhMpQt-I0ej0gohL_2ByAUw0QKFjdnz6fwrAo");
   background-position: right;
   background-size: contain;
@@ -96,14 +93,15 @@ footer {
 .main-div {
   display: grid;
   height: 90vh;
-  grid-gap: 0.5%;
-  grid-template-columns: 45% 35% 20%;
+  grid-gap: .1%;
+  grid-template-columns: minmax(450px, 3fr) minmax(450px, 2fr) minmax(450px, 1fr);
+  grid-template-rows: auto-fit;
   background-color: black;
 }
 
 .track-window {
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: 2fr 1fr;
 }
 
 .tracks {
@@ -112,7 +110,7 @@ footer {
 
 .track-art {
   display: grid;
-  grid-template-columns: 25% 50% 25%;
+  grid-template-columns: 1fr 2fr 1fr;
   margin-top: 10px;
   height: 60vh;
   border-radius: 2.5%;
@@ -130,7 +128,8 @@ footer {
 }
 
 .center-items {
-  width: 100%;
+  width: inherit;
+  height: inherit;
 }
 
 .main-playlist-items {
@@ -151,7 +150,7 @@ footer {
 
 .metadata-playlist-container {
   display: inline-grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(2, 1fr);
 }
 
 .metadata-items {
@@ -160,37 +159,18 @@ footer {
   margin: 0;
 }
 
-.footer {
-  background-image: url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  color: white;
-  padding: 5px;
-  margin: 0 auto;
-}
-
-.footer-text {
-    width: 100vw;
-    margin-left: 3%;
-}
-
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
 
   * {
     border: none;
   }
 
-  .footer-text {
-    margin-left: 30%;
+  .container {
+    grid-template-rows: 1fr 15fr 1fr;
   }
 
   .main-div {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
   }
-
-  .center-items {
-    margin-top: 20px;
-  }
-}
+} */
