@@ -8,12 +8,12 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: minmax(300px, 1fr);
   height: 100vh;
-  background-color: grey;
 }
 
 .grid-items {
   background-color: black;
   align-items: center;
+  opacity: 85%;
 }
 
 .login-container {
@@ -23,7 +23,7 @@
 }
 
 .login {
-  border: 1px solid white;
+  border: 1px solid rgb(70, 36, 36);
   height: 30vh;
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c8de2ede-79ce-413b-93f2-5e70bff18f32/d9451wp-3b89815b-8471-42ee-8371-913848edf42a.png/v1/fill/w_1024,h_881,strp/spotify_splatter_button_by_eternalsonicstar_d9451wp-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD04ODEiLCJwYXRoIjoiXC9mXC9jOGRlMmVkZS03OWNlLTQxM2ItOTNmMi01ZTcwYmZmMThmMzJcL2Q5NDUxd3AtM2I4OTgxNWItODQ3MS00MmVlLTgzNzEtOTEzODQ4ZWRmNDJhLnBuZyIsIndpZHRoIjoiPD0xMDI0In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.fKdrUewhMpQt-I0ej0gohL_2ByAUw0QKFjdnz6fwrAo");
   background-position: center;
