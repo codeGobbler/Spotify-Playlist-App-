@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playlist Palace</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/index.css" />
-  </head>
-  <body>
-    <div class="container">
-      <nav class="grid-items nav-item">
-        <div class="nav-box" id="sidebar">
-          <div class="toggle-btn" id="btn">
-            <span></span>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Playlist Palace</title>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/index.css" />
+</head>
+
+<body>
+	<div class="container">
+		<nav class="grid-items nav-item">
+			<div class="nav-box" id="sidebar">
+				<div class="toggle-btn" id="btn">
+					<span></span>
             <span></span>
             <span></span>
           </div>
@@ -28,24 +27,21 @@
           </ul>
         </div>
         <div class="nav-box"></div>
-        <div class="nav-box spotify-sign-in" id="sign-in-btn">
-          <button class="spotify-btn" id="spotify-btn">
-            Login with Spotify
-          </button>
+        <div class="nav-box">
         </div>
       </nav>
       <main class="grid-items main-div">
         <div class="center-items track-window">
           <div class="track-items track-art">
-            <section class="tracks prev-track"></section>
-            <section class="tracks current-track"></section>
-            <section class="tracks next-track"></section>
+            <section class="tracks prev-track" id="prev"></section>
+            <section class="tracks current-track" id="current"></section>
+            <section class="tracks next-track" id="next"></section>
           </div>
           <div class="track-items track-description"></div>
         </div>
         <div class="center-items main-playlist">
           <div class="main-playlist-items"></div>
-          <div class="playlist-art main-playlist-items"></div>
+          <div class="playlist-art main-playlist-items" id="playlist-art"></div>
           <div class="main-playlist-items"></div>
         </div>
         <div class="center-items metadata-playlist-container">
@@ -54,9 +50,9 @@
         </div>
       </main>
       <footer class="grid-items footer">
-        <div class="footer-text">Developed by Alton Michaux</div>
+        <div class="footer-text"></div>
       </footer>
     </div>
-    <!-- <script src="js/index.js"></script> -->
+    <script src="js/index.js"></script>
   </body>
 </html>

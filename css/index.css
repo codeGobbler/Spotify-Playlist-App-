@@ -1,15 +1,31 @@
-body {
-  overflow: hidden;
-  font-family: 'Permanent Marker', cursive;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-nav {
+.container {
+    display: grid;
+  }
+
+  .main-div {
+    display: grid;
+    grid-template-columns: minmax(auto-fit, 500px);
+    grid-template-rows: repeat(auto-fit, 1fr);
+  }
+
+  .center-items {
+    margin: 0;
+    width: 100%;
+  }
+
+@media screen and (min-width: 800px) {
+
+  * {
+    box-sizing: border-box;
+  }
+
+  nav {
   position: sticky;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
   height: 2em;
@@ -31,17 +47,15 @@ footer {
 
 .container {
   max-width: 1500px;
-  height: inherit;
   display: grid;
   background-color: black;
   grid-template-columns: auto;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: repeat(3, auto);
 }
 
 .nav-item {
   display: grid;
-  grid-template-columns: 33.4% 33.4% 33.4%;
-  height: inherit % 2;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
 }
 
 .nav-box {
@@ -61,33 +75,10 @@ footer {
   margin-left: 10px;
 }
 
-.spotify-sign-in {
-  height: inherit;
-  width: inherit;
-  margin-right: 5px;
-}
-
-.spotify-btn {
-  text-align: right;
-  text-shadow: 0px 1px 2px ivory;
-  font-family: 'Permanent Marker', cursive;
-  padding-right: 40px;
-  height: 100%;
-  width: 100%;
-  background: inherit;
-  border: none;
-  color: white;
-  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c8de2ede-79ce-413b-93f2-5e70bff18f32/d9451wp-3b89815b-8471-42ee-8371-913848edf42a.png/v1/fill/w_1024,h_881,strp/spotify_splatter_button_by_eternalsonicstar_d9451wp-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD04ODEiLCJwYXRoIjoiXC9mXC9jOGRlMmVkZS03OWNlLTQxM2ItOTNmMi01ZTcwYmZmMThmMzJcL2Q5NDUxd3AtM2I4OTgxNWItODQ3MS00MmVlLTgzNzEtOTEzODQ4ZWRmNDJhLnBuZyIsIndpZHRoIjoiPD0xMDI0In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.fKdrUewhMpQt-I0ej0gohL_2ByAUw0QKFjdnz6fwrAo");
-  background-position: right;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
 .toggle-btn:hover {
     border: 1px solid rgb(78, 33, 33);
 }
 
-.spotify-btn:hover,
 .playlist-art:hover,
 .tracks:hover {
   border: 1px solid rgb(78, 33, 33);
@@ -100,14 +91,14 @@ footer {
 .main-div {
   display: grid;
   height: 90vh;
-  grid-gap: 0.5%;
-  grid-template-columns: 45% 35% 20%;
+  grid-gap: .1%;
+  grid-template-columns: minmax(425px, 3fr) minmax(425px, 2fr) minmax(425px, 1fr);
   background-color: black;
 }
 
 .track-window {
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: 2fr 1fr;
 }
 
 .tracks {
@@ -116,7 +107,7 @@ footer {
 
 .track-art {
   display: grid;
-  grid-template-columns: 25% 50% 25%;
+  grid-template-columns: 1fr 2fr 1fr;
   margin-top: 10px;
   height: 60vh;
   border-radius: 2.5%;
@@ -134,7 +125,8 @@ footer {
 }
 
 .center-items {
-  width: 100%;
+  width: inherit;
+  height: inherit;
 }
 
 .main-playlist-items {
@@ -155,7 +147,7 @@ footer {
 
 .metadata-playlist-container {
   display: inline-grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(2, 1fr);
 }
 
 .metadata-items {
@@ -163,46 +155,4 @@ footer {
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
   margin: 0;
 }
-
-.footer {
-  background-image: url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  color: white;
-  padding: 5px;
-  margin: 0 auto;
-}
-
-.footer-text {
-    width: 100vw;
-    margin-left: 3%;
-}
-
-@media screen and (max-width: 800px) {
-  body {
-    overflow-y: auto;
-    overflow-x: none;
-    height: 100%;
-  }
-
-  .footer-text {
-    margin-left: 30%;
-  }
-
-  .nav-item {
-    width: 95%;
-  }
-
-  .main-div {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
-
-  .center-items {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
 }
