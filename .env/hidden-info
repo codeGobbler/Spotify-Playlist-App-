@@ -5,5 +5,12 @@
 .rgba-primary-2 { color: rgba(135, 40, 45,1) }
 .rgba-primary-3 { color: rgba( 62,  0,  3,1) }
 .rgba-primary-4 { color: rgba( 32,  0,  2,1) }
+<<<<<<< HEAD
+=======
 
+<<<<<<< HEAD
+font-family: 'Roboto', sans-serif;
+>>>>>>> ecb0015491d92186bce4795812bc7286839d38b2
+=======
 display: grid; grid-template-areas: 'header header header header header header' 'menu main main main right right' 'menu footer footer footer footer footer'; grid-gap: 10px; background-color: #2196F3; padding: 10px
+>>>>>>> 2ec03986560fa427b9fd16f46050d58fb2fa16e7

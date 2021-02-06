@@ -1,8 +1,3 @@
-body {
-  overflow: auto;
-  font-family: 'Raleway', sans-serif;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,6 +7,7 @@ body {
 nav {
   position: sticky;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
+  top: 0;
   height: 2em;
   box-shadow: rgb(102, 58, 58) -1px 2px 13px;
 }
@@ -26,11 +22,9 @@ footer {
   height: 2em;
   bottom: 0;
   box-shadow: rgb(102, 58, 58) 0px 2px 15px;
-  
 }
 
 .container {
-  max-width: 1500px;
   display: grid;
   background-color: black;
   grid-template-columns: auto;
@@ -50,6 +44,28 @@ footer {
   height: inherit;
 }
 
+.main-div {
+  display: grid;
+  height: 90vh;
+  grid-gap: 0.1%;
+  grid-template-columns: minmax(425px, 3fr) minmax(425px, 2fr) minmax(
+      425px,
+      1fr
+    );
+  background-color: black;
+  grid-template-rows: repeat(auto-fit, 1fr);
+}
+
+.center-items {
+  margin: 0;
+  width: 100%;
+}
+
+.container {
+  max-width: 1500px;
+  display: grid;
+}
+
 .toggle-btn span {
   height: 5px;
   width: 40px;
@@ -60,20 +76,12 @@ footer {
 }
 
 .toggle-btn:hover {
-    border: 1px solid rgb(78, 33, 33);
+  border: 1px solid rgb(78, 33, 33);
 }
 
 .playlist-art:hover,
 .tracks:hover {
   border: 1px solid rgb(78, 33, 33);
-}
-
-.main-div {
-  display: grid;
-  height: 90vh;
-  grid-gap: .1%;
-  grid-template-columns: minmax(425px, 3fr) minmax(425px, 2fr) minmax(425px, 1fr);
-  background-color: black;
 }
 
 .track-window {
@@ -136,24 +144,38 @@ footer {
   margin: 0;
 }
 
-@media screen and (max-width: 800px) {
-
-  * {
-    border: none;
+@media screen and (max-width: 800px) { 
+  body {
+    overflow-x: hidden;
   }
 
   .container {
-    display: grid;
+    margin: 0 auto;
+    grid-template-columns: minmax(300px, 1fr);
+  }
+
+  .grid-items {
+    width: 100vw;
   }
 
   .main-div {
-    display: grid;
-    grid-template-columns: minmax(auto-fit, 500px);
-    grid-template-rows: repeat(auto-fit, 1fr);
+    grid-template-columns: minmax(300px, 1fr);
+    grid-template-rows: 1fr 2fr 1fr;
+    margin: 0 auto;
+    height: 100%;
+  }
+
+  .mobile-hide {
+    display: none;
   }
 
   .center-items {
-    margin: 0;
     width: 100%;
+    height: inherit;
+    padding: 10px;
+  }
+
+  .track-window {
+    margin-top: 5%;
   }
 }

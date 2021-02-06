@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playlist Palace</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Playlist Palace</title>
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/index.css" />
-</head>
-
-<body>
-	<div class="container">
-		<nav class="grid-items nav-item">
-			<div class="nav-box" id="sidebar">
-				<div class="toggle-btn" id="btn">
-					<span></span>
+  <body>
+    <div class="container">
+      <nav class="grid-items nav-item">
+        <div class="nav-box" id="sidebar">
+          <div class="toggle-btn" id="btn">
+            <span></span>
             <span></span>
             <span></span>
           </div>
@@ -27,8 +29,7 @@
           </ul>
         </div>
         <div class="nav-box"></div>
-        <div class="nav-box">
-        </div>
+        <div class="nav-box"></div>
       </nav>
       <main class="grid-items main-div">
         <div class="center-items track-window">
@@ -37,15 +38,15 @@
             <section class="tracks current-track" id="current"></section>
             <section class="tracks next-track" id="next"></section>
           </div>
-          <div class="track-items track-description"></div>
+          <div class="track-items track-description mobile-hide"></div>
         </div>
         <div class="center-items main-playlist">
-          <div class="main-playlist-items"></div>
-          <div class="playlist-art main-playlist-items" id="playlist-art"></div>
+          <div class="main-playlist-items mobile-hide"></div>
+          <div class="playlist-art main-playlist-items mobile-hide" id="playlist-art"></div>
           <div class="main-playlist-items"></div>
         </div>
         <div class="center-items metadata-playlist-container">
-          <section class="metadata-items"></section>
+          <section class="metadata-items mobile-hide"></section>
           <section class="metadata-items"></section>
         </div>
       </main>
