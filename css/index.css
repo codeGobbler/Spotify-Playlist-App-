@@ -151,11 +151,15 @@ footer {
 
   .container {
     margin: 0 auto;
-    grid-template-columns: minmax(400px, 1fr);
+    grid-template-columns: minmax(300px, 1fr);
+  }
+
+  .grid-items {
+    width: 100vw;
   }
 
   .main-div {
-    grid-template-columns: minmax(400px, 1fr);
+    grid-template-columns: minmax(300px, 1fr);
     grid-template-rows: 1fr 2fr 1fr;
     margin: 0 auto;
     height: 100%;
