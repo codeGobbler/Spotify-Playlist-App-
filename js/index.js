@@ -1,7 +1,5 @@
 //-----------------------------------//
 
-const token;
-
 async function getJSON (url) {
   try {
     const data = await fetch(url);
@@ -18,12 +16,6 @@ async function getJSON (url) {
 const menuBtn = document.getElementById('btn')
   .addEventListener('click', (e) => {
     console.log('menu clicked');
-})
-
-//login button setup
-const loginBtn = document.getElementById('spotify-btn')
-  .addEventListener('click', (e) => {
-    console.log('login clicked');
 })
 
 //track-select button setup
