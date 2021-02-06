@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/login-style.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="css/login-style.css">
-</head>
-
-<body>
-	<div class="container">
-		<div class="grid-items"></div>
-		<div class="grid-items">
-			<div class="login-container">
-				<section class="login"><button class="login-button" id="login-btn">Login to Continue</button></section>
-            </div>
+  <body>
+    <div class="container">
+      <div class="grid-items"></div>
+      <div class="grid-items">
+        <div class="login-container">
+          <section class="login">
+            <button class="login-button" id="login-btn">
+              Login to Continue
+            </button>
+          </section>
         </div>
-        <div class="grid-items"></div>
+      </div>
+      <div class="grid-items"></div>
     </div>
     <script>
-    //login button setup
-    const loginBtn = document.getElementById('login-btn')
-          .addEventListener('click', (e) => {
-            console.log('login clicked');
-          })
+      //login button setup
+      const loginBtn = document
+        .getElementById("login-btn")
+        .addEventListener("click", (e) => {
+          console.log("login clicked");
+        });
     </script>
-</body>
+  </body>
 </html>
