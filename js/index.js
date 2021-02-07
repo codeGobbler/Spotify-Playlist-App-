@@ -25,7 +25,7 @@ const apiController = (function () {
 
   //fetch user playlist information from api
   const getPlaylist = async (token) => {
-    const limit = 50;
+    const limit = 1;
 
     const result = await fetch(
       `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
@@ -39,12 +39,12 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-    // console.log(data);
+    console.log(data);
 
-    //get track information for individual playlists
+    //get playlist id's
     for (i = 0; i < data.items.length; i++) {
       let playlistID = getTrackList(data.items[i].id, token);
-      // console.log(playlistID)
+      console.log(playlistID)
     }
   };
 
@@ -67,7 +67,7 @@ const apiController = (function () {
     //use a loop to get track information for individual playlists
     for (i = 0; i < data.items.length; i++) {
       let trackID = getTracks(data.items[i].track.id, token);
-      // console.log(trackID);
+      console.log(trackID);
     }
   };
 
