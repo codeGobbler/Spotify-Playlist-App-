@@ -2,6 +2,7 @@
 const apiController = (function() {
   const clientId = "4986258db999480dbcb94669e69535ad";
   const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
+  const userId = "12172782523";
 
   //-----------------------------------//
 
@@ -14,13 +15,32 @@ const apiController = (function() {
       },
       body: "grant_type=client_credentials",
     });
-    console.log(result);
+    // console.log(result);
 
     const data = await result.json();
-    console.log(data);
+    // console.log(data);
     return data.access_token;
   };
-  getToken();
+
+  const getPlaylist = async (token) => {
+    const limit = 20;
+
+    const result = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`, {
+      method: "GET",
+      headers: {
+        "Accept": "appliction/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer" + token
+      }
+    });
+    const data = await result.json();
+    console.log(data)
+    return data
+  }
+  
+  return getToken()
+          .then(getPlaylist)
+          .catch(err => console.log(err))
 })();
 
 //-----------------------------------//
