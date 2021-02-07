@@ -8,9 +8,22 @@
 <<<<<<< HEAD
 =======
 
-<<<<<<< HEAD
-font-family: 'Roboto', sans-serif;
->>>>>>> ecb0015491d92186bce4795812bc7286839d38b2
-=======
-display: grid; grid-template-areas: 'header header header header header header' 'menu main main main right right' 'menu footer footer footer footer footer'; grid-gap: 10px; background-color: #2196F3; padding: 10px
->>>>>>> 2ec03986560fa427b9fd16f46050d58fb2fa16e7
+const domElements = {
+      menuBtn:'#btn',
+      currentSong:'#current',
+      previousSong:'#prev',
+      nextSong:'#next',
+      playlistArt: '#playlist-art'
+    }
+    
+    return {
+
+      inputField() {
+        return {
+          menu: document.querySelector(domElements.menuBtn),
+          currentSong: document.querySelector(domElements.currentSong),
+          previousSong: document.querySelector(domElements.previousSong),
+          nextSong: document.querySelector(domElements.nextSong),
+          playlistArt: document.querySelector(domElements.playlistArt)
+        }
+      },

@@ -1,4 +1,5 @@
-const apiController = () => {
+//create IIFE to house apiController
+const apiController = (function() {
   const clientId = "4986258db999480dbcb94669e69535ad";
   const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
 
@@ -17,42 +18,37 @@ const apiController = () => {
 
     const data = await result.json();
     console.log(data);
+    return data.access_token;
   };
   getToken();
-}
+})();
 
-apiController();
 //-----------------------------------//
 
-//menu button setup
-// const menuBtn = document
-//   .getElementById("btn")
-//   .addEventListener("click", (e) => {
-//     console.log("menu clicked");
-//   });
+const uiController = (function() {
 
-// //track-select button setup
-// const currentTrack = document
-//   .getElementById("current")
-//   .addEventListener("click", () => {
-//     console.log("current track clicked");
-//   });
+    const domElements = {
+      currentSong:'#current',
+      previousSong:'#prev',
+      nextSong:'#next',
+      playlistArt: '#playlist-art',
+      nowPlaying:'#now-playing',
+      playlistContents: '#metadata-1',
+      otherPlaylists: '#metadata-2'
+    }
+    
+    return {
 
-// const prevTrack = document
-//   .getElementById("prev")
-//   .addEventListener("click", () => {
-//     console.log("previous track clicked");
-//   });
-
-// const nextTrack = document
-//   .getElementById("next")
-//   .addEventListener("click", () => {
-//     console.log("next track clicked");
-//   });
-
-// //playlist-art button setup
-// const playlistArt = document
-//   .getElementById("playlist-art")
-//   .addEventListener("click", (e) => {
-//     console.log("playlist-art clicked");
-//   });
+      inputField() {
+        return {
+          currentSong: document.querySelector(domElements.currentSong),
+          previousSong: document.querySelector(domElements.previousSong),
+          nextSong: document.querySelector(domElements.nextSong),
+          playlistArt: document.querySelector(domElements.playlistArt),
+          nowPlaying: document.querySelector(domElements.nowPlaying),
+          playlistSongs: document.querySelector(domElements.playlistContents),
+          playlistLibrary: document.querySelector(domElements.otherPlaylists)
+        }
+      },
+    }
+})();
