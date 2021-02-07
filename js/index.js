@@ -1,11 +1,12 @@
 //-----------------------------------//
-//---------API Controller------------//
+//-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
   const clientId = "";
   const clientSecret = "";
   const userId = "";
 
+  //get access token
   const getToken = async () => {
     const result = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
@@ -18,41 +19,66 @@ const apiController = (function () {
     // console.log(result);
 
     const data = await result.json();
-    console.log(data);
+    // console.log(data);
     return data.access_token;
   };
 
+  //fetch user playlist information from api
   const getPlaylist = async (token) => {
     const limit = 50;
 
     const result = await fetch(
       `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
       {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        'Content-Type': "application/json",
+        Authorization: `Bearer ${token}`,
+        }
       }
     );
     const data = await result.json();
-    console.log(data);
-    return data;
+    console.log(data)
+    
+    //get track information for individual playlists
+    for (i = 0; i < data.items.length; i++) {
+      let playlistID = getTracks(data.items[i].id, token);
+      // console.log(playlistID)
+    }
+    
   };
+
+  //function used to fetch track info for playlists (playlist items)
+  const getTracks = async (playlistID, token) => {
+    const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        'Content-Type': "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    const data = await result.json();
+    console.log(data)
+    return data;
+  }
 
   const newData = getToken()
     .then(getPlaylist)
+    // .then(getTracks)
     .catch((err) => console.log(err));
 
+  // console.log(newData)
   return newData;
 })();
 
 //-----------------------------------//
-//---------UI Controller-------------//
+//-------UI Selector Module----------//
 //-----------------------------------//
 
 const uiController = (function () {
+  //store html selectors in an object for inputField() method
   const domElements = {
     songDetail: "#song-descripiton",
     currentSong: "#current",
@@ -66,6 +92,7 @@ const uiController = (function () {
   };
 
   return {
+    //create a method to callback selectors
     inputField() {
       return {
         songDetail: document.querySelector(domElements.songDetail),
@@ -80,19 +107,19 @@ const uiController = (function () {
       };
     },
 
-  genreMenu (value, text) {
-    const newHTML = `<option value=${value}>${text}</option>`
-    document.querySelector(domElements.genreSelect).insertAdjacentHTML('beforeend', html)
-  },
+    genreMenu(value, text) {
+      const newHTML = `<option value=${value}>${text}</option>`
+      document.querySelector(domElements.genreSelect).insertAdjacentHTML('beforeend', html)
+    },
 
-  createTrackDetail (img, title, artist) {
+    createTrackDetail(img, title, artist) {
 
-    const songDiv = document.querySelector(domElements.songDetail);
-    // any time user clicks a new song, we need to clear out the song detail div
-    songDiv.innerHTML = '';
+      const songDiv = document.querySelector(domElements.songDetail);
+      // any time user clicks a new song, we need to clear out the song detail div
+      songDiv.innerHTML = '';
 
-    const html = 
-    `
+      const html =
+        `
     <div class="track-description">
         <img src="${img}" alt="">        
     </div>
@@ -104,7 +131,7 @@ const uiController = (function () {
     </div> 
     `;
 
-    songDiv.insertAdjacentHTML('beforeend', html)
-}
+      songDiv.insertAdjacentHTML('beforeend', html)
+    }
   }
 })();
