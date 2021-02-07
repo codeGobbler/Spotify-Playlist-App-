@@ -23,14 +23,14 @@ const apiController = (function() {
   };
 
   const getPlaylist = async (token) => {
-    const limit = 20;
+    const limit = 50;
 
     const result = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`, {
       method: "GET",
       headers: {
         "Accept": "appliction/json",
         "Content-Type": "application/json",
-        "Authorization": "Bearer" + token
+        "Authorization": "Bearer BQCqoqdyTJXPS53Ty7yvNiiJhIuepJd1kEXeA7hfnEunK8cu6EZ4cCQ3qelMWuGrF9pU2QI_Zuiny7PRjccjqrgkcVW39A_5TIF2HRMTE95Opk0Y7ovL940wp8ZMrJpsOKFzO3DYbiOlhd9XNEafog_GaSvYJf5T"
       }
     });
     const data = await result.json();
