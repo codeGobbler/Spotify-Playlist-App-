@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "";
-  const clientSecret = "";
-  const userId = "";
+  const clientId = "4986258db999480dbcb94669e69535ad";
+  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
+  const userId = "12172782523";
 
   //get access token
   const getToken = async () => {
@@ -30,43 +30,67 @@ const apiController = (function () {
     const result = await fetch(
       `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
       {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        'Content-Type': "application/json",
-        Authorization: `Bearer ${token}`,
-        }
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
     const data = await result.json();
-    console.log(data)
-    
+    // console.log(data);
+
     //get track information for individual playlists
     for (i = 0; i < data.items.length; i++) {
-      let playlistID = getTracks(data.items[i].id, token);
+      let playlistID = getTrackList(data.items[i].id, token);
       // console.log(playlistID)
     }
-    
   };
 
-  //function used to fetch track info for playlists (playlist items)
-  const getTracks = async (playlistID, token) => {
-    const result = await fetch(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        'Content-Type': "application/json",
-        Authorization: `Bearer ${token}`,
+  //function used to fetch playlist items
+  const getTrackList = async (playlistID, token) => {
+    const result = await fetch(
+      `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
     const data = await result.json();
-    console.log(data)
+    // console.log(data);
+    
+    //use a loop to get track information for individual playlists
+    for (i = 0; i < data.items.length; i++) {
+      let trackID = getTracks(data.items[i].track.id, token);
+      // console.log(trackID);
+    }
+  };
+
+  //function used to fetch track info from playlists
+  const getTracks = async (trackID, token) => {
+    const result = await fetch(
+      `https://api.spotify.com/v1/tracks/${trackID}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await result.json();
+    // console.log(data);
     return data;
-  }
+  };
 
   const newData = getToken()
     .then(getPlaylist)
-    // .then(getTracks)
     .catch((err) => console.log(err));
 
   // console.log(newData)
@@ -88,7 +112,7 @@ const uiController = (function () {
     nowPlaying: "#now-playing",
     playlistContents: "#metadata-1",
     otherPlaylists: "#metadata-2",
-    genreSelect: "#genre-select"
+    genreSelect: "#genre-select",
   };
 
   return {
@@ -103,23 +127,23 @@ const uiController = (function () {
         nowPlaying: document.querySelector(domElements.nowPlaying),
         playlistSongs: document.querySelector(domElements.playlistContents),
         playlistLibrary: document.querySelector(domElements.otherPlaylists),
-        genreSelect: document.querySelector(domElements.genreSelect)
+        genreSelect: document.querySelector(domElements.genreSelect),
       };
     },
 
     genreMenu(value, text) {
-      const newHTML = `<option value=${value}>${text}</option>`
-      document.querySelector(domElements.genreSelect).insertAdjacentHTML('beforeend', html)
+      const newHTML = `<option value=${value}>${text}</option>`;
+      document
+        .querySelector(domElements.genreSelect)
+        .insertAdjacentHTML("beforeend", html);
     },
 
     createTrackDetail(img, title, artist) {
-
       const songDiv = document.querySelector(domElements.songDetail);
       // any time user clicks a new song, we need to clear out the song detail div
-      songDiv.innerHTML = '';
+      songDiv.innerHTML = "";
 
-      const html =
-        `
+      const html = `
     <div class="track-description">
         <img src="${img}" alt="">        
     </div>
@@ -131,7 +155,7 @@ const uiController = (function () {
     </div> 
     `;
 
-      songDiv.insertAdjacentHTML('beforeend', html)
-    }
-  }
+      songDiv.innerHTML += html;
+    },
+  };
 })();
