@@ -23,8 +23,27 @@ const apiController = (function () {
     return data.access_token;
   };
 
+  //fetch genres from spotify for later sorting
+  const getGenres = async (token) => {
+    const result = await fetch(
+      `https://api.spotify.com/v1/recommendations/available-genre-seeds`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await result.json();
+    // console.log(data);
+    return data;
+  };
+
   //fetch user playlist information from api
   const getPlaylist = async (token) => {
+    getGenres(token);
     const limit = 1;
 
     const result = await fetch(
@@ -39,13 +58,17 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-    console.log(data);
+    // console.log(data);
 
-    //get playlist id's
+    //get playlist id's for playlist items and place them into an array
+    const newData = [];
     for (i = 0; i < data.items.length; i++) {
-      let playlistID = getTrackList(data.items[i].id, token);
-      console.log(playlistID)
+      let ids = getTrackList(data.items[i].id, token);
+      // console.log(data.items[i].id);
+      newData.push(ids);
     }
+    // console.log(newData);
+    return newData;
   };
 
   //function used to fetch playlist items
@@ -63,27 +86,28 @@ const apiController = (function () {
     );
     const data = await result.json();
     // console.log(data);
-    
+
+    const newData = [];
     //use a loop to get track information for individual playlists
     for (i = 0; i < data.items.length; i++) {
-      let trackID = getTracks(data.items[i].track.id, token);
-      console.log(trackID);
+      let ids = getTracks(data.items[i].track.id, token);
+      // console.log(data.items[i].track.id);
+      newData.push(ids);
     }
+    // console.log(newData);
+    return newData;
   };
 
   //function used to fetch track info from playlists
   const getTracks = async (trackID, token) => {
-    const result = await fetch(
-      `https://api.spotify.com/v1/tracks/${trackID}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const result = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await result.json();
     // console.log(data);
     return data;
@@ -94,7 +118,7 @@ const apiController = (function () {
     .then(getPlaylist)
     .catch((err) => console.log(err));
 
-  // console.log(newData)
+  console.log(newData)
   return newData;
 })();
 
@@ -128,10 +152,9 @@ const uiController = (function () {
         nowPlaying: document.querySelector(domElements.nowPlaying),
         playlistSongs: document.querySelector(domElements.playlistContents),
         playlistLibrary: document.querySelector(domElements.otherPlaylists),
-        genreSelect: document.querySelector(domElements.genreSelect)
+        genreSelect: document.querySelector(domElements.genreSelect),
       };
     },
-    
   };
 })();
 
@@ -140,8 +163,7 @@ const uiController = (function () {
 //-----------------------------------//
 
 const appController = (function (apiCtrl, uiCtrl) {
-    //get object reference for DOM outputs
-    const domOutput =  uiCtrl.outputField();
-    console.log(domOutput)
-
+  //get object reference for DOM outputs
+  const domOutput = uiCtrl.outputField();
+  // console.log(domOutput);
 })(apiController, uiController);
