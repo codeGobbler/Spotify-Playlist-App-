@@ -89,6 +89,7 @@ const apiController = (function () {
     return data;
   };
 
+  //declare a variable that stores the initial promise and subsequent promises
   const newData = getToken()
     .then(getPlaylist)
     .catch((err) => console.log(err));
@@ -104,7 +105,7 @@ const apiController = (function () {
 const uiController = (function () {
   //store html selectors in an object for inputField() method
   const domElements = {
-    songDetail: "#song-descripiton",
+    songDetail: "#song-description",
     currentSong: "#current",
     previousSong: "#prev",
     nextSong: "#next",
@@ -117,7 +118,7 @@ const uiController = (function () {
 
   return {
     //create a method to callback selectors
-    inputField() {
+    outputField() {
       return {
         songDetail: document.querySelector(domElements.songDetail),
         currentSong: document.querySelector(domElements.currentSong),
@@ -127,35 +128,20 @@ const uiController = (function () {
         nowPlaying: document.querySelector(domElements.nowPlaying),
         playlistSongs: document.querySelector(domElements.playlistContents),
         playlistLibrary: document.querySelector(domElements.otherPlaylists),
-        genreSelect: document.querySelector(domElements.genreSelect),
+        genreSelect: document.querySelector(domElements.genreSelect)
       };
     },
-
-    genreMenu(value, text) {
-      const newHTML = `<option value=${value}>${text}</option>`;
-      document
-        .querySelector(domElements.genreSelect)
-        .insertAdjacentHTML("beforeend", html);
-    },
-
-    createTrackDetail(img, title, artist) {
-      const songDiv = document.querySelector(domElements.songDetail);
-      // any time user clicks a new song, we need to clear out the song detail div
-      songDiv.innerHTML = "";
-
-      const html = `
-    <div class="track-description">
-        <img src="${img}" alt="">        
-    </div>
-    <div class="track-description">
-        <label for="Genre" class="track-description">${title}:</label>
-    </div>
-    <div class="track-description">
-        <label for="artist" class="track-description">By ${artist}:</label>
-    </div> 
-    `;
-
-      songDiv.innerHTML += html;
-    },
+    
   };
 })();
+
+//-----------------------------------//
+//-------App Control Module----------//
+//-----------------------------------//
+
+const appController = (function (apiCtrl, uiCtrl) {
+    //get object reference for DOM outputs
+    const domOutput =  uiCtrl.outputField();
+    console.log(domOutput)
+
+})(apiController, uiController);

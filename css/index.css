@@ -106,6 +106,7 @@ footer {
 .track-description {
   height: 90px;
   border-radius: 2.5%;
+  color: white;
 }
 
 .main-playlist {
@@ -142,6 +143,12 @@ footer {
   display: inline-grid;
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
   margin: 0;
+}
+
+.drop-down {
+  height: 10%;
+  padding: 10px;
+  background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
 }
 
 @media screen and (max-width: 800px) { 
