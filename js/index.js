@@ -1,10 +1,10 @@
-//create IIFE to house apiController
-const apiController = (function() {
+//-----------------------------------//
+//---------API Controller------------//
+//-----------------------------------//
+const apiController = (function () {
   const clientId = "4986258db999480dbcb94669e69535ad";
   const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
   const userId = "12172782523";
-
-  //-----------------------------------//
 
   const getToken = async () => {
     const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -25,50 +25,56 @@ const apiController = (function() {
   const getPlaylist = async (token) => {
     const limit = 50;
 
-    const result = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`, {
-      method: "GET",
-      headers: {
-        "Accept": "appliction/json",
-        "Content-Type": "application/json",
-        "Authorization": "Bearer BQCqoqdyTJXPS53Ty7yvNiiJhIuepJd1kEXeA7hfnEunK8cu6EZ4cCQ3qelMWuGrF9pU2QI_Zuiny7PRjccjqrgkcVW39A_5TIF2HRMTE95Opk0Y7ovL940wp8ZMrJpsOKFzO3DYbiOlhd9XNEafog_GaSvYJf5T"
+    const result = await fetch(
+      `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "appliction/json",
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer BQCqoqdyTJXPS53Ty7yvNiiJhIuepJd1kEXeA7hfnEunK8cu6EZ4cCQ3qelMWuGrF9pU2QI_Zuiny7PRjccjqrgkcVW39A_5TIF2HRMTE95Opk0Y7ovL940wp8ZMrJpsOKFzO3DYbiOlhd9XNEafog_GaSvYJf5T",
+        },
       }
-    });
+    );
     const data = await result.json();
-    console.log(data)
-    return data
-  }
-  
-  return getToken()
-          .then(getPlaylist)
-          .catch(err => console.log(err))
+    console.log(data);
+    return data;
+  };
+
+  const newData = getToken()
+    .then(getPlaylist)
+    .catch((err) => console.log(err));
+
+  return newData;
 })();
 
 //-----------------------------------//
+//---------UI Controller-------------//
+//-----------------------------------//
 
-const uiController = (function() {
+const uiController = (function () {
+  const domElements = {
+    currentSong: "#current",
+    previousSong: "#prev",
+    nextSong: "#next",
+    playlistArt: "#playlist-art",
+    nowPlaying: "#now-playing",
+    playlistContents: "#metadata-1",
+    otherPlaylists: "#metadata-2",
+  };
 
-    const domElements = {
-      currentSong:'#current',
-      previousSong:'#prev',
-      nextSong:'#next',
-      playlistArt: '#playlist-art',
-      nowPlaying:'#now-playing',
-      playlistContents: '#metadata-1',
-      otherPlaylists: '#metadata-2'
-    }
-    
-    return {
-
-      inputField() {
-        return {
-          currentSong: document.querySelector(domElements.currentSong),
-          previousSong: document.querySelector(domElements.previousSong),
-          nextSong: document.querySelector(domElements.nextSong),
-          playlistArt: document.querySelector(domElements.playlistArt),
-          nowPlaying: document.querySelector(domElements.nowPlaying),
-          playlistSongs: document.querySelector(domElements.playlistContents),
-          playlistLibrary: document.querySelector(domElements.otherPlaylists)
-        }
-      },
-    }
+  return {
+    inputField() {
+      return {
+        currentSong: document.querySelector(domElements.currentSong),
+        previousSong: document.querySelector(domElements.previousSong),
+        nextSong: document.querySelector(domElements.nextSong),
+        playlistArt: document.querySelector(domElements.playlistArt),
+        nowPlaying: document.querySelector(domElements.nowPlaying),
+        playlistSongs: document.querySelector(domElements.playlistContents),
+        playlistLibrary: document.querySelector(domElements.otherPlaylists),
+      };
+    },
+  };
 })();
