@@ -25,6 +25,11 @@ section {
   overflow-y: auto;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 footer {
   position: sticky;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
@@ -88,9 +93,11 @@ footer {
   border: 1px solid rgb(78, 33, 33);
 }
 
-.playlist-art:hover,
+.playlist-items:hover,
+.toggle-btn:hover,
 .tracks:hover {
-  border: 1px solid rgb(78, 33, 33);
+  cursor: pointer;
+  border: .5px #87282d double;
 }
 
 .track-window {
@@ -159,6 +166,10 @@ footer {
   margin: 0;
 }
 
+/* .library {
+  display: grid;
+} */
+
 .drop-down {
   position: sticky; 
   height: 10%;
@@ -166,10 +177,19 @@ footer {
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
 }
 
+.playlist-library {
+  display: inline-grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2%;
+  width: 95%;
+}
+
 .playlist-items {
-  color: white;
-  margin-left: 15px;
-  line-height: 1.5em;
+  border: 1px solid #620f13;
+  margin-left: 5px;
+  padding: 5px;
+  max-width: 100%;
+  
 }
 
 @media screen and (max-width: 800px) { 

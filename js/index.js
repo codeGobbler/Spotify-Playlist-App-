@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "4986258db999480dbcb94669e69535ad";
-  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
-  const userId = "12172782523";
+  const clientId = "";
+  const clientSecret = "";
+  const userId = "";
 
   //get access token
   const getToken = async () => {
@@ -181,8 +181,8 @@ const uiController = (function () {
       document.querySelector(domElements.playlistArt).insertAdjacentHTML('beforeend', image);
     },
 
-    populatePlaylists(newData) {
-      const html = `<div class="playlist-items">${newData}</div>`;
+    populatePlaylists(url, text) {
+      const html = `<div class="playlist-items"><img src=${url} alt=${text}></div>`;
       document.querySelector(domElements.otherPlaylists).insertAdjacentHTML('beforeend', html);
     },
 
@@ -238,8 +238,8 @@ const appController = (function (apiCtrl, uiCtrl) {
     //fetch playlist info
     const data = await apiCtrl.getPlaylist(token);
     for (i = 0; i < data.items.length; i++) {
-      console.log(data.items[i].name)
-    uiCtrl.populatePlaylists(data.items[i].name)
+      console.log(data.items[i].images[0].url)
+    uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name)
     }
     
   }
