@@ -40,3 +40,21 @@ userId = "12172782523"
 
   console.log(newData)
   return newData;
+
+  return {
+    getToken() {
+      return _getToken();
+    },
+    getGenres(token) {
+      return _getGenres(token);
+    },
+    getPlaylist(token) {
+      return _getPlaylist(token);
+    },
+    getTrackList(playlistID, token) {
+      return _getTrackList(playlistID, token);
+    },
+    getTracks(trackID, token) {
+      return _getTracks(trackID, token);
+    }
+  }

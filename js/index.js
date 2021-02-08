@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "4986258db999480dbcb94669e69535ad";
-  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
-  const userId = "12172782523";
+  const clientId = "";
+  const clientSecret = "";
+  const userId = "";
 
   //get access token
   const getToken = async () => {
@@ -38,7 +38,7 @@ const apiController = (function () {
     );
     const data = await result.json();
     // console.log(data);
-    return data;
+    return data.genres;
   };
 
   //fetch user playlist information from api
@@ -115,19 +115,19 @@ const apiController = (function () {
 
   return {
     getToken() {
-      return _getToken();
+      return getToken();
     },
     getGenres(token) {
-      return _getGenres(token);
+      return getGenres(token);
     },
     getPlaylist(token) {
-      return _getPlaylist(token);
+      return getPlaylist(token);
     },
     getTrackList(playlistID, token) {
-      return _getTrackList(playlistID, token);
+      return getTrackList(playlistID, token);
     },
     getTracks(trackID, token) {
-      return _getTracks(trackID, token);
+      return getTracks(trackID, token);
     }
   }
 })();
@@ -193,10 +193,16 @@ const appController = (function (apiCtrl, uiCtrl) {
   const domOutput = uiCtrl.outputField();
   // console.log(domOutput);
   const genrePopulate = async () => {
+    //fetch token
     const token = await apiCtrl.getToken();
+    //store token in hidden html element
     uiCtrl.storeToken(token);
-    const genres = await apiCtrl.getGenres(token);
+    //fetch genres
+    const genreObj = await apiCtrl.getGenres(token);
+    //convert genre object to an array
+    const genres = Object.values(genreObj);
     console.log(genres);
-    genres.forEach(element => uiCtrl.assignGenre(element.name, element.id));
+    genres.forEach(element => uiCtrl.assignGenre(element, element));
   }
+  genrePopulate()
 })(apiController, uiController);
