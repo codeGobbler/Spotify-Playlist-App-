@@ -16,6 +16,11 @@ span {
   margin-top: 4px;
 }
 
+select {
+  position: sticky;
+  top: 0;
+}
+
 section {
   overflow-y: auto;
 }
