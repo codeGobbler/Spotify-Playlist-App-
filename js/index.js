@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "";
-  const clientSecret = "";
-  const userId = "";
+  const clientId = "4986258db999480dbcb94669e69535ad";
+  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
+  const userId = "12172782523";
 
   //get access token
   const getToken = async () => {
@@ -113,13 +113,23 @@ const apiController = (function () {
     return data;
   };
 
-  //declare a variable that stores the initial promise and subsequent promises
-  const newData = getToken()
-    .then(getPlaylist)
-    .catch((err) => console.log(err));
-
-  console.log(newData)
-  return newData;
+  return {
+    getToken() {
+      return _getToken();
+    },
+    getGenres(token) {
+      return _getGenres(token);
+    },
+    getPlaylist(token) {
+      return _getPlaylist(token);
+    },
+    getTrackList(playlistID, token) {
+      return _getTrackList(playlistID, token);
+    },
+    getTracks(trackID, token) {
+      return _getTracks(trackID, token);
+    }
+  }
 })();
 
 //-----------------------------------//
@@ -129,6 +139,7 @@ const apiController = (function () {
 const uiController = (function () {
   //store html selectors in an object for inputField() method
   const domElements = {
+    hToken: "#hidden-token",
     songDetail: "#song-description",
     currentSong: "#current",
     previousSong: "#prev",
@@ -153,9 +164,24 @@ const uiController = (function () {
         playlistSongs: document.querySelector(domElements.playlistContents),
         playlistLibrary: document.querySelector(domElements.otherPlaylists),
         genreSelect: document.querySelector(domElements.genreSelect),
-      };
+      }
     },
-  };
+
+    assignGenre(text, value) {
+      const html = `<option value="${value}">${text}</option>`;
+      document.querySelector(domElements.genreSelect).insertAdjacentHTML('beforeend', html);
+    },
+
+    storeToken(value) {
+      document.querySelector(domElements.hToken).value = value;
+    },
+
+    getStoredToken() {
+      return {
+        token: document.querySelector(domElements.hToken).value
+      }
+    }
+  }
 })();
 
 //-----------------------------------//
@@ -166,4 +192,11 @@ const appController = (function (apiCtrl, uiCtrl) {
   //get object reference for DOM outputs
   const domOutput = uiCtrl.outputField();
   // console.log(domOutput);
+  const genrePopulate = async () => {
+    const token = await apiCtrl.getToken();
+    uiCtrl.storeToken(token);
+    const genres = await apiCtrl.getGenres(token);
+    console.log(genres);
+    genres.forEach(element => uiCtrl.assignGenre(element.name, element.id));
+  }
 })(apiController, uiController);
