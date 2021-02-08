@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "4986258db999480dbcb94669e69535ad";
-  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
-  const userId = "12172782523";
+  const clientId = "";
+  const clientSecret = "";
+  const userId = "";
 
   //get access token
   const getToken = async () => {
@@ -37,17 +37,39 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-    console.log(data);
+    // console.log(data);
     return data.genres;
   };
 
   //fetch user playlist information from api
   const getPlaylist = async (token) => {
     getGenres(token);
-    const limit = 1;
+    const limit = 20;
 
     const result = await fetch(
       `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await result.json();
+    // const newData = [];
+    // for (i = 0; i < data.items.length; i++) {
+    //   newData.push(data.items[i].id)
+    // }
+    // console.log(data);
+    return data
+  };
+
+  //function used to fetch playlist items
+  const getTrackList = async (playlistID, token) => {
+    const result = await fetch(
+      `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
       {
         method: "GET",
         headers: {
@@ -71,33 +93,6 @@ const apiController = (function () {
     return newData;
   };
 
-  //function used to fetch playlist items
-  const getTrackList = async (playlistID, token) => {
-    const result = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await result.json();
-    // console.log(data);
-
-    const newData = [];
-    //use a loop to get track information for individual playlists
-    for (i = 0; i < data.items.length; i++) {
-      let ids = getTracks(data.items[i].track.id, token);
-      // console.log(data.items[i].track.id);
-      newData.push(ids);
-    }
-    // console.log(newData);
-    return newData;
-  };
-
   //function used to fetch track info from playlists
   const getTracks = async (trackID, token) => {
     const result = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
@@ -110,7 +105,15 @@ const apiController = (function () {
     });
     const data = await result.json();
     // console.log(data);
-    return data;
+    const newData = [];
+    //use a loop to get track information for individual playlists
+    for (i = 0; i < data.items.length; i++) {
+      let ids = getTracks(data.items[i].track.id, token);
+      // console.log(data.items[i].track.id);
+      newData.push(ids);
+    }
+    // console.log(newData);
+    return newData;
   };
 
   return {
@@ -173,9 +176,9 @@ const uiController = (function () {
     },
 
     assingnPlaylistArt(img) {
-      const html = `<div class="playlist-art" id="playlist-img">
+      const image = `<div class="playlist-art" id="playlist-img">
       <img src=${img} class="playlist-pic"></img></div>`;
-      document.querySelector(domElements.playlistArt).insertAdjacentElement('beforeend', html);
+      document.querySelector(domElements.playlistArt).insertAdjacentHTML('beforeend', image);
     },
 
     storeToken(value) {
@@ -205,7 +208,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     uiCtrl.storeToken(token);
     //fetch genres
     const genreObj = await apiCtrl.getGenres(token);
-    console.log(genreObj);
+    // console.log(genreObj);
     //populate drop-down menu with genres
     genreObj.forEach(element => uiCtrl.assignGenre(element, element));
   }
@@ -216,8 +219,9 @@ const appController = (function (apiCtrl, uiCtrl) {
     //store token
     uiCtrl.storeToken(token);
     //fetch playlist info
-    const playlistObj = await apiCtrl.getPlaylist(token);
-    console.log(playlistObj)
+    const data = await apiCtrl.getPlaylist(token);
+    console.log(data)
+    uiCtrl.assingnPlaylistArt(data.items[3].images[0].url)
   }
 
   mainPicPopulate();

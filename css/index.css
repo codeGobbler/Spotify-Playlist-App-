@@ -127,6 +127,11 @@ footer {
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
 }
 
+.playlist-pic {
+  height: 130%;
+  width: 100%;
+}
+
 .playlist-art {
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
   height: 60%;
