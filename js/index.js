@@ -175,7 +175,7 @@ const uiController = (function () {
       document.querySelector(domElements.genreSelect).insertAdjacentHTML('beforeend', html);
     },
 
-    assingnPlaylistArt(img) {
+    assignPlaylistArt(img) {
       const image = `<div class="playlist-art" id="playlist-img">
       <img src=${img} class="playlist-pic"></img></div>`;
       document.querySelector(domElements.playlistArt).insertAdjacentHTML('beforeend', image);
@@ -221,7 +221,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     //fetch playlist info
     const data = await apiCtrl.getPlaylist(token);
     console.log(data)
-    uiCtrl.assingnPlaylistArt(data.items[3].images[0].url)
+    uiCtrl.assignPlaylistArt(data.items[3].images[0].url)
   }
 
   mainPicPopulate();
