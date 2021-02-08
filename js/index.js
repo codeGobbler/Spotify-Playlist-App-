@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "";
-  const clientSecret = "";
-  const userId = "";
+  const clientId = "4986258db999480dbcb94669e69535ad";
+  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
+  const userId = "12172782523";
 
   //get access token
   const getToken = async () => {
@@ -37,7 +37,7 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-    // console.log(data);
+    console.log(data);
     return data.genres;
   };
 
@@ -172,6 +172,12 @@ const uiController = (function () {
       document.querySelector(domElements.genreSelect).insertAdjacentHTML('beforeend', html);
     },
 
+    assingnPlaylistArt(img) {
+      const html = `<div class="playlist-art" id="playlist-img">
+      <img src=${img} class="playlist-pic"></img></div>`;
+      document.querySelector(domElements.playlistArt).insertAdjacentElement('beforeend', html);
+    },
+
     storeToken(value) {
       document.querySelector(domElements.hToken).value = value;
     },
@@ -199,10 +205,21 @@ const appController = (function (apiCtrl, uiCtrl) {
     uiCtrl.storeToken(token);
     //fetch genres
     const genreObj = await apiCtrl.getGenres(token);
-    //convert genre object to an array
-    const genres = Object.values(genreObj);
-    console.log(genres);
-    genres.forEach(element => uiCtrl.assignGenre(element, element));
+    console.log(genreObj);
+    //populate drop-down menu with genres
+    genreObj.forEach(element => uiCtrl.assignGenre(element, element));
   }
-  genrePopulate()
+
+  const mainPicPopulate = async () => {
+    //fetch token
+    const token = await apiCtrl.getToken();
+    //store token
+    uiCtrl.storeToken(token);
+    //fetch playlist info
+    const playlistObj = await apiCtrl.getPlaylist(token);
+    console.log(playlistObj)
+  }
+
+  mainPicPopulate();
+  genrePopulate();
 })(apiController, uiController);
