@@ -67,7 +67,7 @@ const apiController = (function () {
   };
 
   //function used to fetch playlist items
-  const getTrackList = async (playlistID, token) => {
+  const getPlaylistID = async (playlistID, token) => {
     const result = await fetch(
       `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
       {
@@ -85,8 +85,8 @@ const apiController = (function () {
     //get playlist id's for playlist items and place them into an array
     const newData = [];
     for (i = 0; i < data.items.length; i++) {
-      let ids = getTrackList(data.items[i].id, token);
-      // console.log(data.items[i].id);
+      let ids = getPlaylistID(data.items[i].id, token);
+      console.log(data.items[i].id);
       newData.push(ids);
     }
     // console.log(newData);
@@ -126,8 +126,8 @@ const apiController = (function () {
     getPlaylist(token) {
       return getPlaylist(token);
     },
-    getTrackList(playlistID, token) {
-      return getTrackList(playlistID, token);
+    getPlaylistID(playlistID, token) {
+      return getPlaylistID(playlistID, token);
     },
     getTracks(trackID, token) {
       return getTracks(trackID, token);
@@ -181,6 +181,11 @@ const uiController = (function () {
       document.querySelector(domElements.playlistArt).insertAdjacentHTML('beforeend', image);
     },
 
+    populatePlaylists(newData) {
+      const html = `<div class="playlist-items">${newData}</div>`;
+      document.querySelector(domElements.otherPlaylists).insertAdjacentHTML('beforeend', html);
+    },
+
     storeToken(value) {
       document.querySelector(domElements.hToken).value = value;
     },
@@ -201,6 +206,7 @@ const appController = (function (apiCtrl, uiCtrl) {
   //get object reference for DOM outputs
   const domOutput = uiCtrl.outputField();
   // console.log(domOutput);
+
   const genrePopulate = async () => {
     //fetch token
     const token = await apiCtrl.getToken();
@@ -218,12 +224,27 @@ const appController = (function (apiCtrl, uiCtrl) {
     const token = await apiCtrl.getToken();
     //store token
     uiCtrl.storeToken(token);
-    //fetch playlist info
+    //fetch playlist image
     const data = await apiCtrl.getPlaylist(token);
-    console.log(data)
+    // console.log(data)
     uiCtrl.assignPlaylistArt(data.items[3].images[0].url)
   }
 
+  const playlistPopulate = async () => {
+    //fetch token
+    const token = await apiCtrl.getToken();
+    //store token
+    uiCtrl.storeToken(token);
+    //fetch playlist info
+    const data = await apiCtrl.getPlaylist(token);
+    for (i = 0; i < data.items.length; i++) {
+      console.log(data.items[i].name)
+    uiCtrl.populatePlaylists(data.items[i].name)
+    }
+    
+  }
+
+  playlistPopulate();
   mainPicPopulate();
   genrePopulate();
 })(apiController, uiController);

@@ -16,6 +16,10 @@ span {
   margin-top: 4px;
 }
 
+section {
+  overflow-y: auto;
+}
+
 footer {
   position: sticky;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
@@ -151,9 +155,16 @@ footer {
 }
 
 .drop-down {
+  position: sticky; 
   height: 10%;
   padding: 10px;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
+}
+
+.playlist-items {
+  color: white;
+  margin-left: 15px;
+  line-height: 1.5em;
 }
 
 @media screen and (max-width: 800px) { 

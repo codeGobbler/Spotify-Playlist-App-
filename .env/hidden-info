@@ -1,32 +1,8 @@
-/* As RGBa codes */
-
 .rgba-primary-0 { color: rgba( 98, 15, 19,1) }	/* Main Primary color */
 .rgba-primary-1 { color: rgba(170, 72, 77,1) }
 .rgba-primary-2 { color: rgba(135, 40, 45,1) }
 .rgba-primary-3 { color: rgba( 62,  0,  3,1) }
 .rgba-primary-4 { color: rgba( 32,  0,  2,1) }
-<<<<<<< HEAD
-=======
-
-const domElements = {
-      menuBtn:'#btn',
-      currentSong:'#current',
-      previousSong:'#prev',
-      nextSong:'#next',
-      playlistArt: '#playlist-art'
-    }
-    
-    return {
-
-      inputField() {
-        return {
-          menu: document.querySelector(domElements.menuBtn),
-          currentSong: document.querySelector(domElements.currentSong),
-          previousSong: document.querySelector(domElements.previousSong),
-          nextSong: document.querySelector(domElements.nextSong),
-          playlistArt: document.querySelector(domElements.playlistArt)
-        }
-      },
 
 
 clientId = "4986258db999480dbcb94669e69535ad"
