@@ -58,8 +58,8 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-   
-    return data
+
+    return data;
   };
 
   //function used to fetch playlist track list
@@ -76,7 +76,7 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-    
+
     return data;
   };
 
@@ -91,7 +91,7 @@ const apiController = (function () {
       },
     });
     const data = await result.json();
-  
+
     return data;
   };
 
@@ -110,8 +110,8 @@ const apiController = (function () {
     },
     getTracks(trackID, token) {
       return getTracks(trackID, token);
-    }
-  }
+    },
+  };
 })();
 
 //-----------------------------------//
@@ -146,28 +146,38 @@ const uiController = (function () {
         playlistSongs: document.querySelector(domElements.playlistContents),
         playlistLibrary: document.querySelector(domElements.otherPlaylists),
         genreSelect: document.querySelector(domElements.genreSelect),
-      }
+      };
     },
 
     assignGenre(text, value) {
       const html = `<option value="${value}">${text}</option>`;
-      document.querySelector(domElements.genreSelect).insertAdjacentHTML('beforeend', html);
+      document
+        .querySelector(domElements.genreSelect)
+        .insertAdjacentHTML("beforeend", html);
     },
 
     assignPlaylistArt(img) {
       const image = `<div class="playlist-art" id="playlist-img">
       <img src=${img} class="playlist-pic"></img></div>`;
-      document.querySelector(domElements.playlistArt).insertAdjacentHTML('beforeend', image);
+      document
+        .querySelector(domElements.playlistArt)
+        .insertAdjacentHTML("beforeend", image);
     },
 
     populatePlaylists(url, text) {
       const html = `<div class="playlist-items"><img src=${url} alt=${text}><div class="text">${text}</div></div>`;
-      document.querySelector(domElements.otherPlaylists).insertAdjacentHTML('beforeend', html);
+      document
+        .querySelector(domElements.otherPlaylists)
+        .insertAdjacentHTML("beforeend", html);
     },
 
     populateTrackList(link, number, name, artist, length) {
-      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor((length / 1000)/60)}:${Math.floor((length / 1000)%60).toFixed(0)}</div></div>`
-      document.querySelector(domElements.playlistContents).insertAdjacentHTML('beforeend', html);
+      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor(
+        length / 1000 / 60
+      )}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`;
+      document
+        .querySelector(domElements.playlistContents)
+        .insertAdjacentHTML("beforeend", html);
     },
 
     storeToken(value) {
@@ -176,10 +186,10 @@ const uiController = (function () {
 
     getStoredToken() {
       return {
-        token: document.querySelector(domElements.hToken).value
-      }
-    }
-  }
+        token: document.querySelector(domElements.hToken).value,
+      };
+    },
+  };
 })();
 
 //-----------------------------------//
@@ -200,8 +210,8 @@ const appController = (function (apiCtrl, uiCtrl) {
     const genreObj = await apiCtrl.getGenres(token);
     // console.log(genreObj);
     //populate drop-down menu with genres
-    genreObj.forEach(element => uiCtrl.assignGenre(element, element));
-  }
+    genreObj.forEach((element) => uiCtrl.assignGenre(element, element));
+  };
 
   const mainPicPopulate = async () => {
     //fetch token
@@ -211,8 +221,8 @@ const appController = (function (apiCtrl, uiCtrl) {
     //fetch playlist image
     const data = await apiCtrl.getPlaylist(token);
     // console.log(data)
-    uiCtrl.assignPlaylistArt(data.items[3].images[0].url)
-  }
+    uiCtrl.assignPlaylistArt(data.items[3].images[0].url);
+  };
 
   const playlistPopulate = async () => {
     //fetch token
@@ -223,15 +233,21 @@ const appController = (function (apiCtrl, uiCtrl) {
     const data = await apiCtrl.getPlaylist(token);
     for (i = 0; i < data.items.length; i++) {
       // console.log(data.items[i].id)
-    uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name)
+      uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name);
     }
     //fetch tracklist info for each track
-    const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token); 
+    const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token);
     console.log(newData);
-    for(i = 0; i < newData.items.length; i++) {
-      uiCtrl.populateTrackList(newData.items[i].track.external_urls.spotify, i + 1, newData.items[i].track.name, newData.items[i].track.artists[0].name, newData.items[i].track.duration_ms);
+    for (i = 0; i < newData.items.length; i++) {
+      uiCtrl.populateTrackList(
+        newData.items[i].track.external_urls.spotify,
+        i + 1,
+        newData.items[i].track.name,
+        newData.items[i].track.artists[0].name,
+        newData.items[i].track.duration_ms
+      );
     }
-  }
+  };
 
   playlistPopulate();
   mainPicPopulate();
