@@ -182,7 +182,7 @@ const uiController = (function () {
     },
 
     populatePlaylists(url, text) {
-      const html = `<div class="playlist-items"><img src=${url} alt=${text}></div>`;
+      const html = `<div class="playlist-items"><img src=${url} alt=${text}><div class="text">${text}</div></div>`;
       document.querySelector(domElements.otherPlaylists).insertAdjacentHTML('beforeend', html);
     },
 
