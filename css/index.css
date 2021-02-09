@@ -172,9 +172,16 @@ footer {
   margin: 0;
 }
 
-/* .library {
-  display: grid;
-} */
+.track-items {
+  margin: 10px;
+  padding: 15px;
+  border: 1px double rgb(102, 58, 58);
+}
+
+.track-items a {
+  text-decoration: none;
+  color: white;
+}
 
 .drop-down {
   position: sticky; 
@@ -200,6 +207,7 @@ footer {
   margin-left: 5px;
   padding: 5px;
   max-width: 100%;
+  box-shadow: rgb(102, 58, 58) 0px 1px 1px;
 }
 
 .text {

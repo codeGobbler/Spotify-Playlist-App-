@@ -66,8 +66,8 @@ const apiController = (function () {
     return data
   };
 
-  //function used to fetch playlist items
-  const getPlaylistID = async (playlistID, token) => {
+  //function used to fetch playlist track list
+  const getPlaylistTrackList = async (playlistID, token) => {
     const result = await fetch(
       `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
       {
@@ -83,17 +83,17 @@ const apiController = (function () {
     // console.log(data);
 
     //get playlist id's for playlist items and place them into an array
-    const newData = [];
-    for (i = 0; i < data.items.length; i++) {
-      let ids = getPlaylistID(data.items[i].id, token);
-      console.log(data.items[i].id);
-      newData.push(ids);
-    }
+    // const newData = [];
+    // for (i = 0; i < data.items.length; i++) {
+    //   let ids = getPlaylistTrackList(data.items[i].id, token);
+    //   console.log(data.items[i].id);
+    //   newData.push(ids);
+    // }
     // console.log(newData);
-    return newData;
+    return data;
   };
 
-  //function used to fetch track info from playlists
+  //function used to fetch individual track info from playlists
   const getTracks = async (trackID, token) => {
     const result = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
       method: "GET",
@@ -105,15 +105,15 @@ const apiController = (function () {
     });
     const data = await result.json();
     // console.log(data);
-    const newData = [];
-    //use a loop to get track information for individual playlists
-    for (i = 0; i < data.items.length; i++) {
-      let ids = getTracks(data.items[i].track.id, token);
-      // console.log(data.items[i].track.id);
-      newData.push(ids);
-    }
+    // const newData = [];
+    // //use a loop to get track information for individual playlists
+    // for (i = 0; i < data.items.length; i++) {
+    //   let ids = getTracks(data.items[i].track.id, token);
+    //   // console.log(data.items[i].track.id);
+    //   newData.push(ids);
+    // }
     // console.log(newData);
-    return newData;
+    return data;
   };
 
   return {
@@ -126,8 +126,8 @@ const apiController = (function () {
     getPlaylist(token) {
       return getPlaylist(token);
     },
-    getPlaylistID(playlistID, token) {
-      return getPlaylistID(playlistID, token);
+    getPlaylistTrackList(playlistID, token) {
+      return getPlaylistTrackList(playlistID, token);
     },
     getTracks(trackID, token) {
       return getTracks(trackID, token);
@@ -186,6 +186,11 @@ const uiController = (function () {
       document.querySelector(domElements.otherPlaylists).insertAdjacentHTML('beforeend', html);
     },
 
+    populateTrackList(link, number, name, artist, length) {
+      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a></div>`
+      document.querySelector(domElements.playlistContents).insertAdjacentHTML('beforeend', html);
+    },
+
     storeToken(value) {
       document.querySelector(domElements.hToken).value = value;
     },
@@ -235,13 +240,18 @@ const appController = (function (apiCtrl, uiCtrl) {
     const token = await apiCtrl.getToken();
     //store token
     uiCtrl.storeToken(token);
-    //fetch playlist info
+    //fetch playlist info for each playlist
     const data = await apiCtrl.getPlaylist(token);
     for (i = 0; i < data.items.length; i++) {
-      console.log(data.items[i].images[0].url)
+      // console.log(data.items[i].id)
     uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name)
     }
-    
+    //fetch tracklist info for each track
+    const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token); 
+    console.log(newData);
+    for(i = 0; i < newData.items.length; i++) {
+      uiCtrl.populateTrackList(newData.items[i].track.external_urls.spotify, i + 1, newData.items[i].track.name, newData.items[i].track.artists[0].name);
+    }
   }
 
   playlistPopulate();
