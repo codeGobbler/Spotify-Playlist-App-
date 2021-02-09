@@ -9,28 +9,29 @@ clientId = "4986258db999480dbcb94669e69535ad"
 clientSecret = "50a5f956f0f84b278d3d90745c3308b5"
 userId = "12172782523"
 
-//declare a variable that stores the initial promise and subsequent promises
-  const newData = getToken()
-    .then(getPlaylist)
-    .catch((err) => console.log(err));
+ // const newData = [];
+    // for (i = 0; i < data.items.length; i++) {
+    //   newData.push(data.items[i].id)
+    // }
+    // console.log(data);
+    
+// console.log(data);
 
-  console.log(newData)
-  return newData;
+    //get playlist id's for playlist items and place them into an array
+    // const newData = [];
+    // for (i = 0; i < data.items.length; i++) {
+    //   let ids = getPlaylistTrackList(data.items[i].id, token);
+    //   console.log(data.items[i].id);
+    //   newData.push(ids);
+    // }
+    // console.log(newData);
 
-  return {
-    getToken() {
-      return _getToken();
-    },
-    getGenres(token) {
-      return _getGenres(token);
-    },
-    getPlaylist(token) {
-      return _getPlaylist(token);
-    },
-    getTrackList(playlistID, token) {
-      return _getTrackList(playlistID, token);
-    },
-    getTracks(trackID, token) {
-      return _getTracks(trackID, token);
-    }
-  }
+  // console.log(data);
+    // const newData = [];
+    // //use a loop to get track information for individual playlists
+    // for (i = 0; i < data.items.length; i++) {
+    //   let ids = getTracks(data.items[i].track.id, token);
+    //   // console.log(data.items[i].track.id);
+    //   newData.push(ids);
+    // }
+    // console.log(newData);

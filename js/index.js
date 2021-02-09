@@ -58,11 +58,7 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-    // const newData = [];
-    // for (i = 0; i < data.items.length; i++) {
-    //   newData.push(data.items[i].id)
-    // }
-    // console.log(data);
+   
     return data
   };
 
@@ -80,16 +76,7 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-    // console.log(data);
-
-    //get playlist id's for playlist items and place them into an array
-    // const newData = [];
-    // for (i = 0; i < data.items.length; i++) {
-    //   let ids = getPlaylistTrackList(data.items[i].id, token);
-    //   console.log(data.items[i].id);
-    //   newData.push(ids);
-    // }
-    // console.log(newData);
+    
     return data;
   };
 
@@ -104,15 +91,7 @@ const apiController = (function () {
       },
     });
     const data = await result.json();
-    // console.log(data);
-    // const newData = [];
-    // //use a loop to get track information for individual playlists
-    // for (i = 0; i < data.items.length; i++) {
-    //   let ids = getTracks(data.items[i].track.id, token);
-    //   // console.log(data.items[i].track.id);
-    //   newData.push(ids);
-    // }
-    // console.log(newData);
+  
     return data;
   };
 
@@ -187,7 +166,7 @@ const uiController = (function () {
     },
 
     populateTrackList(link, number, name, artist, length) {
-      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a></div>`
+      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor((length / 1000)/60)}:${Math.floor((length / 1000)%60).toFixed(0)}</div></div>`
       document.querySelector(domElements.playlistContents).insertAdjacentHTML('beforeend', html);
     },
 
@@ -250,7 +229,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token); 
     console.log(newData);
     for(i = 0; i < newData.items.length; i++) {
-      uiCtrl.populateTrackList(newData.items[i].track.external_urls.spotify, i + 1, newData.items[i].track.name, newData.items[i].track.artists[0].name);
+      uiCtrl.populateTrackList(newData.items[i].track.external_urls.spotify, i + 1, newData.items[i].track.name, newData.items[i].track.artists[0].name, newData.items[i].track.duration_ms);
     }
   }
 

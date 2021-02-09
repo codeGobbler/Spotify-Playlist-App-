@@ -173,9 +173,14 @@ footer {
 }
 
 .track-items {
+  display: flex;
+  flex: 1 1 300px;
+  justify-content: space-between;
   margin: 10px;
   padding: 15px;
   border: 1px double rgb(102, 58, 58);
+  box-shadow: rgb(102, 58, 58) -1px 2px 5px;
+  color: white;
 }
 
 .track-items a {
