@@ -180,6 +180,7 @@ footer {
 .playlist-art {
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
   height: 60%;
+  width: 100%;
   border-radius: 2.5%;
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
 }
@@ -211,6 +212,10 @@ footer {
   color: white;
 }
 
+.library {
+  height: 100%;
+}
+
 .drop-down {
   position: sticky; 
   height: 10%;
@@ -230,7 +235,6 @@ footer {
 .playlist-items {
   border: 1px solid #620f13;
   position: relative;
-  text-align: center;
   color: white;
   margin-left: 5px;
   padding: 5px;
@@ -240,6 +244,8 @@ footer {
 
 .text {
   position: absolute;
+  text-align: center;
+  justify-content: space-around;
   bottom: 10px;
   font-size: 12px;
 }
