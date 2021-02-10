@@ -58,7 +58,7 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-  //  console.log(data)
+    //  console.log(data)
     return data
   };
 
@@ -76,7 +76,7 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-    
+
     return data;
   };
 
@@ -166,13 +166,18 @@ const uiController = (function () {
     },
 
     populateTrackList(link, number, name, artist, length) {
-      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor((length / 1000)/60)}:${Math.floor((length / 1000)%60).toFixed(0)}</div></div>`
+      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor((length / 1000) / 60)}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`
       document.querySelector(domElements.playlistContents).insertAdjacentHTML('beforeend', html);
     },
 
     populateSongInfo(name, artist, album) {
-      const html = `<div class="song-info">Now Playing:<br>${name} by ${artist} <br> from Album:${album}</div>`;
+      const html = `<div class="song-info">Now Playing:<br>${name} by ${artist}<br>from the Album:<br>${album}</div>`;
       document.querySelector(domElements.songDetail).insertAdjacentHTML('beforeend', html);
+    },
+
+    populateSongImage(img, arr) {
+      const html = `<img class="track-imgs" src=${img}>`;
+      document.querySelector(domElements.arr).insertAdjacentHTML('beforeend', html);
     },
 
     storeToken(value) {
@@ -208,17 +213,6 @@ const appController = (function (apiCtrl, uiCtrl) {
     genreObj.forEach(element => uiCtrl.assignGenre(element, element));
   }
 
-  const mainPicPopulate = async () => {
-    //fetch token
-    const token = await apiCtrl.getToken();
-    //store token
-    uiCtrl.storeToken(token);
-    //fetch playlist image
-    const data = await apiCtrl.getPlaylist(token);
-    // console.log(data)
-    uiCtrl.assignPlaylistArt(data.items[3].images[0].url)
-  }
-
   const playlistPopulate = async () => {
     //fetch token
     const token = await apiCtrl.getToken();
@@ -226,22 +220,35 @@ const appController = (function (apiCtrl, uiCtrl) {
     uiCtrl.storeToken(token);
     //fetch playlist info for each playlist
     const data = await apiCtrl.getPlaylist(token);
+    //place image on center div
+    uiCtrl.assignPlaylistArt(data.items[3].images[0].url)
+    //populate playlist selection library
     for (i = 0; i < data.items.length; i++) {
       // console.log(data.items[i].id)
-    uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name)
+      uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name)
     }
     //fetch tracklist info for each track
-    const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token); 
-    console.log(newData);
-    for(i = 0; i < newData.items.length; i++) {
+    const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token);
+    // console.log(newData);
+    for (i = 0; i < newData.items.length; i++) {
+      //place html
       uiCtrl.populateTrackList(newData.items[i].track.external_urls.spotify, i + 1, newData.items[i].track.name, newData.items[i].track.artists[0].name, newData.items[i].track.duration_ms);
     }
-    const newerData = await apiCtrl.getTracksInfo(newData.items[0].track.id,token);
-    console.log(newerData)
-    uiCtrl.populateSongInfo(newerData.name,newerData.artists[0].name,newerData.album.name);
+    //place song info into html
+    const newestData = await apiCtrl.getTracksInfo(newData.items[1].track.id, token);
+    console.log(newestData)
+    uiCtrl.populateSongInfo(newestData.name, newestData.artists[0].name, newestData.album.name);
+    //create array to store selectors
+      const selectors = ["previousSong","currentSong", "nextSong"];
+    for (i = 0; i < selectors.length; i++) {
+      const newerData = await apiCtrl.getTracksInfo(newData.items[i].track.id, token);
+      console.log(newerData)
+      //place song images
+      uiCtrl.populateSongImage(newerData.album.images[0].url, selectors[i]);
+    }
+
   }
 
   playlistPopulate();
-  mainPicPopulate();
   genrePopulate();
 })(apiController, uiController);

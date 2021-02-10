@@ -35,3 +35,13 @@ userId = "12172782523"
     //   newData.push(ids);
     // }
     // console.log(newData);
+
+    //create array to store selectors
+    const selectors = ["previousSong", "currentSong", "nextSong"];
+    //fetch individual song info
+    for (i = 0; i < 3; i++) {
+      const newerData = await apiCtrl.getTracksInfo(newData.items[i].track.id, token);
+      console.log(newerData)
+      //place song image
+      uiCtrl.populateSongImage(newerData.album.images[1].url, selectors[i]);
+    }
