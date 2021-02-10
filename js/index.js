@@ -4,7 +4,7 @@
 const apiController = (function () {
   const clientId = "";
   const clientSecret = "";
-  const userId = "";
+  const userId = "= ";
 
   //get access token
   const getToken = async () => {
@@ -58,8 +58,13 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
+<<<<<<< HEAD
 
     return data;
+=======
+    //  console.log(data)
+    return data
+>>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
   };
 
   //function used to fetch playlist track list
@@ -81,7 +86,7 @@ const apiController = (function () {
   };
 
   //function used to fetch individual track info from playlists
-  const getTracks = async (trackID, token) => {
+  const getTracksInfo = async (trackID, token) => {
     const result = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
       method: "GET",
       headers: {
@@ -91,7 +96,11 @@ const apiController = (function () {
       },
     });
     const data = await result.json();
+<<<<<<< HEAD
 
+=======
+    // console.log(data);
+>>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
     return data;
   };
 
@@ -108,10 +117,17 @@ const apiController = (function () {
     getPlaylistTrackList(playlistID, token) {
       return getPlaylistTrackList(playlistID, token);
     },
+<<<<<<< HEAD
     getTracks(trackID, token) {
       return getTracks(trackID, token);
     },
   };
+=======
+    getTracksInfo(trackID, token) {
+      return getTracksInfo(trackID, token);
+    }
+  }
+>>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
 })();
 
 //-----------------------------------//
@@ -130,7 +146,7 @@ const uiController = (function () {
     nowPlaying: "#now-playing",
     playlistContents: "#metadata-1",
     otherPlaylists: "#metadata-2",
-    genreSelect: "#genre-select",
+    genreSelect: "#genre-select"
   };
 
   return {
@@ -172,12 +188,27 @@ const uiController = (function () {
     },
 
     populateTrackList(link, number, name, artist, length) {
+<<<<<<< HEAD
       const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor(
         length / 1000 / 60
       )}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`;
       document
         .querySelector(domElements.playlistContents)
         .insertAdjacentHTML("beforeend", html);
+=======
+      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor((length / 1000) / 60)}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`
+      document.querySelector(domElements.playlistContents).insertAdjacentHTML('beforeend', html);
+>>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
+    },
+
+    populateSongInfo(name, artist, album) {
+      const html = `<div class="song-info">Now Playing:<br>${name} by ${artist}<br>from the Album:<br>${album}</div>`;
+      document.querySelector(domElements.songDetail).insertAdjacentHTML('beforeend', html);
+    },
+
+    populateSongImage(img, selector) {
+      const html = `<img class="track-imgs" src=${img}>`;document.querySelector(domElements.selector).insertAdjacentHTML('beforeend', html);
+      
     },
 
     storeToken(value) {
@@ -213,6 +244,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     genreObj.forEach((element) => uiCtrl.assignGenre(element, element));
   };
 
+<<<<<<< HEAD
   const mainPicPopulate = async () => {
     //fetch token
     const token = await apiCtrl.getToken();
@@ -225,14 +257,21 @@ const appController = (function (apiCtrl, uiCtrl) {
   };
 
   const playlistPopulate = async () => {
+=======
+  const musicPopulate = async () => {
+>>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
     //fetch token
     const token = await apiCtrl.getToken();
     //store token
     uiCtrl.storeToken(token);
     //fetch playlist info for each playlist
     const data = await apiCtrl.getPlaylist(token);
+    //place image on center div
+    uiCtrl.assignPlaylistArt(data.items[3].images[0].url)
+    //populate playlist selection library
     for (i = 0; i < data.items.length; i++) {
       // console.log(data.items[i].id)
+<<<<<<< HEAD
       uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name);
     }
     //fetch tracklist info for each track
@@ -248,8 +287,32 @@ const appController = (function (apiCtrl, uiCtrl) {
       );
     }
   };
+=======
+      uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name)
+    }
+    //fetch tracklist info for each track
+    const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token);
+    // console.log(newData);
+    for (i = 0; i < newData.items.length; i++) {
+      //place html
+      uiCtrl.populateTrackList(newData.items[i].track.external_urls.spotify, i + 1, newData.items[i].track.name, newData.items[i].track.artists[0].name, newData.items[i].track.duration_ms);
+    }
+    //place song info into html
+    const newestData = await apiCtrl.getTracksInfo(newData.items[1].track.id, token);
+    // console.log(newestData)
+    uiCtrl.populateSongInfo(newestData.name, newestData.artists[0].name, newestData.album.name);
+    //create array to store selectors
+      const selectors = ["previousSong","currentSong","nextSong"];
+    for (i = 0; i < selectors.length; i++) {
+      const newerData = await apiCtrl.getTracksInfo(newData.items[i].track.id, token);
+      // console.log(newerData)
+      //place song images
+      uiCtrl.populateSongImage(newerData.album.images[0].url, selectors[i]);
+    }
 
-  playlistPopulate();
-  mainPicPopulate();
+  }
+>>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
+
+  musicPopulate();
   genrePopulate();
 })(apiController, uiController);
