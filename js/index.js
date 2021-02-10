@@ -4,7 +4,7 @@
 const apiController = (function () {
   const clientId = "";
   const clientSecret = "";
-  const userId = "";
+  const userId = "= ";
 
   //get access token
   const getToken = async () => {
@@ -130,7 +130,7 @@ const uiController = (function () {
     nowPlaying: "#now-playing",
     playlistContents: "#metadata-1",
     otherPlaylists: "#metadata-2",
-    genreSelect: "#genre-select",
+    genreSelect: "#genre-select"
   };
 
   return {
@@ -175,9 +175,9 @@ const uiController = (function () {
       document.querySelector(domElements.songDetail).insertAdjacentHTML('beforeend', html);
     },
 
-    populateSongImage(img, arr) {
-      const html = `<img class="track-imgs" src=${img}>`;
-      document.querySelector(domElements.arr).insertAdjacentHTML('beforeend', html);
+    populateSongImage(img, selector) {
+      const html = `<img class="track-imgs" src=${img}>`;document.querySelector(domElements.selector).insertAdjacentHTML('beforeend', html);
+      
     },
 
     storeToken(value) {
@@ -213,7 +213,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     genreObj.forEach(element => uiCtrl.assignGenre(element, element));
   }
 
-  const playlistPopulate = async () => {
+  const musicPopulate = async () => {
     //fetch token
     const token = await apiCtrl.getToken();
     //store token
@@ -236,19 +236,19 @@ const appController = (function (apiCtrl, uiCtrl) {
     }
     //place song info into html
     const newestData = await apiCtrl.getTracksInfo(newData.items[1].track.id, token);
-    console.log(newestData)
+    // console.log(newestData)
     uiCtrl.populateSongInfo(newestData.name, newestData.artists[0].name, newestData.album.name);
     //create array to store selectors
-      const selectors = ["previousSong","currentSong", "nextSong"];
+      const selectors = ["previousSong","currentSong","nextSong"];
     for (i = 0; i < selectors.length; i++) {
       const newerData = await apiCtrl.getTracksInfo(newData.items[i].track.id, token);
-      console.log(newerData)
+      // console.log(newerData)
       //place song images
       uiCtrl.populateSongImage(newerData.album.images[0].url, selectors[i]);
     }
 
   }
 
-  playlistPopulate();
+  musicPopulate();
   genrePopulate();
 })(apiController, uiController);
