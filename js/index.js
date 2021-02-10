@@ -58,7 +58,7 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-   
+  //  console.log(data)
     return data
   };
 
@@ -81,7 +81,7 @@ const apiController = (function () {
   };
 
   //function used to fetch individual track info from playlists
-  const getTracks = async (trackID, token) => {
+  const getTracksInfo = async (trackID, token) => {
     const result = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
       method: "GET",
       headers: {
@@ -91,7 +91,7 @@ const apiController = (function () {
       },
     });
     const data = await result.json();
-  
+    // console.log(data);
     return data;
   };
 
@@ -108,8 +108,8 @@ const apiController = (function () {
     getPlaylistTrackList(playlistID, token) {
       return getPlaylistTrackList(playlistID, token);
     },
-    getTracks(trackID, token) {
-      return getTracks(trackID, token);
+    getTracksInfo(trackID, token) {
+      return getTracksInfo(trackID, token);
     }
   }
 })();
@@ -168,6 +168,11 @@ const uiController = (function () {
     populateTrackList(link, number, name, artist, length) {
       const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor((length / 1000)/60)}:${Math.floor((length / 1000)%60).toFixed(0)}</div></div>`
       document.querySelector(domElements.playlistContents).insertAdjacentHTML('beforeend', html);
+    },
+
+    populateSongInfo(name, artist, album) {
+      const html = `<div class="song-info">Now Playing:<br>${name} by ${artist} <br> from Album:${album}</div>`;
+      document.querySelector(domElements.songDetail).insertAdjacentHTML('beforeend', html);
     },
 
     storeToken(value) {
@@ -231,6 +236,9 @@ const appController = (function (apiCtrl, uiCtrl) {
     for(i = 0; i < newData.items.length; i++) {
       uiCtrl.populateTrackList(newData.items[i].track.external_urls.spotify, i + 1, newData.items[i].track.name, newData.items[i].track.artists[0].name, newData.items[i].track.duration_ms);
     }
+    const newerData = await apiCtrl.getTracksInfo(newData.items[0].track.id,token);
+    console.log(newerData)
+    uiCtrl.populateSongInfo(newerData.name,newerData.artists[0].name,newerData.album.name);
   }
 
   playlistPopulate();

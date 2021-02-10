@@ -126,9 +126,17 @@ footer {
 }
 
 .track-description {
-  height: 90px;
+  height: 100%;
   border-radius: 2.5%;
   color: white;
+  text-align: center;
+}
+
+.song-info {
+  height: inherit;
+  margin: 0;
+  padding: 40px;
+  font-size: 1.5em;
 }
 
 .main-playlist {
