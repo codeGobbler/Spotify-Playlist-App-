@@ -4,7 +4,7 @@
 const apiController = (function () {
   const clientId = "";
   const clientSecret = "";
-  const userId = "= ";
+  const userId = "";
 
   //get access token
   const getToken = async () => {
@@ -58,13 +58,8 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-<<<<<<< HEAD
 
     return data;
-=======
-    //  console.log(data)
-    return data
->>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
   };
 
   //function used to fetch playlist track list
@@ -96,11 +91,6 @@ const apiController = (function () {
       },
     });
     const data = await result.json();
-<<<<<<< HEAD
-
-=======
-    // console.log(data);
->>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
     return data;
   };
 
@@ -117,17 +107,10 @@ const apiController = (function () {
     getPlaylistTrackList(playlistID, token) {
       return getPlaylistTrackList(playlistID, token);
     },
-<<<<<<< HEAD
-    getTracks(trackID, token) {
-      return getTracks(trackID, token);
-    },
-  };
-=======
     getTracksInfo(trackID, token) {
       return getTracksInfo(trackID, token);
     }
   }
->>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
 })();
 
 //-----------------------------------//
@@ -140,8 +123,6 @@ const uiController = (function () {
     hToken: "#hidden-token",
     songDetail: "#song-description",
     currentSong: "#current",
-    previousSong: "#prev",
-    nextSong: "#next",
     playlistArt: "#playlist-art",
     nowPlaying: "#now-playing",
     playlistContents: "#metadata-1",
@@ -155,8 +136,6 @@ const uiController = (function () {
       return {
         songDetail: document.querySelector(domElements.songDetail),
         currentSong: document.querySelector(domElements.currentSong),
-        previousSong: document.querySelector(domElements.previousSong),
-        nextSong: document.querySelector(domElements.nextSong),
         playlistArt: document.querySelector(domElements.playlistArt),
         nowPlaying: document.querySelector(domElements.nowPlaying),
         playlistSongs: document.querySelector(domElements.playlistContents),
@@ -188,17 +167,8 @@ const uiController = (function () {
     },
 
     populateTrackList(link, number, name, artist, length) {
-<<<<<<< HEAD
-      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor(
-        length / 1000 / 60
-      )}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`;
-      document
-        .querySelector(domElements.playlistContents)
-        .insertAdjacentHTML("beforeend", html);
-=======
       const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor((length / 1000) / 60)}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`
       document.querySelector(domElements.playlistContents).insertAdjacentHTML('beforeend', html);
->>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
     },
 
     populateSongInfo(name, artist, album) {
@@ -206,8 +176,9 @@ const uiController = (function () {
       document.querySelector(domElements.songDetail).insertAdjacentHTML('beforeend', html);
     },
 
-    populateSongImage(img, selector) {
-      const html = `<img class="track-imgs" src=${img}>`;document.querySelector(domElements.selector).insertAdjacentHTML('beforeend', html);
+    populateSongImage(img) {
+      const html = `<img class="track-imgs" src=${img}>`;
+      document.querySelector(domElements.currentSong).insertAdjacentHTML('beforeend', html);
       
     },
 
@@ -244,22 +215,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     genreObj.forEach((element) => uiCtrl.assignGenre(element, element));
   };
 
-<<<<<<< HEAD
-  const mainPicPopulate = async () => {
-    //fetch token
-    const token = await apiCtrl.getToken();
-    //store token
-    uiCtrl.storeToken(token);
-    //fetch playlist image
-    const data = await apiCtrl.getPlaylist(token);
-    // console.log(data)
-    uiCtrl.assignPlaylistArt(data.items[3].images[0].url);
-  };
-
-  const playlistPopulate = async () => {
-=======
   const musicPopulate = async () => {
->>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
     //fetch token
     const token = await apiCtrl.getToken();
     //store token
@@ -271,23 +227,6 @@ const appController = (function (apiCtrl, uiCtrl) {
     //populate playlist selection library
     for (i = 0; i < data.items.length; i++) {
       // console.log(data.items[i].id)
-<<<<<<< HEAD
-      uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name);
-    }
-    //fetch tracklist info for each track
-    const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token);
-    console.log(newData);
-    for (i = 0; i < newData.items.length; i++) {
-      uiCtrl.populateTrackList(
-        newData.items[i].track.external_urls.spotify,
-        i + 1,
-        newData.items[i].track.name,
-        newData.items[i].track.artists[0].name,
-        newData.items[i].track.duration_ms
-      );
-    }
-  };
-=======
       uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name)
     }
     //fetch tracklist info for each track
@@ -297,21 +236,16 @@ const appController = (function (apiCtrl, uiCtrl) {
       //place html
       uiCtrl.populateTrackList(newData.items[i].track.external_urls.spotify, i + 1, newData.items[i].track.name, newData.items[i].track.artists[0].name, newData.items[i].track.duration_ms);
     }
-    //place song info into html
+    //fetch current song image
     const newestData = await apiCtrl.getTracksInfo(newData.items[1].track.id, token);
     // console.log(newestData)
     uiCtrl.populateSongInfo(newestData.name, newestData.artists[0].name, newestData.album.name);
-    //create array to store selectors
-      const selectors = ["previousSong","currentSong","nextSong"];
-    for (i = 0; i < selectors.length; i++) {
-      const newerData = await apiCtrl.getTracksInfo(newData.items[i].track.id, token);
-      // console.log(newerData)
-      //place song images
-      uiCtrl.populateSongImage(newerData.album.images[0].url, selectors[i]);
-    }
+    const newerData = await apiCtrl.getTracksInfo(newData.items[0].track.id, token);
+    // console.log(newerData)
+    //place song images
+    uiCtrl.populateSongImage(newerData.album.images[0].url);
 
   }
->>>>>>> 1e0c2256ea76a5be1a0f3cabf4b4b8433dbc61d5
 
   musicPopulate();
   genrePopulate();

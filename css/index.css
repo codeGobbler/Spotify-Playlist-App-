@@ -103,8 +103,7 @@ footer {
 }
 
 .playlist-items:hover,
-.toggle-btn:hover,
-.tracks:hover {
+.toggle-btn:hover {
   cursor: pointer;
   border: .5px #87282d double;
 }
@@ -114,18 +113,27 @@ footer {
   grid-template-rows: 2fr 1fr;
 }
 
+.side-box {
+  background-color: black;
+}
+
 .tracks {
   border: 0.5px solid black;
 }
 
 .track-art {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: .5fr 3fr .5fr;
   margin-top: 10px;
   height: 60vh;
+  border: 1px double #87282d;
   border-radius: 2.5%;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
   box-shadow: rgb(102, 58, 58) -1px 2px 13px;
+}
+
+.current-track {
+  overflow: hidden;
 }
 
 .track-imgs {
