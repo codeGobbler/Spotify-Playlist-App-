@@ -99,6 +99,26 @@ const apiController = (function () {
   };
 
   //-----------------------------------//
+  //--------API Function Module--------//
+  //-----------------------------------//
+
+  //fetch play/pause
+  const playFunction = async (token, uri) => {
+    const result = await fetch(`https://api.spotify.com/v1/me/player/play`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: `{"context_uri":"spotify:track:${uri}","offset":{"position":5},"position_ms":0}`,
+    });
+    const data = await result.json();
+    console.log("playing", data);
+    return data;
+  };
+
+  //-----------------------------------//
   //-------------Returns---------------//
   //-----------------------------------//
 
@@ -117,57 +137,12 @@ const apiController = (function () {
     },
     getTracksInfo(trackID, token) {
       return getTracksInfo(trackID, token);
-    }
+    },
+    playFunction(token, uri) {
+      return playFunction(token, uri);
+    },
   };
 })();
-
-//-----------------------------------//
-//------SDK Playback Module----------//
-//-----------------------------------//
-
-//initialize local connect device on browser
-window.onSpotifyWebPlaybackSDKReady = () => {
-  const token =
-    "BQDjkKLn3lqSL2XBNdXWulwpdg3psa7yvXMMEwHXzMsjCWBDCVxPXWGKNZ9oH3no5U0o_h6PJ96biAvhx6VXVpj9t-gGT25uHcou4dTzGA7zL72l-sKqdposFHAEuTUJN05jgU25qa9burFOr374xXIVhut4BUlEbg0T";
-  const player = new Spotify.Player({
-    name: "Web Playback SDK Quick Start Player",
-    getOAuthToken: (cb) => {
-      cb(token);
-    },
-  });
-
-  // Error handling
-  player.addListener("initialization_error", ({ message }) => {
-    console.error(message);
-  });
-  player.addListener("authentication_error", ({ message }) => {
-    console.error(message);
-  });
-  player.addListener("account_error", ({ message }) => {
-    console.error(message);
-  });
-  player.addListener("playback_error", ({ message }) => {
-    console.error(message);
-  });
-
-  // Playback status updates
-  player.addListener("player_state_changed", (state) => {
-    console.log(state);
-  });
-
-  // Ready
-  player.addListener("ready", ({ device_id }) => {
-    console.log("Ready with Device ID", device_id);
-  });
-
-  // Not Ready
-  player.addListener("not_ready", ({ device_id }) => {
-    console.log("Device ID has gone offline", device_id);
-  });
-
-  // Connect to the player!
-  player.connect();
-};
 
 //-----------------------------------//
 //-------UI Selector Module----------//
@@ -178,7 +153,9 @@ const uiController = (function () {
   const domElements = {
     hToken: "#hidden-token",
     songDetail: "#song-description",
+    previousSong: "#prev",
     currentSong: "#current",
+    nextSong: "#next",
     playlistArt: "#playlist-art",
     nowPlaying: "#now-playing",
     playlistContents: "#metadata-1",
@@ -191,7 +168,9 @@ const uiController = (function () {
     outputField() {
       return {
         songDetail: document.querySelector(domElements.songDetail),
+        previousSong: document.querySelector(domElements.previousSong),
         currentSong: document.querySelector(domElements.currentSong),
+        nextSong: document.querySelector(domElements.nextSong),
         playlistArt: document.querySelector(domElements.playlistArt),
         nowPlaying: document.querySelector(domElements.nowPlaying),
         playlistSongs: document.querySelector(domElements.playlistContents),
@@ -223,7 +202,7 @@ const uiController = (function () {
     },
 
     populateTrackList(link, number, name, artist, length) {
-      const html = `<div class="track-items"><a href=${link}>${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor(
+      const html = `<div class="track-items"><a href=${link} target="none">${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor(
         length / 1000 / 60
       )}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`;
       document
@@ -306,23 +285,23 @@ const appController = (function (apiCtrl, uiCtrl) {
       );
     }
     //fetch current song image
-    const newestData = await apiCtrl.getTracksInfo(
-      newData.items[0].track.id,
-      token
-    );
-    // console.log(newestData)
-    uiCtrl.populateSongInfo(
-      newestData.name,
-      newestData.artists[0].name,
-      newestData.album.name
-    );
     const newerData = await apiCtrl.getTracksInfo(
       newData.items[0].track.id,
       token
     );
     // console.log(newerData)
+    uiCtrl.populateSongInfo(
+      newerData.name,
+      newerData.artists[0].name,
+      newerData.album.name
+    );
+    const newestData = await apiCtrl.getTracksInfo(
+      newData.items[0].track.id,
+      token
+    );
+    // console.log(newestData)
     //place song images
-    uiCtrl.populateSongImage(newerData.album.images[0].url);
+    uiCtrl.populateSongImage(newestData.album.images[0].url);
   };
 
   musicPopulate();

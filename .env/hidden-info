@@ -33,3 +33,53 @@ userId = "12172782523"
   playFunction(token) {
       return playFunction(token);
     }
+
+    //-----------------------------------//
+//-----SDK/API Playback Module-------//
+//-----------------------------------//
+
+//initialize local connect device on browser
+window.onSpotifyWebPlaybackSDKReady = () => {
+  const token =
+    "BQARGidQTtiT-GTY0DQHnA0GFZvUwJ5AX04paLm3kcl02cSp5g7wFvWq09il69jTX_lGvZbhLNXboVp_rL1MnH8GNzF3bC5ELRYdlXcxq48udg9P_-A_ADYcdaZptiwu3IZ2RIJqDnsn_9mSOqEEaMs9ZjMrHDkapLbH";
+  const player = new Spotify.Player({
+    name: 'GVO Player',
+    getOAuthToken: cb => {
+      cb(token);
+    },
+    volume: 0.5,
+    });
+
+  // Error handling
+  player.addListener("initialization_error", ({ message }) => {
+    console.error(message);
+  });
+  player.addListener("authentication_error", ({ message }) => {
+    console.error(message);
+  });
+  player.addListener("account_error", ({ message }) => {
+    console.error(message);
+  });
+  player.addListener("playback_error", ({ message }) => {
+    console.error(message);
+  });
+
+  // Playback status updates
+  player.addListener("player_state_changed", (state) => {
+    console.log(state);
+  });
+
+  // Ready
+  player.addListener("ready", ({ device_id }) => {
+    console.log("Ready with Device ID", device_id);
+  });
+
+  // Not Ready
+  player.addListener("not_ready", ({ device_id }) => {
+    console.log("Device ID has gone offline", device_id);
+  });
+
+  // Connect to the player!
+  player.connect();
+
+};
