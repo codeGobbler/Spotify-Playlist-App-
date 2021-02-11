@@ -245,11 +245,15 @@ const appController = (function (apiCtrl, uiCtrl) {
   const domOutput = uiCtrl.outputField();
   // console.log(domOutput);
 
-  const genrePopulate = async () => {
+  const asyncOps = async () => {
     //fetch token
-    const token = await apiCtrl.getToken();
-    //store token in hidden html element
-    uiCtrl.storeToken(token);
+  let token = await apiCtrl.getToken();
+  //store token in hidden html element
+  uiCtrl.storeToken(token);
+
+  // console.log(storedToken)
+  const genrePopulate = async () => {
+    let token = uiCtrl.getStoredToken().token;
     //fetch genres
     const genreObj = await apiCtrl.getGenres(token);
     // console.log(genreObj);
@@ -259,9 +263,7 @@ const appController = (function (apiCtrl, uiCtrl) {
 
   const musicPopulate = async () => {
     //fetch token
-    const token = await apiCtrl.getToken();
-    //store token
-    uiCtrl.storeToken(token);
+    let token = uiCtrl.getStoredToken().token;
     //fetch playlist info for each playlist
     const data = await apiCtrl.getPlaylist(token);
     //place image on center div
@@ -306,4 +308,7 @@ const appController = (function (apiCtrl, uiCtrl) {
 
   musicPopulate();
   genrePopulate();
+  }
+  
+  asyncOps();
 })(apiController, uiController);
