@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "4986258db999480dbcb94669e69535ad";
-  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
-  const userId = "12172782523";
+  const clientId = "";
+  const clientSecret = "";
+  const userId = "";
 
   //get access token
   const getToken = async () => {
@@ -23,6 +23,10 @@ const apiController = (function () {
     return data.access_token;
   };
 
+  //-----------------------------------//
+  //--------API Display Module---------//
+  //-----------------------------------//
+
   //fetch genres from spotify for later sorting
   const getGenres = async (token) => {
     const result = await fetch(
@@ -39,23 +43,6 @@ const apiController = (function () {
     const data = await result.json();
     // console.log(data);
     return data.genres;
-  };
-
-  //fetch play/pause
-  const playFunction = async (token) => {
-    const result = await fetch(`https://api.spotify.com/v1/me/player/play`, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body:
-        '{"context_uri":"spotify:album:5ht7ItJgpBH7W6vJ5BqpPr","offset":{"position":5},"position_ms":0}',
-    });
-    const data = await result.json();
-    console.log(data);
-    return data;
   };
 
   //fetch user playlist information from api
@@ -111,15 +98,16 @@ const apiController = (function () {
     return data;
   };
 
+  //-----------------------------------//
+  //-------------Returns---------------//
+  //-----------------------------------//
+
   return {
     getToken() {
       return getToken();
     },
     getGenres(token) {
       return getGenres(token);
-    },
-    playFunction(token) {
-      return playFunction(token);
     },
     getPlaylist(token) {
       return getPlaylist(token);
@@ -129,7 +117,7 @@ const apiController = (function () {
     },
     getTracksInfo(trackID, token) {
       return getTracksInfo(trackID, token);
-    },
+    }
   };
 })();
 
@@ -137,8 +125,10 @@ const apiController = (function () {
 //------SDK Playback Module----------//
 //-----------------------------------//
 
+//initialize local connect device on browser
 window.onSpotifyWebPlaybackSDKReady = () => {
-  const token = "BQDjkKLn3lqSL2XBNdXWulwpdg3psa7yvXMMEwHXzMsjCWBDCVxPXWGKNZ9oH3no5U0o_h6PJ96biAvhx6VXVpj9t-gGT25uHcou4dTzGA7zL72l-sKqdposFHAEuTUJN05jgU25qa9burFOr374xXIVhut4BUlEbg0T";
+  const token =
+    "BQDjkKLn3lqSL2XBNdXWulwpdg3psa7yvXMMEwHXzMsjCWBDCVxPXWGKNZ9oH3no5U0o_h6PJ96biAvhx6VXVpj9t-gGT25uHcou4dTzGA7zL72l-sKqdposFHAEuTUJN05jgU25qa9burFOr374xXIVhut4BUlEbg0T";
   const player = new Spotify.Player({
     name: "Web Playback SDK Quick Start Player",
     getOAuthToken: (cb) => {

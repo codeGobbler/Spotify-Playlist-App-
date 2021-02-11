@@ -9,39 +9,27 @@ clientId = "4986258db999480dbcb94669e69535ad"
 clientSecret = "50a5f956f0f84b278d3d90745c3308b5"
 userId = "12172782523"
 
- // const newData = [];
-    // for (i = 0; i < data.items.length; i++) {
-    //   newData.push(data.items[i].id)
-    // }
-    // console.log(data);
-    
-// console.log(data);
+  //-----------------------------------//
+  //--------API Function Module--------//
+  //-----------------------------------//
 
-    //get playlist id's for playlist items and place them into an array
-    // const newData = [];
-    // for (i = 0; i < data.items.length; i++) {
-    //   let ids = getPlaylistTrackList(data.items[i].id, token);
-    //   console.log(data.items[i].id);
-    //   newData.push(ids);
-    // }
-    // console.log(newData);
+  //fetch play/pause
+  const playFunction = async (token) => {
+    const result = await fetch(`https://api.spotify.com/v1/me/player/play`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body:
+        '{"context_uri":"spotify:album:5ht7ItJgpBH7W6vJ5BqpPr","offset":{"position":5},"position_ms":0}',
+    });
+    const data = await result.json();
+    console.log("playing", data);
+    return data;
+  };
 
-  // console.log(data);
-    // const newData = [];
-    // //use a loop to get track information for individual playlists
-    // for (i = 0; i < data.items.length; i++) {
-    //   let ids = getTracks(data.items[i].track.id, token);
-    //   // console.log(data.items[i].track.id);
-    //   newData.push(ids);
-    // }
-    // console.log(newData);
-
-    //create array to store selectors
-    const selectors = ["previousSong", "currentSong", "nextSong"];
-    //fetch individual song info
-    for (i = 0; i < 3; i++) {
-      const newerData = await apiCtrl.getTracksInfo(newData.items[i].track.id, token);
-      console.log(newerData)
-      //place song image
-      uiCtrl.populateSongImage(newerData.album.images[1].url, selectors[i]);
+  playFunction(token) {
+      return playFunction(token);
     }
