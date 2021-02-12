@@ -176,6 +176,19 @@ footer {
   width: 100%;
   border-radius: 2.5%;
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
+  text-align: center;
+  padding: .5%;
+}
+
+.title-div {
+  padding: 4%;
+  margin-top: 2.5%;
+}
+
+.playlist-title {
+  color: white;
+  height: 100%;
+  width: 100%;
 }
 
 .playlist-pic {

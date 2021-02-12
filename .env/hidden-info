@@ -109,3 +109,9 @@ switch (description.split(" ").includes(`${genreId}`)) {
                 console.log('litty vibes');
                 break;
          }
+
+         else {
+            alert("No playlists available matching that genre");
+            asyncOps();
+            break
+          }

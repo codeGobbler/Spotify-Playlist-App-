@@ -155,6 +155,7 @@ const uiController = (function () {
     previousSong: "#prev",
     currentSong: "#current",
     nextSong: "#next",
+    title: "#playlist-title",
     playlistArt: "#playlist-art",
     nowPlaying: "#now-playing",
     playlistContents: "#metadata-1",
@@ -171,6 +172,7 @@ const uiController = (function () {
         previousSong: document.querySelector(domElements.previousSong),
         currentSong: document.querySelector(domElements.currentSong),
         nextSong: document.querySelector(domElements.nextSong),
+        title: document.querySelector(domElements.title),
         playlistArt: document.querySelector(domElements.playlistArt),
         nowPlaying: document.querySelector(domElements.nowPlaying),
         playlistSongs: document.querySelector(domElements.playlistContents),
@@ -184,6 +186,13 @@ const uiController = (function () {
       const html = `<option id="genre-item" value="${value}">${text}</option>`;
       document
         .querySelector(domElements.genreSelect)
+        .insertAdjacentHTML("beforeend", html);
+    },
+
+    assignTitle(text) {
+      const html = `<div class="playlist-title">${text}</div>`;
+      document
+        .querySelector(domElements.title)
         .insertAdjacentHTML("beforeend", html);
     },
 
@@ -225,8 +234,13 @@ const uiController = (function () {
         .insertAdjacentHTML("beforeend", html);
     },
 
+    resetTitle() {
+      this.outputField().title.innerHTML = "";
+    },
+
     resetPlaylistPic() {
       this.outputField().playlistArt.innerHTML = "";
+      this.resetTitle();
     },
 
     resetTrackArt() {
@@ -293,6 +307,10 @@ const appController = (function (apiCtrl, uiCtrl) {
       let token = uiCtrl.getStoredToken().token;
       //fetch playlist info for each playlist
       const data = await apiCtrl.getPlaylist(token);
+      //populate title
+      const title = data.items[3].name;
+      // console.log(title);
+      uiCtrl.assignTitle(title);
       //place image on center div
       uiCtrl.assignPlaylistArt(data.items[3].images[0].url);
       //populate playlist selection library
@@ -352,6 +370,10 @@ const appController = (function (apiCtrl, uiCtrl) {
           // console.log(description.split(" "));
           if (description.split(" ").includes(genreId)) {
             console.log(`${description}${i} contains ${genreId}!`);
+            //populate title
+            const title = playlist.items[i].name;
+            // console.log(title);
+            uiCtrl.assignTitle(title);
             //assign current playlist image to center div
             uiCtrl.assignPlaylistArt(playlist.items[i].images[0].url);
             //assign current playlist(s)
@@ -375,14 +397,17 @@ const appController = (function (apiCtrl, uiCtrl) {
                 newData.items[i].track.duration_ms
               );
               //fetch current song image
-              const newerData = await apiCtrl.getTracksInfo(newData.items[i].track.id,token);
+              const newerData = await apiCtrl.getTracksInfo(
+                newData.items[i].track.id,
+                token
+              );
               // console.log(newerData)
               uiCtrl.populateSongInfo(
                 newerData.name,
                 newerData.artists[0].name,
                 newerData.album.name
-              )
-              ;uiCtrl.populateSongImage(newerData.album.images[0].url);
+              );
+              uiCtrl.populateSongImage(newerData.album.images[0].url);
             }
           }
         }
