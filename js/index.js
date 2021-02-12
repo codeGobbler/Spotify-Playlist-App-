@@ -225,17 +225,27 @@ const uiController = (function () {
         .insertAdjacentHTML("beforeend", html);
     },
 
+    resetPlaylistPic() {
+      this.outputField().playlistArt.innerHTML = "";
+    },
+
+    resetTrackArt() {
+      this.outputField().currentSong.innerHTML = "";
+      this.resetPlaylistPic();
+    },
+
     resetTrackDetail() {
       this.outputField().songDetail.innerHTML = "";
+      this.resetTrackArt();
     },
 
     resetTracks() {
-      this.outputField().playlistContents.innerHTML = "";
+      this.outputField().playlistSongs.innerHTML = "";
       this.resetTrackDetail();
     },
 
     resetPlaylists() {
-      this.outputField().otherPlaylists.innerHTML = "";
+      this.outputField().playlistLibrary.innerHTML = "";
       this.resetTracks();
     },
 
@@ -333,14 +343,15 @@ const appController = (function (apiCtrl, uiCtrl) {
       //retrieve token
       let token = uiCtrl.getStoredToken().token;
       const genreSelect = domOutput.genreSelect;
-      const genreId = genreSelect.options[genreSelect.selectedIndex].value;
-      genreId.addEventListener("click", async () => {
+      genreSelect.addEventListener("change", async () => {
+        uiCtrl.resetPlaylists();
+        const genreId = genreSelect.options[genreSelect.selectedIndex].value;
         const playlist = await apiCtrl.getPlaylist(token);
         for (i = 0; i < playlist.items.length; i++) {
           const description = playlist.items[i].description;
           // console.log(description.split(" "));
           if (description.split(" ").includes(genreId)) {
-            console.log("here's a playlist that fits!");
+            console.log(`${description}${i} contains ${genreId}!`);
           }
         }
       });
