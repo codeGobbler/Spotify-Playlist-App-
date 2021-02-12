@@ -409,7 +409,7 @@ const appController = (function (apiCtrl, uiCtrl) {
               );
               uiCtrl.populateSongImage(newerData.album.images[0].url);
             }
-          }
+          } 
         }
       });
     };

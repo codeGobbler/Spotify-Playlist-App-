@@ -111,7 +111,10 @@ switch (description.split(" ").includes(`${genreId}`)) {
          }
 
          else {
-            alert("No playlists available matching that genre");
+            uiCtrl.resetPlaylists();
+            i = playlist.items.length;
+            
+            alert(`No playlists for that genre [error${i}`);
             asyncOps();
             break
           }
