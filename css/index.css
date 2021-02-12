@@ -146,7 +146,7 @@ footer {
 }
 
 .track-description {
-  height: 85%;
+  height: 100%;
   border-radius: 2.5%;
   color: white;
   text-align: center;
@@ -154,7 +154,7 @@ footer {
 
 .song-info {
   height: inherit;
-  padding: 4%;
+  padding-top: 6%;
   font-size: 1.5em;
   line-height: 1.3em;
 }
@@ -172,7 +172,7 @@ footer {
 
 .main-playlist-items {
   grid-gap: 3%;
-  height: 20%;
+  height: 100%;
   width: 100%;
   border-radius: 2.5%;
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
@@ -192,6 +192,10 @@ footer {
 }
 
 .playlist-art-img {
+  height: 100%;
+}
+
+.playback-console {
   height: 100%;
 }
 
