@@ -61,24 +61,9 @@ const apiController = (function () {
       }
     );
     const data = await result.json();
-
+    // console.log(data);
     return data;
   };
-
-  //fetch user playlist information from api
-  const getPlaylistByGenre = async (token, genreId) => {
-
-    const limit = 20;
-    
-    const result = await fetch(`https://api.spotify.com/v1/users/${userId}/browse/categories/${genreId}/playlists?limit=${limit}`, {
-        method: 'GET',
-        headers: { 'Authorization' : 'Bearer ' + token}
-    });
-
-    const data = await result.json();
-    console.log(data)
-    return data.playlists.items;
-}
 
   //function used to fetch playlist track list
   const getPlaylistTrackList = async (playlistID, token) => {
@@ -146,9 +131,6 @@ const apiController = (function () {
     getPlaylist(token) {
       return getPlaylist(token);
     },
-    getPlaylistByGenre(token, genreId) {
-      return getPlaylistByGenre(token, genreId);
-    },
     getPlaylistTrackList(playlistID, token) {
       return getPlaylistTrackList(playlistID, token);
     },
@@ -166,7 +148,7 @@ const apiController = (function () {
 //-----------------------------------//
 
 const uiController = (function () {
-  //store html selectors in an object for inputField() method
+  //store html selectors in an object for outputField() method
   const domElements = {
     hToken: "#hidden-token",
     songDetail: "#song-description",
@@ -243,6 +225,20 @@ const uiController = (function () {
         .insertAdjacentHTML("beforeend", html);
     },
 
+    resetTrackDetail() {
+      this.outputField().songDetail.innerHTML = "";
+    },
+
+    resetTracks() {
+      this.outputField().playlistContents.innerHTML = "";
+      this.resetTrackDetail();
+    },
+
+    resetPlaylists() {
+      this.outputField().otherPlaylists.innerHTML = "";
+      this.resetTracks();
+    },
+
     storeToken(value) {
       document.querySelector(domElements.hToken).value = value;
     },
@@ -291,7 +287,7 @@ const appController = (function (apiCtrl, uiCtrl) {
       uiCtrl.assignPlaylistArt(data.items[3].images[0].url);
       //populate playlist selection library
       for (i = 0; i < data.items.length; i++) {
-        // console.log(data.items[i].id)
+        // console.log(data.items[i])
         uiCtrl.populatePlaylists(
           data.items[i].images[0].url,
           data.items[i].name
@@ -337,12 +333,16 @@ const appController = (function (apiCtrl, uiCtrl) {
       //retrieve token
       let token = uiCtrl.getStoredToken().token;
       const genreSelect = domOutput.genreSelect;
-      genreSelect.addEventListener("click", async () => {
-        const genreId = genreSelect.options[genreSelect.selectedIndex].value;
-        // get the playlists based on a genre
-        const playlist = await apiCtrl.getPlaylistByGenre(token, genreId);
-        console.log(playlist);
-        // console.log(genreID);
+      const genreId = genreSelect.options[genreSelect.selectedIndex].value;
+      genreId.addEventListener("click", async () => {
+        const playlist = await apiCtrl.getPlaylist(token);
+        for (i = 0; i < playlist.items.length; i++) {
+          const description = playlist.items[i].description;
+          // console.log(description.split(" "));
+          if (description.split(" ").includes(genreId)) {
+            console.log("here's a playlist that fits!");
+          }
+        }
       });
     };
 

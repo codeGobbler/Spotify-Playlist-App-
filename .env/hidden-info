@@ -83,3 +83,29 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   player.connect();
 
 };
+
+switch (description.split(" ").includes(`${genreId}`)) {
+               case "chill":
+               case "rainy-day":
+               case "sleep":
+               case "study":
+                 console.log('chill vibes');
+                break;
+               case "hip-hop":
+                console.log('hip-hop vibes');
+                break;
+               case "sad":
+                console.log('sad vibes');
+                break;
+               case "r-n-b":
+               case "soul":
+               case "romance":
+                console.log('feely vibes');
+                break;
+               case "work-out":
+               case "party":
+               case "pop":
+               case "club":
+                console.log('litty vibes');
+                break;
+         }
