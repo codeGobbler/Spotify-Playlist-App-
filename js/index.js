@@ -178,7 +178,7 @@ const uiController = (function () {
         genreSelect: document.querySelector(domElements.genreSelect),
       };
     },
-
+    //general ui info population methods
     assignGenre(text, value) {
       const html = `<option value="${value}">${text}</option>`;
       document
@@ -187,7 +187,7 @@ const uiController = (function () {
     },
 
     assignPlaylistArt(img) {
-      const image = `<div class="playlist-art" id="playlist-img">
+      const image = `<div class="playlist-art-img" id="playlist-img">
       <img src=${img} class="playlist-pic"></img></div>`;
       document
         .querySelector(domElements.playlistArt)
@@ -253,6 +253,7 @@ const appController = (function (apiCtrl, uiCtrl) {
 
   // console.log(storedToken)
   const genrePopulate = async () => {
+    //retrieve token
     let token = uiCtrl.getStoredToken().token;
     //fetch genres
     const genreObj = await apiCtrl.getGenres(token);
@@ -262,7 +263,7 @@ const appController = (function (apiCtrl, uiCtrl) {
   };
 
   const musicPopulate = async () => {
-    //fetch token
+    //retrieve token
     let token = uiCtrl.getStoredToken().token;
     //fetch playlist info for each playlist
     const data = await apiCtrl.getPlaylist(token);
