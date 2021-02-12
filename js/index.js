@@ -47,7 +47,6 @@ const apiController = (function () {
 
   //fetch user playlist information from api
   const getPlaylist = async (token) => {
-    getGenres(token);
     const limit = 20;
 
     const result = await fetch(
@@ -65,6 +64,21 @@ const apiController = (function () {
 
     return data;
   };
+
+  //fetch user playlist information from api
+  const getPlaylistByGenre = async (token, genreId) => {
+
+    const limit = 20;
+    
+    const result = await fetch(`https://api.spotify.com/v1/users/${userId}/browse/categories/${genreId}/playlists?limit=${limit}`, {
+        method: 'GET',
+        headers: { 'Authorization' : 'Bearer ' + token}
+    });
+
+    const data = await result.json();
+    console.log(data)
+    return data.playlists.items;
+}
 
   //function used to fetch playlist track list
   const getPlaylistTrackList = async (playlistID, token) => {
@@ -132,6 +146,9 @@ const apiController = (function () {
     getPlaylist(token) {
       return getPlaylist(token);
     },
+    getPlaylistByGenre(token, genreId) {
+      return getPlaylistByGenre(token, genreId);
+    },
     getPlaylistTrackList(playlistID, token) {
       return getPlaylistTrackList(playlistID, token);
     },
@@ -161,6 +178,7 @@ const uiController = (function () {
     playlistContents: "#metadata-1",
     otherPlaylists: "#metadata-2",
     genreSelect: "#genre-select",
+    genreValue: "#genre-item",
   };
 
   return {
@@ -176,11 +194,12 @@ const uiController = (function () {
         playlistSongs: document.querySelector(domElements.playlistContents),
         playlistLibrary: document.querySelector(domElements.otherPlaylists),
         genreSelect: document.querySelector(domElements.genreSelect),
+        genreValue: document.querySelector(domElements.genreValue),
       };
     },
     //general ui info population methods
     assignGenre(text, value) {
-      const html = `<option value="${value}">${text}</option>`;
+      const html = `<option id="genre-item" value="${value}">${text}</option>`;
       document
         .querySelector(domElements.genreSelect)
         .insertAdjacentHTML("beforeend", html);
@@ -247,69 +266,90 @@ const appController = (function (apiCtrl, uiCtrl) {
 
   const asyncOps = async () => {
     //fetch token
-  let token = await apiCtrl.getToken();
-  //store token in hidden html element
-  uiCtrl.storeToken(token);
+    let token = await apiCtrl.getToken();
+    //store token in hidden html element
+    uiCtrl.storeToken(token);
 
-  // console.log(storedToken)
-  const genrePopulate = async () => {
-    //retrieve token
-    let token = uiCtrl.getStoredToken().token;
-    //fetch genres
-    const genreObj = await apiCtrl.getGenres(token);
-    // console.log(genreObj);
-    //populate drop-down menu with genres
-    genreObj.forEach((element) => uiCtrl.assignGenre(element, element));
-  };
+    //----Populate HTML Information------//
 
-  const musicPopulate = async () => {
-    //retrieve token
-    let token = uiCtrl.getStoredToken().token;
-    //fetch playlist info for each playlist
-    const data = await apiCtrl.getPlaylist(token);
-    //place image on center div
-    uiCtrl.assignPlaylistArt(data.items[3].images[0].url);
-    //populate playlist selection library
-    for (i = 0; i < data.items.length; i++) {
-      // console.log(data.items[i].id)
-      uiCtrl.populatePlaylists(data.items[i].images[0].url, data.items[i].name);
-    }
-    //fetch tracklist info for each track
-    const newData = await apiCtrl.getPlaylistTrackList(data.items[3].id, token);
-    // console.log(newData);
-    for (i = 0; i < newData.items.length; i++) {
-      //place html
-      uiCtrl.populateTrackList(
-        newData.items[i].track.external_urls.spotify,
-        i + 1,
-        newData.items[i].track.name,
-        newData.items[i].track.artists[0].name,
-        newData.items[i].track.duration_ms
+    const genrePopulate = async () => {
+      //retrieve token
+      let token = uiCtrl.getStoredToken().token;
+      //fetch genres
+      const genreObj = await apiCtrl.getGenres(token);
+      // console.log(genreObj);
+      //populate drop-down menu with genres
+      genreObj.forEach((element) => uiCtrl.assignGenre(element, element));
+    };
+
+    const musicPopulate = async () => {
+      //retrieve token
+      let token = uiCtrl.getStoredToken().token;
+      //fetch playlist info for each playlist
+      const data = await apiCtrl.getPlaylist(token);
+      //place image on center div
+      uiCtrl.assignPlaylistArt(data.items[3].images[0].url);
+      //populate playlist selection library
+      for (i = 0; i < data.items.length; i++) {
+        // console.log(data.items[i].id)
+        uiCtrl.populatePlaylists(
+          data.items[i].images[0].url,
+          data.items[i].name
+        );
+      }
+      //fetch tracklist info for each track
+      const newData = await apiCtrl.getPlaylistTrackList(
+        data.items[3].id,
+        token
       );
-    }
-    //fetch current song image
-    const newerData = await apiCtrl.getTracksInfo(
-      newData.items[0].track.id,
-      token
-    );
-    // console.log(newerData)
-    uiCtrl.populateSongInfo(
-      newerData.name,
-      newerData.artists[0].name,
-      newerData.album.name
-    );
-    const newestData = await apiCtrl.getTracksInfo(
-      newData.items[0].track.id,
-      token
-    );
-    // console.log(newestData)
-    //place song images
-    uiCtrl.populateSongImage(newestData.album.images[0].url);
+      // console.log(newData);
+      for (i = 0; i < newData.items.length; i++) {
+        //place html
+        uiCtrl.populateTrackList(
+          newData.items[i].track.external_urls.spotify,
+          i + 1,
+          newData.items[i].track.name,
+          newData.items[i].track.artists[0].name,
+          newData.items[i].track.duration_ms
+        );
+      }
+      //fetch current song image
+      const newerData = await apiCtrl.getTracksInfo(
+        newData.items[0].track.id,
+        token
+      );
+      // console.log(newerData)
+      uiCtrl.populateSongInfo(
+        newerData.name,
+        newerData.artists[0].name,
+        newerData.album.name
+      );
+      const newestData = await apiCtrl.getTracksInfo(
+        newData.items[0].track.id,
+        token
+      );
+      // console.log(newestData)
+      //place song images
+      uiCtrl.populateSongImage(newestData.album.images[0].url);
+    };
+
+    const genreListener = () => {
+      //retrieve token
+      let token = uiCtrl.getStoredToken().token;
+      const genreSelect = domOutput.genreSelect;
+      genreSelect.addEventListener("click", async () => {
+        const genreId = genreSelect.options[genreSelect.selectedIndex].value;
+        // get the playlists based on a genre
+        const playlist = await apiCtrl.getPlaylistByGenre(token, genreId);
+        console.log(playlist);
+        // console.log(genreID);
+      });
+    };
+
+    musicPopulate();
+    genrePopulate();
+    genreListener();
   };
 
-  musicPopulate();
-  genrePopulate();
-  }
-  
   asyncOps();
 })(apiController, uiController);
