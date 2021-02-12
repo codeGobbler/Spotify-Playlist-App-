@@ -354,10 +354,12 @@ const appController = (function (apiCtrl, uiCtrl) {
             console.log(`${description}${i} contains ${genreId}!`);
             //assign current playlist image to center div
             uiCtrl.assignPlaylistArt(playlist.items[i].images[0].url);
+            //assign current playlist(s)
             uiCtrl.populatePlaylists(
               playlist.items[i].images[0].url,
               playlist.items[i].name
             );
+            //assign current tracklist
             const newData = await apiCtrl.getPlaylistTrackList(
               playlist.items[i].id,
               token
@@ -379,13 +381,8 @@ const appController = (function (apiCtrl, uiCtrl) {
                 newerData.name,
                 newerData.artists[0].name,
                 newerData.album.name
-              );
-              const newestData = await apiCtrl.getTracksInfo(
-                newData.items[i].track.id,token);
-                console.log(newestData)
-              uiCtrl.populateSongImage(newestData.album.images[0].url);
-              // console.log(newestData)
-              //place song images
+              )
+              ;uiCtrl.populateSongImage(newerData.album.images[0].url);
             }
           }
         }
