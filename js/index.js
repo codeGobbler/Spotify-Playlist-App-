@@ -352,6 +352,41 @@ const appController = (function (apiCtrl, uiCtrl) {
           // console.log(description.split(" "));
           if (description.split(" ").includes(genreId)) {
             console.log(`${description}${i} contains ${genreId}!`);
+            //assign current playlist image to center div
+            uiCtrl.assignPlaylistArt(playlist.items[i].images[0].url);
+            uiCtrl.populatePlaylists(
+              playlist.items[i].images[0].url,
+              playlist.items[i].name
+            );
+            const newData = await apiCtrl.getPlaylistTrackList(
+              playlist.items[i].id,
+              token
+            );
+            // console.log(newData);
+            for (i = 0; i < newData.items.length; i++) {
+              //place current tracklist
+              uiCtrl.populateTrackList(
+                newData.items[i].track.external_urls.spotify,
+                i + 1,
+                newData.items[i].track.name,
+                newData.items[i].track.artists[0].name,
+                newData.items[i].track.duration_ms
+              );
+              //fetch current song image
+              const newerData = await apiCtrl.getTracksInfo(newData.items[i].track.id,token);
+              // console.log(newerData)
+              uiCtrl.populateSongInfo(
+                newerData.name,
+                newerData.artists[0].name,
+                newerData.album.name
+              );
+              const newestData = await apiCtrl.getTracksInfo(
+                newData.items[i].track.id,token);
+                console.log(newestData)
+              uiCtrl.populateSongImage(newestData.album.images[0].url);
+              // console.log(newestData)
+              //place song images
+            }
           }
         }
       });
