@@ -366,13 +366,16 @@ const appController = (function (apiCtrl, uiCtrl) {
         const genreId = genreSelect.options[genreSelect.selectedIndex].value;
         const playlist = await apiCtrl.getPlaylist(token);
         for (i = 0; i < playlist.items.length; i++) {
+          console.log(i)
           const description = playlist.items[i].description;
           // console.log(description.split(" "));
           if (description.split(" ").includes(genreId)) {
-            console.log(`${description}${i} contains ${genreId}!`);
+            console.log(`${i} is a match`)
+            console.log(`${description} ${i} contains ${genreId}!`);
             //populate title
             const title = playlist.items[i].name;
             // console.log(title);
+            uiCtrl.resetTracks();
             uiCtrl.assignTitle(title);
             //assign current playlist image to center div
             uiCtrl.assignPlaylistArt(playlist.items[i].images[0].url);
@@ -387,29 +390,31 @@ const appController = (function (apiCtrl, uiCtrl) {
               token
             );
             // console.log(newData);
-            for (i = 0; i < newData.items.length; i++) {
+            for (j = 0; j < newData.items.length; j++) {
               //place current tracklist
               uiCtrl.populateTrackList(
-                newData.items[i].track.external_urls.spotify,
-                i + 1,
-                newData.items[i].track.name,
-                newData.items[i].track.artists[0].name,
-                newData.items[i].track.duration_ms
+                newData.items[j].track.external_urls.spotify,
+                j + 1,
+                newData.items[j].track.name,
+                newData.items[j].track.artists[0].name,
+                newData.items[j].track.duration_ms
               );
               //fetch current song image
               const newerData = await apiCtrl.getTracksInfo(
-                newData.items[i].track.id,
-                token
-              );
+                newData.items[j].track.id,token);
               // console.log(newerData)
               uiCtrl.populateSongInfo(
                 newerData.name,
                 newerData.artists[0].name,
-                newerData.album.name
-              );
+                newerData.album.name);
               uiCtrl.populateSongImage(newerData.album.images[0].url);
             }
+<<<<<<< HEAD
           } 
+=======
+            i++;
+          }
+>>>>>>> 4e6514d1cc3d9de76386d8ccf1f30940dd5a3275
         }
       });
     };
