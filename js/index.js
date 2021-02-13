@@ -490,8 +490,8 @@ const appController = (function (apiCtrl, uiCtrl) {
    const trackPlayListener = () => {
      //retrieve token
      let token = uiCtrl.getStoredToken().token;
-     const songContainer = domOutput.playlistSongs;
-    //  console.log(domOutput);
+     const songContainer = domOutput.play;
+     console.log(songContainer);
 
    }
 

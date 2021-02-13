@@ -103,10 +103,14 @@ footer {
 }
 
 .toggle-btn:hover {
-  border: 1px solid rgb(78, 33, 33);
+  border: .5px #87282d double;
 }
 
-.play-img:hover,
+.play-img:hover {
+  cursor: pointer;
+  border: .5px #474545 double;
+}
+
 .playlist-items:hover,
 .toggle-btn:hover {
   cursor: pointer;
@@ -210,16 +214,19 @@ footer {
 }
 
 .playback-console {
-  height: 100%;
-  padding: 4%;
+  display: flex;
   justify-content: space-between;
 }
 
 .play-img {
-  margin-left: 10%;
-  margin-right: 10%;
-  height: 95%;
+  margin: auto auto;
   width: 10%;
+  background-color: black;
+  border: none;
+}
+
+.play-btn {
+  margin-top: .5em;
 }
 
 .metadata-playlist-container {
