@@ -270,6 +270,7 @@ footer {
   padding: 5px;
   max-width: 100%;
   box-shadow: rgb(102, 58, 58) 0px 1px 1px;
+  /* z-index: 1000; */
 }
 
 .text {
