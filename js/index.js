@@ -454,6 +454,7 @@ const appController = (function (apiCtrl, uiCtrl) {
         const currentPlaylist = await apiCtrl.getPlaylistByID(btnID, token);
         console.log(currentPlaylist);
         uiCtrl.assignPlaylistArt(currentPlaylist.images[0].url);
+        uiCtrl.assignTitle(currentPlaylist.name);
         const trackList = await apiCtrl.getMyPlaylistsTrackList(btnID, token);
         // console.log(trackList);
         for (i = 0; i < trackList.items.length; i++) {
