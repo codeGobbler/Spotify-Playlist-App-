@@ -161,7 +161,6 @@ const uiController = (function () {
     playlistContents: "#metadata-1",
     otherPlaylists: "#metadata-2",
     genreSelect: "#genre-select",
-    genreValue: "#genre-item",
   };
 
   return {
@@ -178,7 +177,6 @@ const uiController = (function () {
         playlistSongs: document.querySelector(domElements.playlistContents),
         playlistLibrary: document.querySelector(domElements.otherPlaylists),
         genreSelect: document.querySelector(domElements.genreSelect),
-        genreValue: document.querySelector(domElements.genreValue),
       };
     },
     //general ui info population methods
@@ -205,7 +203,7 @@ const uiController = (function () {
     },
 
     populatePlaylists(url, text) {
-      const html = `<div class="playlist-items"><img src=${url} alt=${text}><div class="text">${text}</div></div>`;
+      const html = `<button class="playlist-items" onclick=""><img src=${url} alt=${text}><div class="text">${text}</div></button>`;
       document
         .querySelector(domElements.otherPlaylists)
         .insertAdjacentHTML("beforeend", html);
@@ -357,6 +355,10 @@ const appController = (function (apiCtrl, uiCtrl) {
       uiCtrl.populateSongImage(newestData.album.images[0].url);
     };
 
+    //-----------------------------------//
+    //-------App Control Module----------//
+    //-----------------------------------//
+
     const genreListener = () => {
       //retrieve token
       let token = uiCtrl.getStoredToken().token;
@@ -366,11 +368,11 @@ const appController = (function (apiCtrl, uiCtrl) {
         const genreId = genreSelect.options[genreSelect.selectedIndex].value;
         const playlist = await apiCtrl.getPlaylist(token);
         for (i = 0; i < playlist.items.length; i++) {
-          console.log(i)
+          console.log(i);
           const description = playlist.items[i].description;
           // console.log(description.split(" "));
           if (description.split(" ").includes(genreId)) {
-            console.log(`${i} is a match`)
+            console.log(`${i} is a match`);
             console.log(`${description} ${i} contains ${genreId}!`);
             //populate title
             const title = playlist.items[i].name;
@@ -401,23 +403,39 @@ const appController = (function (apiCtrl, uiCtrl) {
               );
               //fetch current song image
               const newerData = await apiCtrl.getTracksInfo(
-                newData.items[j].track.id,token);
+                newData.items[j].track.id,
+                token
+              );
               // console.log(newerData)
               uiCtrl.populateSongInfo(
                 newerData.name,
                 newerData.artists[0].name,
-                newerData.album.name);
+                newerData.album.name
+              );
               uiCtrl.populateSongImage(newerData.album.images[0].url);
             }
             i++;
-          } 
+          }
         }
       });
     };
 
+    const playlistListener = async () => {
+       //retrieve token
+       let token = uiCtrl.getStoredToken().token;
+       console.log(domOutput)
+       const playlistSelect = domOutput.playlistSelect;
+       console.log(playlistSelect)
+      //  playlistSelect.addEventListener("change", (e) => {
+      //    uiCtrl.resetPlaylists();
+      //    console.log(`${e.value}`)
+      //  })
+    }
+
     musicPopulate();
     genrePopulate();
     genreListener();
+    playlistListener();
   };
 
   asyncOps();
