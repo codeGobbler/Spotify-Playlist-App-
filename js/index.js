@@ -409,12 +409,8 @@ const appController = (function (apiCtrl, uiCtrl) {
                 newerData.album.name);
               uiCtrl.populateSongImage(newerData.album.images[0].url);
             }
-<<<<<<< HEAD
-          } 
-=======
             i++;
-          }
->>>>>>> 4e6514d1cc3d9de76386d8ccf1f30940dd5a3275
+          } 
         }
       });
     };
