@@ -267,6 +267,8 @@ footer {
   padding: 5px;
   max-width: 100%;
   box-shadow: rgb(102, 58, 58) 0px 1px 1px;
+  justify-content: center;
+  align-content: center;
 }
 
 .text {
@@ -279,7 +281,8 @@ footer {
 
 @media screen and (max-width: 800px) { 
   body {
-    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .container {
@@ -290,6 +293,7 @@ footer {
 
   .grid-items {
     width: 100vw;
+    height: 1em;
   }
 
   .main-div {
@@ -312,6 +316,10 @@ footer {
   .track-window {
     margin-top: 5%;
   }
+
+/* .track-description {
+  margin-top: 0;
+} */
 
   .metadata-playlist-container {
     height: 1fr;
