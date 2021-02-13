@@ -179,6 +179,9 @@ const uiController = (function () {
     title: "#playlist-title",
     playlistArt: "#playlist-art",
     nowPlaying: "#now-playing",
+    skipBack: "#skipBack",
+    play: "#play",
+    skipForward: "#skipForward",
     playlistContents: "#metadata-1",
     otherPlaylists: "#metadata-2",
     genreSelect: "#genre-select",
@@ -195,6 +198,9 @@ const uiController = (function () {
         title: document.querySelector(domElements.title),
         playlistArt: document.querySelector(domElements.playlistArt),
         nowPlaying: document.querySelector(domElements.nowPlaying),
+        skipBack: document.querySelector(domElements.skipBack),
+        play: document.querySelector(domElements.play),
+        skipForward: document.querySelector(domElements.skipForward),
         playlistSongs: document.querySelector(domElements.playlistContents),
         playlistLibrary: document.querySelector(domElements.otherPlaylists),
         genreSelect: document.querySelector(domElements.genreSelect),
@@ -378,7 +384,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     };
 
     //-----------------------------------//
-    //-------App Control Module----------//
+    //-------App Event Listeners---------//
     //-----------------------------------//
 
     const genreListener = () => {
@@ -390,12 +396,12 @@ const appController = (function (apiCtrl, uiCtrl) {
         const genreId = genreSelect.options[genreSelect.selectedIndex].value;
         const playlist = await apiCtrl.getMyPlaylists(token);
         for (i = 0; i < playlist.items.length; i++) {
-          console.log(i);
+          // console.log(i);
           const description = playlist.items[i].description;
           // console.log(description.split(" "));
           if (description.split(" ").includes(genreId)) {
-            console.log(`${i} is a match`);
-            console.log(`${description} ${i} contains ${genreId}!`);
+            // console.log(`${i} is a match`);
+            // console.log(`${description} ${i} contains ${genreId}!`);
             //populate title
             const title = playlist.items[i].name;
             // console.log(title);
@@ -452,7 +458,7 @@ const appController = (function (apiCtrl, uiCtrl) {
         const btnID = e.target.value;
         // console.log(btnID, "clicked");
         const currentPlaylist = await apiCtrl.getPlaylistByID(btnID, token);
-        console.log(currentPlaylist);
+        // console.log(currentPlaylist);
         uiCtrl.assignPlaylistArt(currentPlaylist.images[0].url);
         uiCtrl.assignTitle(currentPlaylist.name);
         const trackList = await apiCtrl.getMyPlaylistsTrackList(btnID, token);
@@ -470,7 +476,7 @@ const appController = (function (apiCtrl, uiCtrl) {
             trackList.items[i].track.id,
             token
           );
-          console.log(trackInfo);
+          // console.log(trackInfo);
           uiCtrl.populateSongInfo(
             trackInfo.name,
             trackInfo.artists[0].name,
@@ -481,10 +487,19 @@ const appController = (function (apiCtrl, uiCtrl) {
       })
    }
 
+   const trackPlayListener = () => {
+     //retrieve token
+     let token = uiCtrl.getStoredToken().token;
+     const songContainer = domOutput.playlistSongs;
+    //  console.log(domOutput);
+
+   }
+
     musicPopulate();
     genrePopulate();
     genreListener();
     playlistListener();
+    trackPlayListener();
   };
 
   asyncOps();
