@@ -168,51 +168,51 @@ const apiController = (function () {
 //-----SDK/API Playback Module-------//
 //-----------------------------------//
 
-//initialize local connect device on browser
-window.onSpotifyWebPlaybackSDKReady = () => {
-  const token =
-    "BQBMRGSqIxyP71BLn2JgvRMYyyk6fvPewR2kncYL9qpM7PtsU-APT62Ut2scTcDEK3bAL63UiwYMIULRzGz7lOs0hFJa6COCqJcqDSrPeI8a4kzQ7eN6vopn60F8EvHMrbv2FfZv-uDh9bj36bbHdbk6k9pD_aHKweMQ";
-  const player = new Spotify.Player({
-    name: 'GVO Player',
-    getOAuthToken: cb => {
-      cb(token);
-    },
-    volume: 0.5,
-  });
+// //initialize local connect device on browser
+// window.onSpotifyWebPlaybackSDKReady = () => {
+//   const token =
+//     "BQBMRGSqIxyP71BLn2JgvRMYyyk6fvPewR2kncYL9qpM7PtsU-APT62Ut2scTcDEK3bAL63UiwYMIULRzGz7lOs0hFJa6COCqJcqDSrPeI8a4kzQ7eN6vopn60F8EvHMrbv2FfZv-uDh9bj36bbHdbk6k9pD_aHKweMQ";
+//   const player = new Spotify.Player({
+//     name: 'GVO Player',
+//     getOAuthToken: cb => {
+//       cb(token);
+//     },
+//     volume: 0.5,
+//   });
 
-  // Error handling
-  player.addListener("initialization_error", ({ message }) => {
-    console.error(message);
-  });
-  player.addListener("authentication_error", ({ message }) => {
-    console.error(message);
-  });
-  player.addListener("account_error", ({ message }) => {
-    console.error(message);
-  });
-  player.addListener("playback_error", ({ message }) => {
-    console.error(message);
-  });
+//   // Error handling
+//   player.addListener("initialization_error", ({ message }) => {
+//     console.error(message);
+//   });
+//   player.addListener("authentication_error", ({ message }) => {
+//     console.error(message);
+//   });
+//   player.addListener("account_error", ({ message }) => {
+//     console.error(message);
+//   });
+//   player.addListener("playback_error", ({ message }) => {
+//     console.error(message);
+//   });
 
-  // Playback status updates
-  player.addListener("player_state_changed", (state) => {
-    console.log(state);
-  });
+//   // Playback status updates
+//   player.addListener("player_state_changed", (state) => {
+//     console.log(state);
+//   });
 
-  // Ready
-  player.addListener("ready", ({ device_id }) => {
-    console.log("Ready with Device ID", device_id);
-  });
+//   // Ready
+//   player.addListener("ready", ({ device_id }) => {
+//     console.log("Ready with Device ID", device_id);
+//   });
 
-  // Not Ready
-  player.addListener("not_ready", ({ device_id }) => {
-    console.log("Device ID has gone offline", device_id);
-  });
+//   // Not Ready
+//   player.addListener("not_ready", ({ device_id }) => {
+//     console.log("Device ID has gone offline", device_id);
+//   });
 
-  // Connect to the player!
-  player.connect();
+//   // Connect to the player!
+//   player.connect();
 
-};
+// };
 
 //-----------------------------------//
 //-------UI Selector Module----------//
@@ -223,6 +223,7 @@ const uiController = (function () {
   const domElements = {
     hToken: "#hidden-token",
     hlogin: "#login-div",
+    btnLogin: "#login-btn",
     songDetail: "#song-description",
     previousSong: "#prev",
     currentSong: "#current",
@@ -244,6 +245,7 @@ const uiController = (function () {
       return {
         songDetail: document.querySelector(domElements.songDetail),
         hiddenDiv: document.querySelector(domElements.hlogin),
+        btnLogin: document.querySelector(domElements.btnLogin),
         previousSong: document.querySelector(domElements.previousSong),
         currentSong: document.querySelector(domElements.currentSong),
         nextSong: document.querySelector(domElements.nextSong),
@@ -436,6 +438,20 @@ const appController = (function (apiCtrl, uiCtrl) {
     };
 
     //-----------------------------------//
+    //-------User Login Module-----------//
+    //-----------------------------------//
+
+    const loginListener = () => {
+      const loginDiv = domOutput.hiddenDiv;
+      const login = domOutput.btnLogin;
+      // console.log(loginDiv)
+      login.addEventListener('click', async () => {
+        // console.log("login clicked!")
+        loginDiv.style.display = "none";
+      })
+    }
+
+    //-----------------------------------//
     //-------App Event Listeners---------//
     //-----------------------------------//
 
@@ -566,6 +582,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     genreListener();
     playlistListener();
     trackPlayListener();
+    loginListener();
   };
 
   asyncOps();
