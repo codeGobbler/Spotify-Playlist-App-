@@ -52,6 +52,26 @@ footer {
   grid-template-rows: repeat(3, auto);
 }
 
+.nav-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(56, 15, 15);
+  max-height: 400px;
+  width: 453px;
+  padding: 20px;
+  line-height: 1.5;
+  transform: translateY(-200px);
+  transition: transform 1s ease-in-out;
+  z-index: 1000;
+}
+
+.div.show,
+ul.show {
+  transform: translateY(200);
+  transition: .8s;
+}
+
 .nav-item {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
