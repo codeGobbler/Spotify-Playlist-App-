@@ -1,23 +1,39 @@
-body {
-  overflow: hidden;
-  font-family: 'PT Sans', sans-serif;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Bebas Neue", cursive;
+}
+
+body {
+  overflow: hidden;
 }
 
 nav {
   position: sticky;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
+  top: 0;
   height: 2em;
   box-shadow: rgb(102, 58, 58) -1px 2px 13px;
+  z-index: 1000;
 }
 
 span {
   margin-top: 4px;
+}
+
+select {
+  position: sticky;
+  top: 0;
+}
+
+section {
+  overflow-y: auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 footer {
@@ -26,86 +42,94 @@ footer {
   height: 2em;
   bottom: 0;
   box-shadow: rgb(102, 58, 58) 0px 2px 15px;
-  
+  z-index: 1000;
+}
+
+.login-div {
+  display: none;
 }
 
 .container {
-  max-width: 1500px;
-  height: inherit;
   display: grid;
   background-color: black;
   grid-template-columns: auto;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: repeat(3, auto);
+}
+
+.nav-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(56, 15, 15);
+  max-height: 400px;
+  width: 453px;
+  padding: 20px;
+  line-height: 1.5;
+  transform: translateY(-200px);
+  transition: transform 1s ease-in-out;
+  z-index: 1000;
+}
+
+.div.show,
+ul.show {
+  transform: translateY(200);
+  transition: 0.8s;
 }
 
 .nav-item {
   display: grid;
-  grid-template-columns: 33.4% 33.4% 33.4%;
-  height: inherit % 2;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
 }
 
 .nav-box {
   height: inherit;
 }
 
-.toggle-btn {
-  height: inherit;
-}
-
-.toggle-btn span {
-  height: 5px;
-  width: 40px;
-  display: block;
-  background: black;
-  border: 0.05px solid rgb(70, 36, 36);
-  margin-left: 10px;
-}
-
-.spotify-sign-in {
-  height: inherit;
-  width: inherit;
-  margin-right: 5px;
-}
-
-.spotify-btn {
-  text-align: right;
-  text-shadow: 0px 1px 2px ivory;
-  font-family: 'Permanent Marker', cursive;
-  padding-right: 40px;
-  height: 100%;
-  width: 100%;
-  background: inherit;
-  border: none;
+.center-box {
+  margin-top: 10px;
+  text-align: center;
   color: white;
-  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c8de2ede-79ce-413b-93f2-5e70bff18f32/d9451wp-3b89815b-8471-42ee-8371-913848edf42a.png/v1/fill/w_1024,h_881,strp/spotify_splatter_button_by_eternalsonicstar_d9451wp-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD04ODEiLCJwYXRoIjoiXC9mXC9jOGRlMmVkZS03OWNlLTQxM2ItOTNmMi01ZTcwYmZmMThmMzJcL2Q5NDUxd3AtM2I4OTgxNWItODQ3MS00MmVlLTgzNzEtOTEzODQ4ZWRmNDJhLnBuZyIsIndpZHRoIjoiPD0xMDI0In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.fKdrUewhMpQt-I0ej0gohL_2ByAUw0QKFjdnz6fwrAo");
-  background-position: right;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.toggle-btn:hover {
-    border: 1px solid rgb(78, 33, 33);
-    cursor: pointer;
-}
-
-.spotify-btn:hover,
-.playlist-art:hover,
-.tracks:hover {
-  border: 1px solid rgb(78, 33, 33);
-  cursor: pointer;
 }
 
 .main-div {
   display: grid;
   height: 90vh;
-  grid-gap: 0.5%;
-  grid-template-columns: 45% 35% 20%;
+  grid-gap: 0.1%;
+  grid-template-columns: minmax(225px, 1.5fr) minmax(150px, 1fr) minmax(
+      200px,
+      2fr
+    );
   background-color: black;
+  grid-template-rows: repeat(auto-fit, 1fr);
+}
+
+.center-items {
+  margin: 0;
+  width: 100%;
+}
+
+.container {
+  max-width: 1500px;
+  display: grid;
+}
+
+.play-img:hover {
+  cursor: pointer;
+  opacity: 50%;
+}
+
+.playlist-items:hover {
+  cursor: pointer;
+  border: 0.5px #87282d double;
 }
 
 .track-window {
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: 2fr 1fr;
+}
+
+.side-box {
+  background-color: black;
 }
 
 .tracks {
@@ -114,46 +138,111 @@ footer {
 
 .track-art {
   display: grid;
-  grid-template-columns: 25% 50% 25%;
+  grid-template-columns: 0.5fr 3fr 0.5fr;
   margin-top: 10px;
   height: 60vh;
+  border: 1px double #87282d;
   border-radius: 2.5%;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
   box-shadow: rgb(102, 58, 58) -1px 2px 13px;
 }
 
+.current-track {
+  overflow: hidden;
+}
+
+.track-imgs {
+  height: 100%;
+  width: 100%;
+}
+
 .track-description {
-  height: 90px;
+  height: 100%;
   border-radius: 2.5%;
+  color: white;
+  text-align: center;
+}
+
+.song-info {
+  height: inherit;
+  padding-top: 6%;
+  font-size: 1.5em;
+  line-height: 1.3em;
 }
 
 .main-playlist {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
   width: inherit;
 }
 
 .center-items {
-  width: 100%;
+  width: inherit;
+  height: inherit;
 }
 
 .main-playlist-items {
-  display: inline-grid;
   grid-gap: 3%;
-  height: 20%;
+  height: 100%;
   width: 100%;
   border-radius: 2.5%;
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
+  text-align: center;
+  padding: 0.5%;
+}
+
+.title-div {
+  padding: 4%;
+  margin-top: 2.5%;
+}
+
+.playlist-title {
+  color: white;
+  height: 100%;
+  width: 100%;
+  margin-top: 8%;
+}
+
+.playlist-pic {
+  height: 100%;
+  width: 100%;
 }
 
 .playlist-art {
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
-  height: 60%;
+  height: 100%;
+  width: 100%;
   border-radius: 2.5%;
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
 }
 
+.playlist-art-img {
+  height: 100%;
+}
+
+.playback-console {
+  display: flex;
+  justify-content: space-between;
+}
+
+.play-img {
+  margin: auto auto;
+  width: 10%;
+  background-color: black;
+  border: none;
+}
+
+.play-btn {
+  margin-top: 0.5em;
+}
+
+.play {
+  flex: 3 1 50px;
+}
+
 .metadata-playlist-container {
   display: inline-grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: repeat(2, 1fr);
 }
 
 .metadata-items {
@@ -162,56 +251,125 @@ footer {
   margin: 0;
 }
 
-.footer {
-  background-image: url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png");
-  background-size: contain;
-  background-repeat: no-repeat;
+.track-items {
+  display: flex;
+  flex: 1 1 300px;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 15px;
+  border: 1px double rgb(102, 58, 58);
+  box-shadow: rgb(102, 58, 58) -1px 2px 5px;
   color: white;
-  padding: 5px;
-  margin: 0 auto;
 }
 
-.footer-text {
-    width: 100vw;
-    margin-left: 3%;
+.track-items:hover {
+  cursor: pointer;
+  opacity: 65%;
+}
+
+.library {
+  height: 100%;
+}
+
+.drop-down {
+  position: sticky;
+  height: 10%;
+  padding: 10px;
+  background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
+  z-index: 999;
+}
+
+.playlist-library {
+  display: inline-grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1%;
+  width: 100%;
+  height: 100%;
+  padding: 2.5%;
+}
+
+.playlist-items {
+  border: 1px solid #3e0003;
+  position: relative;
+  color: white;
+  background-color: black;
+  max-width: 100%;
+  box-shadow: rgb(102, 58, 58) 0px 1px 1px;
+  justify-content: space-between;
+}
+
+.playlist-items img {
+  z-index: -1;
+}
+
+.text {
+  position: relative;
+  text-align: center;
+  justify-content: space-around;
+  bottom: 1em;
+  font-size: 12px;
 }
 
 @media screen and (max-width: 800px) {
   body {
-    overflow-y: auto;
-    overflow-x: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 1fr;
   }
 
-  .track-window {
-    flex: 3 1 619px;
+  .container {
+    height: 1fr;
   }
 
-  .main-playlist {
-    flex: 2 2 482px;
-  }
-
-  .metadata-playlist-container {
-    flex: 1 3 275px;
-  }
-
-  .footer-text {
-    margin-left: 30%;
-  }
-
-  .nav-item {
-    width: 95%;
+  .grid-items {
+    width: 100vw;
+    height: 1em;
   }
 
   .main-div {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    grid-template-columns: minmax(300px, 1fr);
+    grid-template-rows: repeat(auto, minmax(10px, 1fr));
+    height: 100%;
+    margin: auto auto;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .center-box {
+    margin: 1% 0;
+  }
+
+  .mobile-hide {
+    display: none;
   }
 
   .center-items {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-top: 20px;
+    width: 100%;
+    height: auto;
+    margin: 5px auto;
+    /* padding: 10px; */
+  }
+
+  .track-window {
+    padding: 3%;
+  }
+
+  .title-div {
+    margin: 0 auto;
+    margin-bottom: 10%;
+    font-size: 1.5em;
+    border: 1px double white;
+  }
+
+  .track-art {
+    margin: 0 0;
+  }
+
+  .library {
+    height: 40em;
+  }
+
+  .metadata-playlist-container {
+    height: 43em;
   }
 }
