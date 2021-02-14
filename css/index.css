@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Bebas Neue', cursive;
+  font-family: "Bebas Neue", cursive;
 }
 
 body {
@@ -73,7 +73,7 @@ footer {
 .div.show,
 ul.show {
   transform: translateY(200);
-  transition: .8s;
+  transition: 0.8s;
 }
 
 .nav-item {
@@ -127,7 +127,7 @@ ul.show {
 }
 
 .toggle-btn:hover {
-  border: .5px #87282d double;
+  border: 0.5px #87282d double;
 }
 
 .play-img:hover {
@@ -138,7 +138,7 @@ ul.show {
 .playlist-items:hover,
 .toggle-btn:hover {
   cursor: pointer;
-  border: .5px #87282d double;
+  border: 0.5px #87282d double;
 }
 
 .track-window {
@@ -156,7 +156,7 @@ ul.show {
 
 .track-art {
   display: grid;
-  grid-template-columns: .5fr 3fr .5fr;
+  grid-template-columns: 0.5fr 3fr 0.5fr;
   margin-top: 10px;
   height: 60vh;
   border: 1px double #87282d;
@@ -206,7 +206,7 @@ ul.show {
   border-radius: 2.5%;
   box-shadow: rgb(102, 58, 58) 0px 5px 5px;
   text-align: center;
-  padding: .5%;
+  padding: 0.5%;
 }
 
 .title-div {
@@ -218,6 +218,7 @@ ul.show {
   color: white;
   height: 100%;
   width: 100%;
+  margin-top: 8%;
 }
 
 .playlist-pic {
@@ -250,7 +251,7 @@ ul.show {
 }
 
 .play-btn {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 .metadata-playlist-container {
@@ -285,7 +286,7 @@ ul.show {
 }
 
 .drop-down {
-  position: sticky; 
+  position: sticky;
   height: 10%;
   padding: 10px;
   background-image: repeating-linear-gradient(#620f13, #87282d, #3e0003);
@@ -323,7 +324,7 @@ ul.show {
   font-size: 12px;
 }
 
-@media screen and (max-width: 800px) { 
+@media screen and (max-width: 800px) {
   body {
     overflow-y: scroll;
     height: 1fr;
@@ -341,7 +342,7 @@ ul.show {
 
   .main-div {
     grid-template-columns: minmax(300px, 1fr);
-    grid-template-rows: repeat(auto, minmax(10px, .3fr));
+    grid-template-rows: repeat(auto, minmax(10px, 0.3fr));
     margin: 0 auto;
     height: auto;
     justify-items: center;
@@ -365,11 +366,11 @@ ul.show {
     margin: 0 0;
   }
 
-/* .track-description {
-  margin-top: 0;
-} */
+  .library {
+    height: 40em;
+  }
 
   .metadata-playlist-container {
-    height: 1fr;
+    height: 43em;
   }
 }
