@@ -236,6 +236,10 @@ ul.show {
   margin-top: 0.5em;
 }
 
+.play {
+  flex: 3 1 50px;
+}
+
 .metadata-playlist-container {
   display: inline-grid;
   grid-template-rows: repeat(2, 1fr);
@@ -328,6 +332,7 @@ ul.show {
     height: auto;
     margin: auto auto;
     width: 90%;
+    z-index: -1;
   }
 
   .mobile-hide {
