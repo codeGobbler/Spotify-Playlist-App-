@@ -325,13 +325,12 @@ ul.show {
 
 @media screen and (max-width: 800px) { 
   body {
-    overflow-x: hidden;
     overflow-y: scroll;
+    height: 1fr;
   }
 
   .container {
     margin: 0 auto;
-    grid-template-rows: minmax(50px, 1fr);
     height: 1fr;
   }
 
@@ -342,9 +341,9 @@ ul.show {
 
   .main-div {
     grid-template-columns: minmax(300px, 1fr);
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-rows: repeat(auto, minmax(10px, .3fr));
     margin: 0 auto;
-    height: 100%;
+    height: auto;
     justify-items: center;
   }
 
@@ -354,7 +353,7 @@ ul.show {
 
   .center-items {
     width: 100%;
-    height: inherit;
+    height: 1fr;
     padding: 10px;
   }
 
