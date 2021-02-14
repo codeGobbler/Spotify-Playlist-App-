@@ -85,10 +85,6 @@ ul.show {
   height: inherit;
 }
 
-.toggle-btn {
-  height: inherit;
-}
-
 .center-box {
   margin-top: 10px;
   text-align: center;
@@ -117,26 +113,12 @@ ul.show {
   display: grid;
 }
 
-.toggle-btn span {
-  height: 5px;
-  width: 40px;
-  display: block;
-  background: black;
-  border: 0.05px solid rgb(70, 36, 36);
-  margin-left: 10px;
-}
-
-.toggle-btn:hover {
-  border: 0.5px #87282d double;
-}
-
 .play-img:hover {
   cursor: pointer;
   opacity: 50%;
 }
 
-.playlist-items:hover,
-.toggle-btn:hover {
+.playlist-items:hover {
   cursor: pointer;
   border: 0.5px #87282d double;
 }
@@ -331,7 +313,6 @@ ul.show {
   }
 
   .container {
-    margin: 0 auto;
     height: 1fr;
   }
 
@@ -343,9 +324,9 @@ ul.show {
   .main-div {
     grid-template-columns: minmax(300px, 1fr);
     grid-template-rows: repeat(auto, minmax(10px, 0.3fr));
-    margin: 0 auto;
     height: auto;
-    justify-items: center;
+    margin: auto auto;
+    width: 90%;
   }
 
   .mobile-hide {
@@ -360,6 +341,13 @@ ul.show {
 
   .track-window {
     padding: 3%;
+  }
+
+  .title-div {
+    margin: 0 auto;
+    margin-bottom: 10%;
+    font-size: 1.5em;
+    border: 1px double white;
   }
 
   .track-art {
