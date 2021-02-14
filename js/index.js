@@ -165,6 +165,56 @@ const apiController = (function () {
 })();
 
 //-----------------------------------//
+//-----SDK/API Playback Module-------//
+//-----------------------------------//
+
+//initialize local connect device on browser
+window.onSpotifyWebPlaybackSDKReady = () => {
+  const token =
+    "BQBMRGSqIxyP71BLn2JgvRMYyyk6fvPewR2kncYL9qpM7PtsU-APT62Ut2scTcDEK3bAL63UiwYMIULRzGz7lOs0hFJa6COCqJcqDSrPeI8a4kzQ7eN6vopn60F8EvHMrbv2FfZv-uDh9bj36bbHdbk6k9pD_aHKweMQ";
+  const player = new Spotify.Player({
+    name: 'GVO Player',
+    getOAuthToken: cb => {
+      cb(token);
+    },
+    volume: 0.5,
+  });
+
+  // Error handling
+  player.addListener("initialization_error", ({ message }) => {
+    console.error(message);
+  });
+  player.addListener("authentication_error", ({ message }) => {
+    console.error(message);
+  });
+  player.addListener("account_error", ({ message }) => {
+    console.error(message);
+  });
+  player.addListener("playback_error", ({ message }) => {
+    console.error(message);
+  });
+
+  // Playback status updates
+  player.addListener("player_state_changed", (state) => {
+    console.log(state);
+  });
+
+  // Ready
+  player.addListener("ready", ({ device_id }) => {
+    console.log("Ready with Device ID", device_id);
+  });
+
+  // Not Ready
+  player.addListener("not_ready", ({ device_id }) => {
+    console.log("Device ID has gone offline", device_id);
+  });
+
+  // Connect to the player!
+  player.connect();
+
+};
+
+//-----------------------------------//
 //-------UI Selector Module----------//
 //-----------------------------------//
 
@@ -172,6 +222,7 @@ const uiController = (function () {
   //store html selectors in an object for outputField() method
   const domElements = {
     hToken: "#hidden-token",
+    hlogin: "#login-div",
     songDetail: "#song-description",
     previousSong: "#prev",
     currentSong: "#current",
@@ -192,6 +243,7 @@ const uiController = (function () {
     outputField() {
       return {
         songDetail: document.querySelector(domElements.songDetail),
+        hiddenDiv: document.querySelector(domElements.hlogin),
         previousSong: document.querySelector(domElements.previousSong),
         currentSong: document.querySelector(domElements.currentSong),
         nextSong: document.querySelector(domElements.nextSong),
@@ -485,29 +537,29 @@ const appController = (function (apiCtrl, uiCtrl) {
           uiCtrl.populateSongImage(trackInfo.album.images[0].url);
         }
       })
-   }
+    }
 
-   const trackPlayListener = () => {
-    //retrieve token
-    let token = uiCtrl.getStoredToken().token;
-    const songPlay = domOutput.play;
-    const songSkip = domOutput.skipForward;
-    const songBack = domOutput.skipBack;
-    songPlay.addEventListener("click", async () => {
-      const tracklist = domOutput.playlistSongs.children;
-      const uri = tracklist[0].childNodes[0].defaultValue;
-      console.log(uri);
-      apiCtrl.playFunction(token, uri);
-    })
-    songSkip.addEventListener("click", async () => {
-      // console.log("skip clicked")
-      playFunction(token, uri);
-    })
-    songBack.addEventListener("click", async () => {
-    //  console.log("back clicked")
-     playFunction(token, uri);
-   })
-  }
+    const trackPlayListener = () => {
+      //retrieve token
+      let token = uiCtrl.getStoredToken().token;
+      const songPlay = domOutput.play;
+      const songSkip = domOutput.skipForward;
+      const songBack = domOutput.skipBack;
+      songPlay.addEventListener("click", async () => {
+        const tracklist = domOutput.playlistSongs.children;
+        const uri = tracklist[0].childNodes[0].defaultValue;
+        console.log(uri);
+        apiCtrl.playFunction(token, uri);
+      })
+      songSkip.addEventListener("click", async () => {
+        // console.log("skip clicked")
+        playFunction(token, uri);
+      })
+      songBack.addEventListener("click", async () => {
+        //  console.log("back clicked")
+        playFunction(token, uri);
+      })
+    }
 
     musicPopulate();
     genrePopulate();

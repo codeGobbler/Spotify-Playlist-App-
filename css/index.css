@@ -309,6 +309,7 @@ ul.show {
 @media screen and (max-width: 800px) {
   body {
     overflow-y: scroll;
+    overflow-x: hidden;
     height: 1fr;
   }
 
