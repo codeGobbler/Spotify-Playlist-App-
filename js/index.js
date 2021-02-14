@@ -223,21 +223,21 @@ const uiController = (function () {
 
     assignPlaylistArt(img) {
       const image = `<div class="playlist-art-img" id="playlist-img">
-      <img src=${img} class="playlist-pic"></img></div>`;
+      <img src=${img} class="playlist-pic"/></div>`;
       document
         .querySelector(domElements.playlistArt)
         .insertAdjacentHTML("beforeend", image);
     },
 
     populatePlaylists(id, url, text) {
-      const html = `<button class="playlist-items" value="${id}"><img src=${url} alt=${text}><div class="text">${text}</div></button>`;
+      const html = `<button class="playlist-items" value="${id}"><img src=${url} alt=${text}/><div class="text">${text}</div></button>`;
       document
         .querySelector(domElements.otherPlaylists)
         .insertAdjacentHTML("beforeend", html);
     },
 
-    populateTrackList(link, number, name, artist, length) {
-      const html = `<div class="track-items"><a href=${link} target="none">${number}. ${name} by ${artist}</a><div class="track-length">${Math.floor(
+    populateTrackList(uri, number, name, artist, length) {
+      const html = `<div class="track-items"><input type="hidden" value=${uri}>${number}. ${name} by ${artist}</input><div class="track-length">${Math.floor(
         length / 1000 / 60
       )}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`;
       document
@@ -356,7 +356,7 @@ const appController = (function (apiCtrl, uiCtrl) {
       for (i = 0; i < newData.items.length; i++) {
         //place html
         uiCtrl.populateTrackList(
-          newData.items[i].track.external_urls.spotify,
+          newData.items[i].track.uri,
           i + 1,
           newData.items[i].track.name,
           newData.items[i].track.artists[0].name,
@@ -424,7 +424,7 @@ const appController = (function (apiCtrl, uiCtrl) {
             for (j = 0; j < newData.items.length; j++) {
               //place current tracklist
               uiCtrl.populateTrackList(
-                newData.items[j].track.external_urls.spotify,
+                newData.items[j].track.uri,
                 j + 1,
                 newData.items[j].track.name,
                 newData.items[j].track.artists[0].name,
@@ -465,7 +465,7 @@ const appController = (function (apiCtrl, uiCtrl) {
         // console.log(trackList);
         for (i = 0; i < trackList.items.length; i++) {
           uiCtrl.populateTrackList(
-            trackList.items[i].track.external_urls.spotify,
+            trackList.items[i].track.uri,
             i + 1,
             trackList.items[i].track.name,
             trackList.items[i].track.artists[0].name,
@@ -488,12 +488,26 @@ const appController = (function (apiCtrl, uiCtrl) {
    }
 
    const trackPlayListener = () => {
-     //retrieve token
-     let token = uiCtrl.getStoredToken().token;
-     const songContainer = domOutput.play;
-     console.log(songContainer);
-
-   }
+    //retrieve token
+    let token = uiCtrl.getStoredToken().token;
+    const songPlay = domOutput.play;
+    const songSkip = domOutput.skipForward;
+    const songBack = domOutput.skipBack;
+    songPlay.addEventListener("click", async () => {
+      const tracklist = domOutput.playlistSongs.children;
+      const uri = tracklist[0].childNodes[0].defaultValue;
+      console.log(uri);
+      apiCtrl.playFunction(token, uri);
+    })
+    songSkip.addEventListener("click", async () => {
+      // console.log("skip clicked")
+      playFunction(token, uri);
+    })
+    songBack.addEventListener("click", async () => {
+    //  console.log("back clicked")
+     playFunction(token, uri);
+   })
+  }
 
     musicPopulate();
     genrePopulate();

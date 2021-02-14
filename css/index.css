@@ -108,7 +108,7 @@ footer {
 
 .play-img:hover {
   cursor: pointer;
-  border: .5px #474545 double;
+  opacity: 50%;
 }
 
 .playlist-items:hover,
@@ -251,9 +251,9 @@ footer {
   color: white;
 }
 
-.track-items a {
-  text-decoration: none;
-  color: white;
+.track-items:hover {
+  cursor: pointer;
+  opacity: 65%;
 }
 
 .library {
@@ -274,6 +274,7 @@ footer {
   grid-gap: 1%;
   width: 100%;
   height: 100%;
+  padding: 2.5%;
 }
 
 .playlist-items {
@@ -281,19 +282,20 @@ footer {
   position: relative;
   color: white;
   background-color: black;
-  margin-left: 5px;
-  margin-right: 5px;
-  top: .5%;
-  padding: 5px;
   max-width: 100%;
   box-shadow: rgb(102, 58, 58) 0px 1px 1px;
+  justify-content: space-between;
+}
+
+.playlist-items img {
+  z-index: -1;
 }
 
 .text {
   position: relative;
   text-align: center;
   justify-content: space-around;
-  bottom: 10px;
+  bottom: 1em;
   font-size: 12px;
 }
 
