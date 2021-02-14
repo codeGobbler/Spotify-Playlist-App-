@@ -75,9 +75,9 @@ footer {
   display: grid;
   height: 90vh;
   grid-gap: 0.1%;
-  grid-template-columns: minmax(425px, 3fr) minmax(425px, 2fr) minmax(
-      425px,
-      1fr
+  grid-template-columns: minmax(225px, 1.5fr) minmax(150px, 1fr) minmax(
+      200px,
+      2fr
     );
   background-color: black;
   grid-template-rows: repeat(auto-fit, 1fr);
@@ -321,6 +321,7 @@ footer {
     grid-template-rows: 1fr 2fr 1fr;
     margin: 0 auto;
     height: 100%;
+    justify-items: center;
   }
 
   .mobile-hide {
@@ -334,7 +335,11 @@ footer {
   }
 
   .track-window {
-    margin-top: 5%;
+    padding: 3%;
+  }
+
+  .track-art {
+    margin: 0 0;
   }
 
 /* .track-description {
