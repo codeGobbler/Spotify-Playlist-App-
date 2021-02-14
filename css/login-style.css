@@ -3,7 +3,7 @@
   margin: 0;
 }
 
-.container {
+.login-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: minmax(300px, 1fr);

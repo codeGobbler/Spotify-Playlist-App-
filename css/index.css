@@ -45,6 +45,10 @@ footer {
   z-index: 1000;
 }
 
+.login-div {
+  display: none;
+}
+
 .container {
   display: grid;
   background-color: black;
