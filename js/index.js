@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "";
-  const clientSecret = "";
-  const userId = "";
+  const clientId = "4986258db999480dbcb94669e69535ad";
+  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
+  const userId = "12172782523";
 
   //get access token
   const getToken = async () => {
@@ -291,7 +291,7 @@ const uiController = (function () {
     },
 
     populateTrackList(uri, number, name, artist, length) {
-      const html = `<div class="track-items"><input type="hidden" value=${uri}>${number}. ${name} by ${artist}</input><div class="track-length">${Math.floor(
+      const html = `<div class="track-items"><input class="song-info" type="hidden" value=${uri}>${number}. ${name} by ${artist}</input><div class="track-length">${Math.floor(
         length / 1000 / 60
       )}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`;
       document
@@ -445,11 +445,11 @@ const appController = (function (apiCtrl, uiCtrl) {
       const loginDiv = domOutput.hiddenDiv;
       const login = domOutput.btnLogin;
       // console.log(loginDiv)
-      login.addEventListener('click', async () => {
+      login.addEventListener("click", async () => {
         // console.log("login clicked!")
         loginDiv.style.display = "none";
-      })
-    }
+      });
+    };
 
     //-----------------------------------//
     //-------App Event Listeners---------//
@@ -552,8 +552,18 @@ const appController = (function (apiCtrl, uiCtrl) {
           );
           uiCtrl.populateSongImage(trackInfo.album.images[0].url);
         }
-      })
-    }
+      });
+    };
+
+    // const trackListener = () => {
+    //   //retrieve token
+    //   let token = uiCtrl.getStoredToken().token;
+    //   let tracks = document.getElementsByClassName("song-info");
+    //   tracks.addEventListener("click", async (e) => {
+    //     const trackID = e.target.value;
+    //     console.log(trackID);
+    //   })
+    // }
 
     const trackPlayListener = () => {
       //retrieve token
@@ -566,21 +576,22 @@ const appController = (function (apiCtrl, uiCtrl) {
         const uri = tracklist[0].childNodes[0].defaultValue;
         console.log(uri);
         apiCtrl.playFunction(token, uri);
-      })
+      });
       songSkip.addEventListener("click", async () => {
         // console.log("skip clicked")
         playFunction(token, uri);
-      })
+      });
       songBack.addEventListener("click", async () => {
         //  console.log("back clicked")
         playFunction(token, uri);
-      })
-    }
+      });
+    };
 
     musicPopulate();
     genrePopulate();
     genreListener();
     playlistListener();
+    // trackListener();
     trackPlayListener();
     loginListener();
   };
