@@ -595,7 +595,7 @@ const appController = (function (apiCtrl, uiCtrl) {
         // const trackDiv = document.getElementsByClassName("track-items");
         // const uri = document.querySelector("uri");
         const trackID = e.target.value;
-        console.log(trackID)
+        // console.log(trackID)
         const trackInfo = await apiCtrl.getTracksInfo(trackID, token);
         uiCtrl.populateSongInfo(
           trackInfo.name,
