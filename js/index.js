@@ -2,13 +2,14 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "";
-  const clientSecret = "";
-  const userId = "";
+  const clientId = "4986258db999480dbcb94669e69535ad";
+  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
+  const userId = "12172782523";
 
   //get access token
   const getToken = async () => {
-    const result = await fetch("https://accounts.spotify.com/api/token", {
+    try {
+      const result = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -16,11 +17,12 @@ const apiController = (function () {
       },
       body: "grant_type=client_credentials",
     });
-    // console.log(result);
-
-    const data = await result.json();
-    // console.log(data);
-    return data.access_token;
+      const data = await result.json();
+      // console.log(data);
+      return data.access_token;
+    } catch (err) {
+      throw err
+    }
   };
 
   //-----------------------------------//
@@ -29,25 +31,30 @@ const apiController = (function () {
 
   //fetch genres from spotify for later sorting
   const getGenres = async (token) => {
-    const result = await fetch(
-      `https://api.spotify.com/v1/recommendations/available-genre-seeds`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await result.json();
-    // console.log(data);
-    return data.genres;
+    try {
+      const result = await fetch(
+        `https://api.spotify.com/v1/recommendations/available-genre-seeds`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await result.json();
+      // console.log(data);
+      return data.genres;
+    } catch (err) {
+      throw err
+    }
   };
 
   //fetch user playlist information from api
   const getMyPlaylists = async (token) => {
-    const limit = 20;
+    try {
+      const limit = 20;
 
     const result = await fetch(
       `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
@@ -63,47 +70,59 @@ const apiController = (function () {
     const data = await result.json();
     // console.log(data);
     return data;
+    } catch (err) {
+      throw err
+    }
   };
 
   //fetch user playlist information from api
   const getPlaylistByID = async (playlistID, token) => {
-    const result = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlistID}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await result.json();
-    // console.log(data);
-    return data;
+    try {
+      const result = await fetch(
+        `https://api.spotify.com/v1/playlists/${playlistID}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await result.json();
+      // console.log(data);
+      return data;
+    } catch (err) {
+      throw err
+    }
   };
 
   //function used to fetch playlist track list
   const getMyPlaylistsTrackList = async (playlistID, token) => {
-    const result = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await result.json();
-
-    return data;
+    try {
+      const result = await fetch(
+        `https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await result.json();
+  
+      return data;
+    } catch (err) {
+      throw err
+    }
   };
 
   //function used to fetch individual track info from playlists
   const getTracksInfo = async (trackID, token) => {
-    const result = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
+    try {
+      const result = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -113,6 +132,9 @@ const apiController = (function () {
     });
     const data = await result.json();
     return data;
+    } catch (err) {
+      throw err
+    }
   };
 
   //-----------------------------------//
@@ -121,7 +143,8 @@ const apiController = (function () {
 
   //fetch play/pause
   const playFunction = async (token, uri) => {
-    const result = await fetch(`https://api.spotify.com/v1/me/player/play`, {
+    try {
+      const result = await fetch(`https://api.spotify.com/v1/me/player/play`, {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -133,6 +156,9 @@ const apiController = (function () {
     const data = await result.json();
     console.log("playing", data);
     return data;
+    } catch (err) {
+      throw err
+    }
   };
 
   //-----------------------------------//
