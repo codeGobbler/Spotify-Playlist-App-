@@ -118,7 +118,13 @@ ul.show {
   opacity: 50%;
 }
 
-.playlist-items:hover {
+.playlist-items {
+  height: 150px;
+  width: 125px;
+}
+
+.playlist-items:hover,
+.playlist-btns:hover {
   cursor: pointer;
   border: 0.5px #87282d double;
 }
@@ -262,11 +268,6 @@ ul.show {
   color: white;
 }
 
-.track-items:hover {
-  cursor: pointer;
-  opacity: 65%;
-}
-
 .library {
   height: 100%;
 }
@@ -289,17 +290,28 @@ ul.show {
 }
 
 .playlist-items {
+  position: relative;
+  color: white;
+  background-color: #87282d;
+  max-width: 75px;
+  max-height: 20px;
+  box-shadow: rgb(102, 58, 58) 0px 1px 1px;
+  justify-content: space-between;
+}
+
+.playlist-btns {
   border: 1px solid #3e0003;
   position: relative;
   color: white;
   background-color: black;
   max-width: 100%;
-  box-shadow: rgb(102, 58, 58) 0px 1px 1px;
   justify-content: space-between;
+  box-shadow: rgb(102, 58, 58) -1px 2px 5px;
 }
 
-.playlist-items img {
-  z-index: -1;
+.playlist-items img,
+.playlist-btns img {
+  z-index: -2;
 }
 
 .text {

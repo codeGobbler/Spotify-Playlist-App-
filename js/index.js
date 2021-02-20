@@ -2,9 +2,9 @@
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "4986258db999480dbcb94669e69535ad";
-  const clientSecret = "50a5f956f0f84b278d3d90745c3308b5";
-  const userId = "12172782523";
+  const clientId = "";
+  const clientSecret = "";
+  const userId = "";
 
   //get access token
   const getToken = async () => {
@@ -294,8 +294,8 @@ const uiController = (function () {
         .insertAdjacentHTML("beforeend", html);
     },
 
-    assignTitle(text) {
-      const html = `<div class="playlist-title">${text}</div>`;
+    assignTitle(id, text) {
+      const html = `<div class="playlist-title">${text}</div><input class="hidden-title" type="hidden" value=${id}></input>`;
       document
         .querySelector(domElements.title)
         .insertAdjacentHTML("beforeend", html);
@@ -310,14 +310,14 @@ const uiController = (function () {
     },
 
     populatePlaylists(id, url, text) {
-      const html = `<button class="playlist-items" value="${id}"><img src=${url} alt=${text}/><div class="text">${text}</div></button>`;
+      const html = `<button class="playlist-btns" value="${id}"><img src=${url} alt=${text}/><div class="text">${text}</div></button>`;
       document
         .querySelector(domElements.otherPlaylists)
         .insertAdjacentHTML("beforeend", html);
     },
 
-    populateTrackList(uri, number, name, artist, length) {
-      const html = `<div class="track-items"><input type="hidden" value=${uri}>${number}. ${name} by ${artist}</input><div class="track-length">${Math.floor(
+    populateTrackList(uri, number, name, artist, length, id) {
+      const html = `<div class="track-items"><input class="uri" type="hidden" value=${uri}>${number}. ${name} by ${artist}</input><button class="track-id playlist-items" value=${id}>PLAY</button><div class="track-length">${Math.floor(
         length / 1000 / 60
       )}:${Math.floor((length / 1000) % 60).toFixed(0)}</div></div>`;
       document
@@ -339,18 +339,8 @@ const uiController = (function () {
         .insertAdjacentHTML("beforeend", html);
     },
 
-    resetTitle() {
-      this.outputField().title.innerHTML = "";
-    },
-
-    resetPlaylistPic() {
-      this.outputField().playlistArt.innerHTML = "";
-      this.resetTitle();
-    },
-
     resetTrackArt() {
       this.outputField().currentSong.innerHTML = "";
-      this.resetPlaylistPic();
     },
 
     resetTrackDetail() {
@@ -358,9 +348,19 @@ const uiController = (function () {
       this.resetTrackArt();
     },
 
+    resetTitle() {
+      this.outputField().title.innerHTML = "";
+      this.resetTrackDetail();
+    },
+
+    resetPlaylistPic() {
+      this.outputField().playlistArt.innerHTML = "";
+      this.resetTitle();
+    },
+
     resetTracks() {
       this.outputField().playlistSongs.innerHTML = "";
-      this.resetTrackDetail();
+      this.resetPlaylistPic();
     },
 
     resetPlaylists() {
@@ -397,6 +397,7 @@ const appController = (function (apiCtrl, uiCtrl) {
 
     //----Populate HTML Information------//
 
+    //---onLoad----//
     const genrePopulate = async () => {
       //retrieve token
       let token = uiCtrl.getStoredToken().token;
@@ -414,8 +415,9 @@ const appController = (function (apiCtrl, uiCtrl) {
       const data = await apiCtrl.getMyPlaylists(token);
       //populate title
       const title = data.items[3].name;
-      // console.log(title);
-      uiCtrl.assignTitle(title);
+      const id = data.items[3].id;
+      // console.log(data);
+      uiCtrl.assignTitle(id, title);
       //place image on center div
       uiCtrl.assignPlaylistArt(data.items[3].images[0].url);
       //populate playlist selection library
@@ -440,7 +442,8 @@ const appController = (function (apiCtrl, uiCtrl) {
           i + 1,
           newData.items[i].track.name,
           newData.items[i].track.artists[0].name,
-          newData.items[i].track.duration_ms
+          newData.items[i].track.duration_ms,
+          newData.items[i].track.id
         );
       }
       //fetch current song image
@@ -500,7 +503,7 @@ const appController = (function (apiCtrl, uiCtrl) {
             const title = playlist.items[i].name;
             // console.log(title);
             uiCtrl.resetTracks();
-            uiCtrl.assignTitle(title);
+            uiCtrl.assignTitle(genreId, title);
             //assign current playlist image to center div
             uiCtrl.assignPlaylistArt(playlist.items[i].images[0].url);
             //assign current playlist(s)
@@ -522,7 +525,8 @@ const appController = (function (apiCtrl, uiCtrl) {
                 j + 1,
                 newData.items[j].track.name,
                 newData.items[j].track.artists[0].name,
-                newData.items[j].track.duration_ms
+                newData.items[j].track.duration_ms,
+                newData.items[i].track.id
               );
               //fetch current song image
               const newerData = await apiCtrl.getTracksInfo(
@@ -554,7 +558,7 @@ const appController = (function (apiCtrl, uiCtrl) {
         const currentPlaylist = await apiCtrl.getPlaylistByID(btnID, token);
         // console.log(currentPlaylist);
         uiCtrl.assignPlaylistArt(currentPlaylist.images[0].url);
-        uiCtrl.assignTitle(currentPlaylist.name);
+        uiCtrl.assignTitle(currentPlaylist.id, currentPlaylist.name);
         const trackList = await apiCtrl.getMyPlaylistsTrackList(btnID, token);
         // console.log(trackList);
         for (i = 0; i < trackList.items.length; i++) {
@@ -563,7 +567,8 @@ const appController = (function (apiCtrl, uiCtrl) {
             i + 1,
             trackList.items[i].track.name,
             trackList.items[i].track.artists[0].name,
-            trackList.items[i].track.duration_ms
+            trackList.items[i].track.duration_ms,
+            trackList.items[i].track.id
           );
           //fetch current song image
           const trackInfo = await apiCtrl.getTracksInfo(
@@ -581,6 +586,26 @@ const appController = (function (apiCtrl, uiCtrl) {
       })
     }
 
+    const tracklistListener = () => {
+      //retrieve token
+      let token = uiCtrl.getStoredToken().token;
+      const songDiv = domOutput.playlistSongs;
+      songDiv.addEventListener("click", async (e) => {
+        uiCtrl.resetTrackDetail();
+        // const trackDiv = document.getElementsByClassName("track-items");
+        // const uri = document.querySelector("uri");
+        const trackID = e.target.value;
+        console.log(trackID)
+        const trackInfo = await apiCtrl.getTracksInfo(trackID, token);
+        uiCtrl.populateSongInfo(
+          trackInfo.name,
+          trackInfo.artists[0].name,
+          trackInfo.album.name
+        );
+        uiCtrl.populateSongImage(trackInfo.album.images[0].url);
+      })
+    }
+
     const trackPlayListener = () => {
       //retrieve token
       let token = uiCtrl.getStoredToken().token;
@@ -590,7 +615,7 @@ const appController = (function (apiCtrl, uiCtrl) {
       songPlay.addEventListener("click", async () => {
         const tracklist = domOutput.playlistSongs.children;
         const uri = tracklist[0].childNodes[0].defaultValue;
-        console.log(uri);
+        // console.log(uri);
         apiCtrl.playFunction(token, uri);
       })
       songSkip.addEventListener("click", async () => {
@@ -609,6 +634,7 @@ const appController = (function (apiCtrl, uiCtrl) {
     playlistListener();
     trackPlayListener();
     loginListener();
+    tracklistListener();
   };
 
   asyncOps();
