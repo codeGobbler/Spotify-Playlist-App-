@@ -325,12 +325,15 @@ ul.show {
 @media screen and (max-width: 800px) {
   body {
     overflow-y: scroll;
-    overflow-x: hidden;
     height: 1fr;
+    border: 4px solid #87282d;
   }
 
   .container {
     height: 1fr;
+    width: 1fr;
+    overflow-x: hidden;
+    justify-content: center;
   }
 
   .grid-items {
@@ -339,11 +342,11 @@ ul.show {
   }
 
   .main-div {
-    grid-template-columns: minmax(300px, 1fr);
+    grid-template-columns: minmax(100px, 1fr);
     grid-template-rows: repeat(auto, minmax(10px, 1fr));
     height: 100%;
-    margin: auto auto;
-    width: 100%;
+    margin: 0 auto;
+    width: inherit;
     z-index: 0;
   }
 
@@ -383,6 +386,7 @@ ul.show {
 
   .metadata-playlist-container {
     height: 43em;
+    margin: 0 10px;
   }
 
   .metadata-items {
