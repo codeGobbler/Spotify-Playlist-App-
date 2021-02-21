@@ -333,7 +333,6 @@ ul.show {
     position: relative;
     height: 1fr;
     width: 1fr;
-    /* overflow-x: hidden; */
     justify-content: center;
   }
 
@@ -380,22 +379,37 @@ ul.show {
     padding: 3%;
   }
 
+  .track-description {
+    padding: 0;
+  }
+
   .title-div {
     margin: 0 auto;
-    margin-bottom: 10%;
+    margin-bottom: 2.5%;
     font-size: 1.5em;
-    border: 1px double white;
+    box-shadow: none;
+    border-top: solid 1px #620f13;
+  }
+
+  .playback-console {
+    box-shadow: none;
+    border-bottom: solid 1px #620f13;
   }
 
   .track-art {
     margin: 0 0;
+    position: relative;
+  }
+
+  .current-track {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
   }
 
   .track-length {
-    display: none;
-  }
-
-  .drop-down {
     display: none;
   }
 
