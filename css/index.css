@@ -330,10 +330,16 @@ ul.show {
   }
 
   .container {
+    position: relative;
     height: 1fr;
     width: 1fr;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     justify-content: center;
+  }
+
+  .nav-item {
+    position: sticky;
+    top: 0;
   }
 
   .grid-items {
@@ -380,17 +386,36 @@ ul.show {
     margin: 0 0;
   }
 
+  .track-length {
+    display: none;
+  }
+
+  .drop-down {
+    display: none;
+  }
+
   .library {
     height: 40em;
+  }
+
+  .playlist-library {
+    justify-content: center;
   }
 
   .metadata-playlist-container {
     height: 43em;
     margin: 0 10px;
+    justify-content: center;
   }
 
   .metadata-items {
     height: 100%;
-    border: solid 1px #620f13;
+    border: solid 2px #620f13;
+    justify-content: center;
+  }
+
+  .footer {
+    position: sticky;
+    bottom: 0;
   }
 }
