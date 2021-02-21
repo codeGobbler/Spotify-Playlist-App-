@@ -49,6 +49,10 @@
 }
 
 @media screen and (max-width: 800px) {
+  .login-container {
+    justify-content: center;
+  }
+
   .login {
     height: 75%;
     width: 75%;

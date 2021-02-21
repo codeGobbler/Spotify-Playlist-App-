@@ -365,11 +365,15 @@ ul.show {
     display: none;
   }
 
+  .main-playlist {
+    grid-template-rows: repeat(2, 1fr);
+  }
+
   .center-items {
     width: 100%;
     height: 100%;
-    margin: 5px auto;
-    padding: 2px;
+    margin: 10px auto;
+    padding: 10px;
   }
 
   .track-window {
@@ -405,8 +409,11 @@ ul.show {
 
   .metadata-playlist-container {
     height: 43em;
-    margin: 0 10px;
-    justify-content: center;
+    margin: 0 auto;
+    justify-content: space-around;
+    margin-top: 5%;
+    margin-bottom: 2.5%;
+    grid-gap: 5%;
   }
 
   .metadata-items {
@@ -415,6 +422,9 @@ ul.show {
     justify-content: center;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    padding: 5%;
   }
 
   .metadata-items::-webkit-scrollbar {
@@ -424,5 +434,6 @@ ul.show {
   .footer {
     position: sticky;
     bottom: 0;
+    height: 4fr;
   }
 }
