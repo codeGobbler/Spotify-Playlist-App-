@@ -132,6 +132,7 @@ ul.show {
 .track-window {
   display: grid;
   grid-template-rows: 2fr 1fr;
+  max-height: 650px;
 }
 
 .side-box {
