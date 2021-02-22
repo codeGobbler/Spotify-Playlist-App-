@@ -603,6 +603,9 @@ const appController = (function (apiCtrl, uiCtrl) {
           trackInfo.album.name
         );
         uiCtrl.populateSongImage(trackInfo.album.images[0].url);
+        console.log(trackInfo.uri);
+        const uri = trackInfo
+        const trackPlay = await apiCtrl.playFunction(token, uri);
       })
     }
 
@@ -615,17 +618,17 @@ const appController = (function (apiCtrl, uiCtrl) {
       songPlay.addEventListener("click", async () => {
         const tracklist = domOutput.playlistSongs.children;
         const uri = tracklist[0].childNodes[0].defaultValue;
-        // console.log(uri);
-        apiCtrl.playFunction(token, uri);
+        console.log(uri);
+        await apiCtrl.playFunction(token, uri);
       })
-      songSkip.addEventListener("click", async () => {
-        // console.log("skip clicked")
-        playFunction(token, uri);
-      })
-      songBack.addEventListener("click", async () => {
-        //  console.log("back clicked")
-        playFunction(token, uri);
-      })
+      // songSkip.addEventListener("click", async () => {
+      //   // console.log("skip clicked")
+      //   await apiCtrl.playFunction(token, uri);
+      // })
+      // songBack.addEventListener("click", async () => {
+      //   //  console.log("back clicked")
+      //   await apiCtrl.playFunction(token, uri);
+      // })
     }
 
     musicPopulate();
