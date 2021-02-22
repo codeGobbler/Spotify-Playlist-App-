@@ -310,7 +310,7 @@ const uiController = (function () {
     },
 
     populatePlaylists(id, url, text) {
-      const html = `<button class="playlist-btns" value="${id}"><img src=${url} alt=${text}/><div class="text">${text}</div></button>`;
+      const html = `<button class="playlist-btns" value=${id}><img src=${url} alt="${text}"/><div class="text">${text}</div></button>`;
       document
         .querySelector(domElements.otherPlaylists)
         .insertAdjacentHTML("beforeend", html);
@@ -470,12 +470,12 @@ const appController = (function (apiCtrl, uiCtrl) {
     //-------User Login Module-----------//
     //-----------------------------------//
 
-    const loginListener = () => {
+    const loginListener = async () => {
       const loginDiv = domOutput.hiddenDiv;
       const login = domOutput.btnLogin;
-      // console.log(loginDiv)
       login.addEventListener('click', async () => {
-        // console.log("login clicked!")
+        musicPopulate();
+        genrePopulate();
         loginDiv.style.display = "none";
       })
     }
@@ -631,8 +631,6 @@ const appController = (function (apiCtrl, uiCtrl) {
       // })
     }
 
-    musicPopulate();
-    genrePopulate();
     genreListener();
     playlistListener();
     trackPlayListener();
