@@ -309,11 +309,6 @@ ul.show {
   box-shadow: rgb(102, 58, 58) -1px 2px 5px;
 }
 
-.playlist-items img,
-.playlist-btns img {
-  z-index: -2;
-}
-
 .text {
   position: relative;
   text-align: center;
@@ -334,6 +329,7 @@ ul.show {
     height: 1fr;
     width: 1fr;
     justify-content: center;
+    overflow-x: hidden;
   }
 
   .nav-item {
