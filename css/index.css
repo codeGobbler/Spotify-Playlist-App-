@@ -442,7 +442,7 @@ ul.show {
   }
 
   .footer {
-    position: sticky;
+    position: relative;
     bottom: 0;
     height: 4fr;
   }
