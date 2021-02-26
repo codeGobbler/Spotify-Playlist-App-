@@ -51,6 +51,7 @@ footer {
 
 .container {
   display: grid;
+  min-height: calc(100vh - 32px);
   background-color: black;
   grid-template-columns: auto;
   grid-template-rows: repeat(3, auto);
@@ -127,6 +128,7 @@ ul.show {
 .playlist-btns:hover {
   cursor: pointer;
   border: 0.5px #87282d double;
+  transform: scale(1.05);
 }
 
 .track-window {
@@ -326,7 +328,6 @@ ul.show {
 
   .container {
     position: relative;
-    height: 1fr;
     width: 1fr;
     justify-content: center;
     overflow-x: hidden;
