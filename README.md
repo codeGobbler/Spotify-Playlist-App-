@@ -12,4 +12,6 @@ Other public API options: https://github.com/public-apis/public-apis
 Create at least one Javascript click event that is triggered by clicking a DOM element.
 Your code needs to have at least one conditional and one loop or map function.
 Could be as simple as mapping through data/an array from your API and printing it in the DOM
-Make use of CSS flexbox or CSS grid for as much of your layout as possible. 
+Make use of CSS flexbox or CSS grid for as much of your layout as possible.
+
+sidenote: for iframe branch, make switch case statement to place correct iframe in tracklist div. Also redesign page to re-purpose divs for play console (submit area) and track info area (TBD).
