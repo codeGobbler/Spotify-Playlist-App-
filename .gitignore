@@ -1,1 +1,12 @@
 .env
+
+node_modules/
+
+package-lock.json
+package.json
+
+npm-debug.log
+
+.replit
+
+_confg.yml

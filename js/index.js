@@ -1,27 +1,29 @@
+require("dotenv").config();
+console.log(process.env);
 //-----------------------------------//
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  const clientId = "";
-  const clientSecret = "";
-  const userId = "";
+  const clientId = process.env.CLIENT_ID;
+  const clientSecret = process.env.CLIENT_SECRET;
+  const userId = process.env.USER_ID;
 
   //get access token
   const getToken = async () => {
     try {
       const result = await fetch("https://accounts.spotify.com/api/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: "Basic " + btoa(clientId + ":" + clientSecret),
-      },
-      body: "grant_type=client_credentials",
-    });
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Basic " + btoa(clientId + ":" + clientSecret),
+        },
+        body: "grant_type=client_credentials",
+      });
       const data = await result.json();
       // console.log(data);
       return data.access_token;
     } catch (err) {
-      throw err
+      throw err;
     }
   };
 
@@ -47,7 +49,7 @@ const apiController = (function () {
       // console.log(data);
       return data.genres;
     } catch (err) {
-      throw err
+      throw err;
     }
   };
 
@@ -56,22 +58,22 @@ const apiController = (function () {
     try {
       const limit = 20;
 
-    const result = await fetch(
-      `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await result.json();
-    // console.log(data);
-    return data;
+      const result = await fetch(
+        `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await result.json();
+      // console.log(data);
+      return data;
     } catch (err) {
-      throw err
+      throw err;
     }
   };
 
@@ -93,7 +95,7 @@ const apiController = (function () {
       // console.log(data);
       return data;
     } catch (err) {
-      throw err
+      throw err;
     }
   };
 
@@ -112,28 +114,31 @@ const apiController = (function () {
         }
       );
       const data = await result.json();
-  
+
       return data;
     } catch (err) {
-      throw err
+      throw err;
     }
   };
 
   //function used to fetch individual track info from playlists
   const getTracksInfo = async (trackID, token) => {
     try {
-      const result = await fetch(`https://api.spotify.com/v1/tracks/${trackID}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await result.json();
-    return data;
+      const result = await fetch(
+        `https://api.spotify.com/v1/tracks/${trackID}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await result.json();
+      return data;
     } catch (err) {
-      throw err
+      throw err;
     }
   };
 
@@ -145,19 +150,19 @@ const apiController = (function () {
   const playFunction = async (token, uri) => {
     try {
       const result = await fetch(`https://api.spotify.com/v1/me/player/play`, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: `{"context_uri":"spotify:track:${uri}","offset":{"position":5},"position_ms":0}`,
-    });
-    const data = await result.json();
-    console.log("playing", data);
-    return data;
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: `{"context_uri":"spotify:track:${uri}","offset":{"position":5},"position_ms":0}`,
+      });
+      const data = await result.json();
+      console.log("playing", data);
+      return data;
     } catch (err) {
-      throw err
+      throw err;
     }
   };
 
@@ -473,12 +478,12 @@ const appController = (function (apiCtrl, uiCtrl) {
     const loginListener = async () => {
       const loginDiv = domOutput.hiddenDiv;
       const login = domOutput.btnLogin;
-      login.addEventListener('click', async () => {
+      login.addEventListener("click", async () => {
         musicPopulate();
         genrePopulate();
         loginDiv.style.display = "none";
-      })
-    }
+      });
+    };
 
     //-----------------------------------//
     //-------App Event Listeners---------//
@@ -583,8 +588,8 @@ const appController = (function (apiCtrl, uiCtrl) {
           );
           uiCtrl.populateSongImage(trackInfo.album.images[0].url);
         }
-      })
-    }
+      });
+    };
 
     const tracklistListener = () => {
       //retrieve token
@@ -604,10 +609,10 @@ const appController = (function (apiCtrl, uiCtrl) {
         );
         uiCtrl.populateSongImage(trackInfo.album.images[0].url);
         console.log(trackInfo.uri);
-        const uri = trackInfo
+        const uri = trackInfo;
         const trackPlay = await apiCtrl.playFunction(token, uri);
-      })
-    }
+      });
+    };
 
     const trackPlayListener = () => {
       //retrieve token
@@ -620,7 +625,7 @@ const appController = (function (apiCtrl, uiCtrl) {
         const uri = tracklist[0].childNodes[0].defaultValue;
         console.log(uri);
         await apiCtrl.playFunction(token, uri);
-      })
+      });
       // songSkip.addEventListener("click", async () => {
       //   // console.log("skip clicked")
       //   await apiCtrl.playFunction(token, uri);
@@ -629,7 +634,7 @@ const appController = (function (apiCtrl, uiCtrl) {
       //   //  console.log("back clicked")
       //   await apiCtrl.playFunction(token, uri);
       // })
-    }
+    };
 
     genreListener();
     playlistListener();
