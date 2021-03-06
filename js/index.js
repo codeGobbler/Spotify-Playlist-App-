@@ -1,9 +1,10 @@
-require("dotenv").config();
-console.log(process.env);
 //-----------------------------------//
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
+  require("dotenv").config();
+  console.log(process.env);
+
   const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
   const userId = process.env.USER_ID;
