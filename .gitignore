@@ -2,9 +2,6 @@
 
 node_modules/
 
-package-lock.json
-package.json
-
 npm-debug.log
 
 .replit

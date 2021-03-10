@@ -1,13 +1,14 @@
+require("dotenv").config();
+console.log(process.env);
+
 //-----------------------------------//
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  require("dotenv").config();
-  console.log(process.env);
 
-  const clientId = process.env.CLIENT_ID;
-  const clientSecret = process.env.CLIENT_SECRET;
-  const userId = process.env.USER_ID;
+  const clientId = process.env.SPOTIFY_CLIENT_ID;
+  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+  const userId = process.env.SPOTIFY_USER_ID;
 
   //get access token
   const getToken = async () => {
