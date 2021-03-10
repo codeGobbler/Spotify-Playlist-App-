@@ -1,26 +1,32 @@
 //-----------------------------------//
+//---------Global Functions----------//
+//-----------------------------------//
+
+//node mod parser function
+const modConfig = (mod, returnValue) => {
+  const result = require(mod).config();
+  if (result.error) {
+    console.log(result.error);
+    throw result.error;
+  } else {
+    console.log(result.parsed);
+    return returnValue
+  }
+};
+
+//-----------------------------------//
 //-----API Controller Module---------//
 //-----------------------------------//
 const apiController = (function () {
-  //configure env variables
-  const envConfig = () => {
-    const result = require("dotenv").config();
-    if (result.error) {
-      console.log(result.error);
-      throw result.error;
-    } else {
-      // console.log(result.parsed);
-      return process.env
-    }
-  };
-
-  const env = envConfig();
+  //declare environment variables for authentication
+  const env = modConfig("dotenv", process.env);
 
   const clientId = env.SPOTIFY_CLIENT_ID;
   const clientSecret = env.SPOTIFY_CLIENT_SECRET;
   const userId = env.SPOTIFY_USER_ID;
 
-  // console.log(clientId, clientSecret, userId)
+  console.log(`ClientID=${clientId}, ClientSecret=${clientSecret}, UserID=${userId}`)
+
   //get access token
   const getToken = async () => {
     try {
