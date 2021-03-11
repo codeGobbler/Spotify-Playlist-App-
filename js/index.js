@@ -9,7 +9,7 @@ const modConfig = (mod, returnValue) => {
     console.log(result.error);
     throw result.error;
   } else {
-    console.log(result.parsed);
+    // console.log(result.parsed);
     return returnValue
   }
 };

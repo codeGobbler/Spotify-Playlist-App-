@@ -2,7 +2,7 @@
   "name": "my-playlist-app",
   "version": "0.0.1",
   "description": "A web app to display my spotify collection and collect music submissions",
-  "main": "js/index.js",
+  "main": "js/bundle.js, js/index.js",
   "scripts": {
     "test": "mocha"
   },
@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "chai": "^4.3.3",
-    "mocha": "^8.3.1",
-    "requirejs": "^2.3.6"
+    "mocha": "^8.3.1"
   }
 }
