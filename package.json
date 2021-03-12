@@ -2,9 +2,10 @@
   "name": "my-playlist-app",
   "version": "0.0.1",
   "description": "A web app to display my spotify collection and collect music submissions",
-  "main": "js/bundle.js, js/index.js",
+  "main": "js/bundle.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha js/index.js",
+    "build": "browserify js/index.js -o js/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -21,11 +22,10 @@
     "url": "https://github.com/codeGobbler/cTd-Final_Project/issues"
   },
   "homepage": "https://github.com/codeGobbler/cTd-Final_Project#readme",
-  "dependencies": {
-    "dotenv": "^8.2.0"
-  },
   "devDependencies": {
+    "browserify": "^17.0.0",
     "chai": "^4.3.3",
+    "dotenv": "^8.2.0",
     "mocha": "^8.3.1"
   }
 }

@@ -2,15 +2,15 @@
 //---------Global Functions----------//
 //-----------------------------------//
 
-//node mod parser function
-const modConfig = (mod, returnValue) => {
-  const result = require(mod).config();
+ //node mod parser function
+ const modConfig = (module) => {
+  const result = require(module).config();
   if (result.error) {
     console.log(result.error);
     throw result.error;
   } else {
     // console.log(result.parsed);
-    return returnValue
+    return result.parsed;
   }
 };
 
@@ -19,25 +19,32 @@ const modConfig = (mod, returnValue) => {
 //-----------------------------------//
 const apiController = (function () {
   //declare environment variables for authentication
-  const env = modConfig("dotenv", process.env);
+  const env = modConfig("dotenv");
+        env.exports ={
+          C_ID : env.SPOTIFY_CLIENT_ID,
+          SECRET : env.SPOTIFY_CLIENT_SECRET,
+          U_ID : env.SPOTIFY_USER_ID,
+        };
 
-  const clientId = env.SPOTIFY_CLIENT_ID;
-  const clientSecret = env.SPOTIFY_CLIENT_SECRET;
-  const userId = env.SPOTIFY_USER_ID;
-
-  console.log(`ClientID=${clientId}, ClientSecret=${clientSecret}, UserID=${userId}`)
+  console.log(
+    env.exports
+  );
 
   //get access token
   const getToken = async () => {
     try {
-      const result = await fetch("https://accounts.spotify.com/api/token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: "Basic " + btoa(clientId + ":" + clientSecret),
-        },
-        body: "grant_type=client_credentials",
-      });
+      const result = await fetch(
+        "https://accounts.spotify.com/api/token",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization:
+              "Basic " + btoa(env.exports.C_ID + ":" + env.exports.SECRET),
+          },
+          body: "grant_type=client_credentials",
+        }
+      );
       const data = await result.json();
       // console.log(data);
       return data.access_token;
@@ -78,7 +85,7 @@ const apiController = (function () {
       const limit = 20;
 
       const result = await fetch(
-        `https://api.spotify.com/v1/users/${userId}/playlists?limit=${limit}&offset=0`,
+        `https://api.spotify.com/v1/users/${env.exports.U_ID}/playlists?limit=${limit}&offset=0`,
         {
           method: "GET",
           headers: {
