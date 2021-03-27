@@ -1,34 +1,10 @@
 //-----------------------------------//
-//---------Global Functions----------//
-//-----------------------------------//
-
- //node mod parser function
- const modConfig = (module) => {
-  const result = require(module).config();
-  if (result.error) {
-    console.log(result.error);
-    throw result.error;
-  } else {
-    // console.log(result.parsed);
-    return result.parsed;
-  }
-};
-
-//-----------------------------------//
 //-----API Controller Module---------//
 //-----------------------------------//
-const apiController = (function () {
-  //declare environment variables for authentication
-  const env = modConfig("dotenv");
-        env.exports ={
-          C_ID : env.SPOTIFY_CLIENT_ID,
-          SECRET : env.SPOTIFY_CLIENT_SECRET,
-          U_ID : env.SPOTIFY_USER_ID,
-        };
-
-  console.log(
-    env.exports
-  );
+const apiController = (function () { 
+const clientID = "";
+const clientSecret = "";
+const userID = "";
 
   //get access token
   const getToken = async () => {
@@ -40,7 +16,7 @@ const apiController = (function () {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization:
-              "Basic " + btoa(env.exports.C_ID + ":" + env.exports.SECRET),
+              "Basic " + btoa(clientID + ":" + clientSecret),
           },
           body: "grant_type=client_credentials",
         }
@@ -85,7 +61,7 @@ const apiController = (function () {
       const limit = 20;
 
       const result = await fetch(
-        `https://api.spotify.com/v1/users/${env.exports.U_ID}/playlists?limit=${limit}&offset=0`,
+        `https://api.spotify.com/v1/users/${userID}/playlists?limit=${limit}&offset=0`,
         {
           method: "GET",
           headers: {
